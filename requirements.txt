@@ -32,3 +32,6 @@ ipython>=8.24.0
 jupyter>=1.0.0
 requests>=2.31.0
 tqdm>=4.66.4
+
+numpy
+colorama
