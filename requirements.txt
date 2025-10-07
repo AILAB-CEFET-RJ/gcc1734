@@ -3,7 +3,7 @@ langchain>=0.1.20
 openai>=1.30.0
 ollama>=0.1.7
 langchain_ollama>=0.3.3
-langhcain_community
+langchain_community
 langgraph>=0.0.38
 chainlit>=1.0.0
 
