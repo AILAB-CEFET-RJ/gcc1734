@@ -1,134 +1,122 @@
-from timeit import default_timer as timer
 import numpy as np
 import pickle
+import logging
+from timeit import default_timer as timer
 from environment import Environment
 
+logger = logging.getLogger(__name__)
+
 class QLearningAgentTabular:
+    """
+    Q-Learning agent for discrete environments.
+    """
 
-  def __init__(self, 
-               env: Environment, 
-               decay_rate, 
-               learning_rate, 
-               gamma):
-    self.env = env
+    def __init__(
+        self, 
+        env: Environment, 
+        decay_rate: float, 
+        learning_rate: float, 
+        gamma: float,
+        min_epsilon: float = 0.01,
+        max_epsilon: float = 1.0,
+        verbose: bool = True
+    ):
+        self.env = env
+        self.q_table = np.zeros((env.get_num_states(), env.get_num_actions()))
+        self.epsilon = max_epsilon
+        self.max_epsilon = max_epsilon
+        self.min_epsilon = min_epsilon
+        self.decay_rate = decay_rate
+        self.learning_rate = learning_rate
+        self.gamma = gamma
+        self.epsilons_ = []
+        self.verbose = verbose
+        self.history = {
+            "rewards": [],
+            "penalties": [],
+            "steps": [],
+            "epsilons": self.epsilons_
+        }
 
-    self.q_table = np.zeros((env.get_num_states(), env.get_num_actions()))
-    print(f"self.q_table.shape: {self.q_table.shape}")
-    # self.q_table = np.zeros((env.observation_space.n, env.action_space.n))
-    self.epsilon = 1.0
-    self.max_epsilon = 1.0
-    self.min_epsilon = 0.01
-    self.decay_rate = decay_rate
-    self.learning_rate = learning_rate
-    self.gamma = gamma # discount rate
-    self.epsilons_ = []
-    
-  def choose_action(self, state, is_in_exploration_mode=True):
-    exploration_tradeoff = np.random.uniform(0, 1)
+        if self.verbose:
+            print(f"Q-table initialized with shape {self.q_table.shape}")
 
-    if is_in_exploration_mode and exploration_tradeoff < self.epsilon:
-      # exploration
-      action = np.random.randint(self.env.get_num_actions())    
-    else:
-      # exploitation (taking the biggest Q value for this state)
-      action = np.argmax(self.q_table[state, :])
-    
-    return action
+    def choose_action(self, state: int, is_in_exploration_mode: bool = True) -> int:
+        """ε-greedy action selection."""
+        if is_in_exploration_mode and np.random.rand() < self.epsilon:
+            return np.random.randint(self.env.get_num_actions())
+        return np.argmax(self.q_table[state, :])
 
-  def update(self, state, action, reward, next_state):
-    '''
-    Apply update rule Q(s,a):= Q(s,a) + lr * [R(s,a) + gamma * max Q(s',a') - Q(s,a)]
-    '''
-    self.q_table[state, action] = self.q_table[state, action] + \
-      self.learning_rate * (reward + self.gamma * \
-        np.max(self.q_table[next_state, :]) - self.q_table[state, action])
+    def update(self, state: int, action: int, reward: float, next_state: int) -> None:
+        """Q(s,a) ← Q(s,a) + α [r + γ max_a' Q(s',a') − Q(s,a)]"""
+        best_next_q = np.max(self.q_table[next_state, :])
+        td_target = reward + self.gamma * best_next_q
+        td_error = td_target - self.q_table[state, action]
+        self.q_table[state, action] += self.learning_rate * td_error
 
-  def train(self, num_episodes: int):
-    rewards_per_episode = []
+    def _epsilon_decay(self, episode: int) -> None:
+        self.epsilon = self.min_epsilon + (self.max_epsilon - self.min_epsilon) * \
+                       np.exp(-self.decay_rate * episode)
+        self.epsilons_.append(self.epsilon)
 
-    start_time = timer()  # Record the start time
+    def _run_episode(self, episode: int):
+        state, _ = self.env.reset()
+        state = self.env.get_state_id(state)
+        total_reward, penalties, steps = 0.0, 0, 0
 
-    print()
-    print('===========================================')
-    print('Q-table before training:')
-    print(self.q_table)
+        while True:
+            action = self.choose_action(state)
+            next_state, reward, terminated, truncated, _ = self.env.step(action)
+            next_state = self.env.get_state_id(next_state)
+            self.update(state, action, reward, next_state)
 
-    for episode in range(num_episodes):
-  
-      terminated = False
-      truncated = False
+            total_reward += reward
+            if reward < 0:
+                penalties += 1
+            steps += 1
+            state = next_state
 
-      state, _ = self.env.reset()
-      state_id = self.env.get_state_id(state)
-      state = state_id
+            if terminated or truncated:
+                self._epsilon_decay(episode)
+                break
 
-      rewards_in_episode = []
-      
-      total_penalties = 0
+        return total_reward, penalties, steps
 
-      while not (terminated or truncated):
-          
-        # print(f"state: {state}")
-        action = self.choose_action(state)
+    def train(self, num_episodes: int):
+        start_time = timer()
+        if self.verbose:
+            print("\n===========================================")
+            print("Q-table before training:")
+            print(self.q_table)
 
-        # transição
-        new_state, reward, terminated, truncated, info = self.env.step(action)
-        new_state_id = self.env.get_state_id(new_state)
-        new_state = new_state_id
-        assert (not truncated)
+        for episode in range(num_episodes):
+            total_reward, penalties, steps = self._run_episode(episode)
+            self.history["rewards"].append(total_reward)
+            self.history["penalties"].append(penalties)
+            self.history["steps"].append(steps)
 
-        if reward < 0:
-            total_penalties += reward
+            if self.verbose and episode % 100 == 0:
+                elapsed = timer() - start_time
+                print(f"Episode {episode}/{num_episodes}")
+                print(f"\tSteps: {steps}")
+                print(f"\tReward: {total_reward:.2f}")
+                print(f"\tPenalties: {penalties}")
+                print(f"\tEpsilon: {self.epsilon:.4f}")
+                print(f"\tElapsed: {elapsed:.2f}s")
+                start_time = timer()
 
-        self.update(state, action, reward, new_state)
+        if self.verbose:
+            print("\n===========================================")
+            print("Q-table after training:")
+            print(self.q_table)
 
-        if (terminated or truncated):
-          # Reduce epsilon to decrease the exploration over time
-          self.epsilon = self.min_epsilon + (self.max_epsilon - self.min_epsilon) * \
-            np.exp(-self.decay_rate * episode)
-          self.epsilons_.append(self.epsilon)
+        return self.history
 
-        state = new_state
-            
-        rewards_in_episode.append(reward)
+    def save(self, filename: str) -> None:
+        with open(filename, 'wb') as f:
+            pickle.dump(self, f)
 
-      sum_rewards = np.sum(rewards_in_episode)
-      rewards_per_episode.append(sum_rewards)
-
-      if episode % 100 == 0:
-        end_time = timer()  # Record the end time
-        execution_time = end_time - start_time
-        n_actions = len(rewards_in_episode)
-        print(f"Stats for episode {episode}/{num_episodes}:") 
-        print(f"\tNumber of actions: {n_actions}")
-        print(f"\tTotal reward: {sum_rewards:#.2f}")
-        print(f"\tExecution time: {execution_time:.2f}s")
-        print(f"\tTotal penalties: {total_penalties}")
-        start_time = end_time
-
-    print()
-    print('===========================================')
-    print('Q-table after training:')
-    print(self.q_table)
-
-    return rewards_per_episode
-
-  def save(self, filename):
-    # open a file, where you want to store the data
-    file = open(filename, 'wb')
-
-    # dump information to that file
-    pickle.dump(self, file)
-
-    # close the file
-    file.close()
-
-  @staticmethod
-  def load_agent(filename):
-    # open a file, where you stored the pickled data
-    file = open(filename, 'rb')
-
-    # dump information to that file
-    agent = pickle.load(file)
-
-    return agent
+    @staticmethod
+    def load_agent(filename: str):
+        with open(filename, 'rb') as f:
+            return pickle.load(f)
