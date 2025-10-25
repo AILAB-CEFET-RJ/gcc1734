@@ -6,7 +6,7 @@ Repositório utilizado na disciplina de IA.
 
 ## Organização principal
 
-- `src/rl/` – agentes de Q-Learning (tabular, aproximação linear e rede neural com replay) e utilitários de ambientes Gymnasium.
+- `src/rl/` – agentes de Q-Learning (tabular, aproximação linear e rede neural/experience replay) e utilitários de ambientes Gymnasium.
 - `src/llm/`, `src/multiagent/`, `src/genai/` – exemplos voltados para modelos de linguagem e agentes.
 - `notebooks/` – materiais de apoio em Jupyter.
 - `requirements.txt` – dependências gerais do repositório.
@@ -46,9 +46,9 @@ Cada subdiretório relevante contém um README específico com detalhes adiciona
   python -m rl.train_qlearning --agent tabular --env_name Taxi-v3 --num_episodes 8000
   ```
 
-- **Treinar agente linear com replay**
+- **Treinar agente neural (MLP + replay)**
   ```bash
-  python -m rl.train_qlearning --agent linear --env_name Taxi-v3 --num_episodes 5000 --plot
+  python -m rl.train_qlearning --agent neural --env_name Taxi-v3 --num_episodes 5000 --plot
   ```
 
 - **Executar notebooks**

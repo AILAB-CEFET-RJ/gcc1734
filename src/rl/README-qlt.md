@@ -10,7 +10,7 @@ Implementação didática de Q-Learning tabular utilizada na disciplina **GCC173
 | ------- | --------- |
 | `qlt.py` | Classe `QLearningAgentTabular` com atualização Q-learning, política ε-greedy com decaimento exponencial e histórico completo (`rewards`, `penalties`, `epsilons`, `steps`). |
 | `environment_taxi.py` / `environment_blackjack.py` | Wrappers que adaptam os ambientes nativos do Gymnasium (`Taxi-v3`, `Blackjack-v1`) para a API esperada pelo agente (métodos `reset`, `step`, `get_num_states`, etc.). |
-| `train_qlearning.py` | CLI unificado para treinar agentes tabulares, lineares e com replay. |
+| `train_qlearning.py` | CLI unificado para treinar agentes tabulares, lineares e neurais (com experience replay). |
 | `qlt_train.py` | Atalho compatível com versões anteriores; encaminha para `train_qlearning.py --agent tabular`. |
 | `qlt_play.py` | Executa um agente tabular treinado e imprime estatísticas de desempenho. |
 

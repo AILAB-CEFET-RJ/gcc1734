@@ -10,7 +10,7 @@ Implementações e utilitários para **Q-Learning com aproximação linear** uti
 | ------- | --------- |
 | `qll.py` | Classe `QLearningAgentLinear` com política ε-greedy, atualização incremental sobre pesos `w` e *clipping* de erro temporal. |
 | `qll_taxi_feature_extractor.py` / `qll_blackjack_feature_extractor.py` | Extratores de *features* responsáveis por transformar observações em vetores densos. |
-| `train_qlearning.py` | Script genérico de treinamento para todas as variantes (tabular, linear, replay). |
+| `train_qlearning.py` | Script genérico de treinamento para todas as variantes (tabular, linear, neural). |
 | `qll_train.py` | Wrapper de compatibilidade que injeta `--agent linear` se nenhum agente for informado. |
 | `qll_play.py` | Reproduz políticas treinadas com renderização opcional. |
 
@@ -103,7 +103,7 @@ Funcionalidades:
 - Python 3.10+
 - gymnasium
 - numpy
-- torch (apenas se usar o agente com replay/MLP; ver documento correspondente)
+- torch (apenas se usar o agente neural/MLP; ver documento correspondente)
 - matplotlib
 - scipy
 

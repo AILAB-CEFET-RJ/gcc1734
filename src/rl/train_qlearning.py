@@ -3,12 +3,7 @@ import random
 import sys
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Callable, Dict, Iterable, List, Optional
-
-if __package__ is None or __package__ == "":
-    package_root = Path(__file__).resolve().parents[1]
-    if str(package_root) not in sys.path:
-        sys.path.insert(0, str(package_root))
+from typing import Callable, Dict, Iterable, List, MutableMapping, Optional
 
 import gymnasium as gym
 import matplotlib.pyplot as plt
@@ -16,9 +11,14 @@ import numpy as np
 from scipy.signal import savgol_filter
 from timeit import default_timer as timer
 
+if __package__ is None or __package__ == "":
+    package_root = Path(__file__).resolve().parents[1]
+    if str(package_root) not in sys.path:
+        sys.path.insert(0, str(package_root))
+
 from rl.environment_blackjack import BlackjackEnvironment
 from rl.environment_taxi import TaxiEnvironment
-from rl.qln import QLearningAgentReplay
+from rl.qln import QLearningAgentReplay as QLearningAgentNeural
 from rl.qll import QLearningAgentLinear
 from rl.qlt import QLearningAgentTabular
 
@@ -71,7 +71,7 @@ def _train_linear(agent: QLearningAgentLinear, args: argparse.Namespace) -> Dict
     }
 
 
-def _train_replay(agent: QLearningAgentReplay, args: argparse.Namespace) -> Dict[str, Iterable[float]]:
+def _train_neural(agent: QLearningAgentNeural, args: argparse.Namespace) -> Dict[str, Iterable[float]]:
     penalties, rewards, successes = agent.train(
         num_episodes=args.num_episodes,
         max_steps_per_episode=args.max_steps,
@@ -114,8 +114,8 @@ def _build_linear(env, args: argparse.Namespace) -> QLearningAgentLinear:
     )
 
 
-def _build_replay(env, args: argparse.Namespace) -> QLearningAgentReplay:
-    return QLearningAgentReplay(
+def _build_neural(env, args: argparse.Namespace) -> QLearningAgentNeural:
+    return QLearningAgentNeural(
         gym_env=env,
         epsilon_decay_rate=args.decay_rate,
         learning_rate=args.learning_rate,
@@ -125,7 +125,7 @@ def _build_replay(env, args: argparse.Namespace) -> QLearningAgentReplay:
     )
 
 
-AGENT_REGISTRY: Dict[str, AgentSpec] = {
+AGENT_REGISTRY: MutableMapping[str, AgentSpec] = {
     "tabular": AgentSpec(
         build_agent=_build_tabular,
         train_agent=_train_tabular,
@@ -140,20 +140,25 @@ AGENT_REGISTRY: Dict[str, AgentSpec] = {
         filename_fn=lambda base: f"{base}.pkl",
         label="Linear",
     ),
-    "replay": AgentSpec(
-        build_agent=_build_replay,
-        train_agent=_train_replay,
-        basename_fn=lambda env_name: f"{env_name.lower()}-replay-agent",
+    "neural": AgentSpec(
+        build_agent=_build_neural,
+        train_agent=_train_neural,
+        basename_fn=lambda env_name: f"{env_name.lower()}-neural-agent",
         filename_fn=lambda base: f"{base}.pkl",
-        label="Replay",
+        label="Neural",
     ),
+}
+
+AGENT_ALIASES: Dict[str, str] = {
+    "replay": "neural",
 }
 
 
 def _prepare_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Train Q-Learning agents (tabular, linear, replay)")
-    parser.add_argument("--agent", choices=AGENT_REGISTRY.keys(), default="tabular",
-                        help="Agent variant to train")
+    agent_choices = sorted(set(AGENT_REGISTRY.keys()) | set(AGENT_ALIASES.keys()))
+    parser = argparse.ArgumentParser(description="Train Q-Learning agents (tabular, linear, neural)")
+    parser.add_argument("--agent", choices=agent_choices, default="tabular",
+                        help="Agent variant to train (alias: replay -> neural)")
     parser.add_argument("--env_name", type=str, default="Taxi-v3", help="Environment name")
     parser.add_argument("--num_episodes", type=int, default=6000, help="Number of training episodes")
     parser.add_argument("--decay_rate", type=float, default=0.0001, help="Epsilon decay rate")
@@ -165,9 +170,9 @@ def _prepare_parser() -> argparse.ArgumentParser:
 
     # Agent-specific knobs (optional for tabular)
     parser.add_argument("--max_steps", type=int, default=500,
-                        help="Maximum steps per episode (functionally used by linear/replay agents)")
+                        help="Maximum steps per episode (most relevant for linear/neural)")
     parser.add_argument("--batch_size", type=int, default=64,
-                        help="Mini-batch size for replay agents")
+                        help="Mini-batch size for neural agents")
     parser.add_argument("--hidden_dim", type=int, default=64,
                         help="Hidden layer size for approximate agents")
     parser.add_argument("--min_epsilon", type=float, default=0.01,
@@ -251,7 +256,8 @@ def main(argv: Optional[List[str]] = None) -> int:
     env.reset(seed=args.seed)
     env = environment_dict[args.env_name](env)
 
-    agent_spec = AGENT_REGISTRY[args.agent]
+    agent_key = AGENT_ALIASES.get(args.agent, args.agent)
+    agent_spec = AGENT_REGISTRY[agent_key]
     agent = agent_spec.build_agent(env, args)
 
     print(f"\nTraining {agent_spec.label} Q-Learning agent on {args.env_name}...\n")

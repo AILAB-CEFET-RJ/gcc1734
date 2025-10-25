@@ -1,4 +1,4 @@
-# Neural / Replay Q-Learning
+# Neural Q-Learning
 
 Este material descreve a versão com **rede neural (MLP) + Experience Replay** do agente de Q-Learning usado na disciplina **GCC1734 – Inteligência Artificial (CEFET/RJ)**. A implementação utiliza PyTorch para aproximar \(Q(s,a)\) e compartilha o mesmo fluxo de execução do restante do pacote `rl`.
 
@@ -10,8 +10,8 @@ Este material descreve a versão com **rede neural (MLP) + Experience Replay** d
 | ------- | ----- |
 | `qln.py` | Define `QLearningAgentReplay`: rede feed-forward (duas camadas ocultas, ReLU), *replay buffer* e política ε-greedy com decaimento exponencial. |
 | `qll_taxi_feature_extractor.py` / `qll_blackjack_feature_extractor.py` | Reuso dos extratores de *features* para gerar vetores de entrada da MLP. |
-| `train_qlearning.py` | CLI unificado para treinar agentes tabular, linear e neural (`--agent replay`). |
-| `qll_train.py` | Wrapper de compatibilidade; quando executado com `--agent replay` direciona para o CLI principal. |
+| `train_qlearning.py` | CLI unificado para treinar agentes tabular, linear e neural (`--agent neural`). |
+| `qll_train.py` | Wrapper de compatibilidade; aceita tanto `--agent neural` quanto o alias legado `--agent replay`. |
 
 ---
 
@@ -39,7 +39,7 @@ pip install --no-build-isolation -e .  # adicione --user se precisar
 
 ```bash
 python -m rl.train_qlearning \
-  --agent replay \
+  --agent neural \
   --env_name Taxi-v3 \
   --num_episodes 5000 \
   --hidden_dim 128 \
@@ -59,20 +59,20 @@ Parâmetros específicos da versão neural:
 | `--train_every` | (definido em código: 4) número de passos entre atualizações da rede |
 | `--seed` | Controle de reprodutibilidade | `42` |
 
-O wrapper antigo também funciona:
+Comandos legados ainda funcionam graças ao alias `--agent replay`:
 
 ```bash
-python src/rl/qll_train.py --agent replay --env_name Taxi-v3
+python src/rl/qll_train.py --agent neural --env_name Taxi-v3
 ```
 
 ---
 
 ## Artefatos gerados
 
-- `taxi-v3-replay-agent.pkl` – checkpoint contendo pesos do modelo, otimizador e hiperparâmetros de ε.
-- `taxi-v3-replay-agent-learning_curve.png` – curva de recompensa (suavizada via Savitzky-Golay).
-- `taxi-v3-replay-agent-epsilons.png` – histórico de ε por episódio.
-- `taxi-v3-replay-agent-summary.png` – painel com recompensa × ε.
+- `taxi-v3-neural-agent.pkl` – checkpoint contendo pesos do modelo, otimizador e hiperparâmetros de ε.
+- `taxi-v3-neural-agent-learning_curve.png` – curva de recompensa (suavizada via Savitzky-Golay).
+- `taxi-v3-neural-agent-epsilons.png` – histórico de ε por episódio.
+- `taxi-v3-neural-agent-summary.png` – painel com recompensa × ε.
 
 Os nomes refletem o ambiente (`env_name`) utilizado.
 

@@ -9,7 +9,7 @@ if __package__ is None or __package__ == "":
 
 from rl.train_qlearning import main as _train_main
 
-_LINEAR_DEFAULTS: Dict[str, str] = {
+_APPROX_DEFAULTS: Dict[str, str] = {
     "--num_episodes": "5000",
     "--decay_rate": "0.0005",
     "--learning_rate": "0.001",
@@ -21,8 +21,12 @@ _LINEAR_DEFAULTS: Dict[str, str] = {
 
 _AGENT_TYPE_MAP = {
     "linear": "linear",
-    "replay": "replay",
-    "neural": None,
+    "replay": "neural",
+    "neural": "neural",
+}
+
+_AGENT_ALIASES = {
+    "replay": "neural",
 }
 
 
@@ -69,11 +73,11 @@ def _find_agent(argv: List[str]) -> Optional[str]:
 
 
 def _inject_defaults(argv: List[str], agent: str) -> List[str]:
-    if agent not in ("linear", "replay"):
+    if agent not in ("linear", "replay", "neural"):
         return argv
 
     defaults: List[str] = []
-    for flag, value in _LINEAR_DEFAULTS.items():
+    for flag, value in _APPROX_DEFAULTS.items():
         if not _has_flag(argv, flag):
             defaults.extend([flag, value])
     return defaults + argv
@@ -97,6 +101,29 @@ def main(argv: Optional[List[str]] = None) -> int:
         cleaned_args = ["--agent", agent_choice] + cleaned_args
 
     agent = _find_agent(cleaned_args) or "linear"
+    canonical_agent = _AGENT_ALIASES.get(agent, agent)
+    if canonical_agent != agent:
+        # replace first occurrence of --agent to keep canonical form for downstream defaults
+        updated: List[str] = []
+        i = 0
+        replaced = False
+        while i < len(cleaned_args):
+            arg = cleaned_args[i]
+            if not replaced and arg == "--agent":
+                updated.extend(["--agent", canonical_agent])
+                replaced = True
+                i += 2
+                continue
+            if not replaced and arg.startswith("--agent="):
+                updated.append(f"--agent={canonical_agent}")
+                replaced = True
+                i += 1
+                continue
+            updated.append(arg)
+            i += 1
+        cleaned_args = updated
+        agent = canonical_agent
+
     final_args = _inject_defaults(cleaned_args, agent)
     return _train_main(final_args)
 
