@@ -1,45 +1,69 @@
-# GCC1734 - Inteligência Artificial
+# GCC1734 – Inteligência Artificial (CEFET/RJ)
 
-Este ambiente reúne todas as bibliotecas necessárias para os trabalhos práticos sobre agentes com LLMs, reconhecimento de entidades nomeadas (NER), e visualizações.
+Repositório utilizado na disciplina de IA.
 
-## ✅ Requisitos
+---
 
-- Python 3.10 ou 3.11 (recomendado)
-- Conda ou virtualenv instalado
+## Organização principal
 
-## 🔧 Criação do ambiente com conda
+- `src/rl/` – agentes de Q-Learning (tabular, aproximação linear e rede neural com replay) e utilitários de ambientes Gymnasium.
+- `src/llm/`, `src/multiagent/`, `src/genai/` – exemplos voltados para modelos de linguagem e agentes.
+- `notebooks/` – materiais de apoio em Jupyter.
+- `requirements.txt` – dependências gerais do repositório.
 
-```bash
-conda create -n gcc1734 python=3.10
-conda activate gcc1734
-```
+Cada subdiretório relevante contém um README específico com detalhes adicionais (por exemplo `src/rl/README-qlt.md`, `README-qll.md`, `README-qln.md`).
 
-## Instalação das dependências
+---
 
-Faça o clone deste repositório (que contém o arquivo `requirements.txt` na raiz) e execute:
+## Ambiente recomendado
 
-```bash
-pip install -r requirements.txt
-```
+1. **Criar o ambiente**
+   ```bash
+   conda create -n gcc1734 python=3.10
+   conda activate gcc1734
+   ```
 
-## Instalação de modelos do spaCy
+   > Se preferir, use `python -m venv .venv && source .venv/bin/activate`.
 
-Para usar o `spaCy` em visualizações e testes:
+2. **Instalar dependências**
+   ```bash
+   pip install --no-build-isolation -e .
+   ```
+   - Caso não queira a instalação editável, use `pip install -r requirements.txt`.
+   - Adicione `--user` se encontrar problemas de permissão.
 
-```bash
-python -m spacy download en_core_web_sm
-```
+3. **Verificar**
+   ```bash
+   python -m rl.train_qlearning --help
+   ```
 
-Opcional: verifique se o modelo foi instalado corretamente:
+---
 
-```bash
-python -m spacy validate
-```
+## Exemplos rápidos
 
-## 🚀 Execução de notebooks
+- **Treinar agente tabular Taxi-v3**
+  ```bash
+  python -m rl.train_qlearning --agent tabular --env_name Taxi-v3 --num_episodes 8000
+  ```
 
-Se desejar usar notebooks Jupyter:
+- **Treinar agente linear com replay**
+  ```bash
+  python -m rl.train_qlearning --agent linear --env_name Taxi-v3 --num_episodes 5000 --plot
+  ```
 
-```bash
-jupyter notebook
-```
+- **Executar notebooks**
+  ```bash
+  jupyter notebook
+  ```
+
+Arquivos gerados (modelos `.pkl`, curvas `.png`) ficam na raiz do projeto por padrão.
+
+---
+
+## Contribuindo
+
+1. Crie uma branch para suas alterações.
+2. Garanta que scripts/notebooks rodem antes do commit.
+3. Abra um pull request descrevendo o que foi alterado.
+
+Códigos e materiais podem ser reutilizados livremente para fins acadêmicos e de ensino.
