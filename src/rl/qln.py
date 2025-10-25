@@ -199,7 +199,12 @@ class QLearningAgentReplay:
                 print(f"\tElapsed: {elapsed:.2f}s\n")
                 start_time = timer()
 
-        return penalties_per_episode, rewards_per_episode, cumulative_success
+        return {
+            "penalties": penalties_per_episode,
+            "rewards": rewards_per_episode,
+            "successes": cumulative_success,
+            "epsilons": list(self.epsilon_history),
+        }
 
     # =========================================================
     # Utilitários

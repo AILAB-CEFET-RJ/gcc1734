@@ -151,7 +151,12 @@ class QLearningAgentLinear:
 
             if episode == 5000: self.epsilon = 0.2  # reexploração tardia
 
-        return penalties_per_episode, rewards_per_episode, cumulative_success
+        return {
+            "penalties": penalties_per_episode,
+            "rewards": rewards_per_episode,
+            "successes": cumulative_success,
+            "epsilons": list(self.epsilon_history),
+        }
 
 
     # =========================================================

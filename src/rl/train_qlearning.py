@@ -59,28 +59,35 @@ def _train_tabular(agent: QLearningAgentTabular, args: argparse.Namespace) -> Di
 
 
 def _train_linear(agent: QLearningAgentLinear, args: argparse.Namespace) -> Dict[str, Iterable[float]]:
-    penalties, rewards, successes = agent.train(
+    result = agent.train(
         num_episodes=args.num_episodes,
         max_steps_per_episode=args.max_steps,
     )
+    if isinstance(result, dict):
+        return result
+    # Backwards compatibility: older agents returned tuples
+    penalties, rewards, successes = result
     return {
         "rewards": rewards,
         "penalties": penalties,
-        "epsilons": getattr(agent, "epsilon_history", []),
         "successes": successes,
+        "epsilons": list(getattr(agent, "epsilon_history", [])),
     }
 
 
 def _train_neural(agent: QLearningAgentNeural, args: argparse.Namespace) -> Dict[str, Iterable[float]]:
-    penalties, rewards, successes = agent.train(
+    result = agent.train(
         num_episodes=args.num_episodes,
         max_steps_per_episode=args.max_steps,
     )
+    if isinstance(result, dict):
+        return result
+    penalties, rewards, successes = result
     return {
         "rewards": rewards,
         "penalties": penalties,
-        "epsilons": getattr(agent, "epsilon_history", []),
         "successes": successes,
+        "epsilons": list(getattr(agent, "epsilon_history", [])),
     }
 
 
