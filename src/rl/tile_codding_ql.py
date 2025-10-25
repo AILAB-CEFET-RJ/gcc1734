@@ -1,7 +1,15 @@
 from timeit import default_timer as timer
 import pickle
+import sys
+from pathlib import Path
 import numpy as np
-from environment import Environment
+
+if __package__ is None or __package__ == "":
+    package_root = Path(__file__).resolve().parents[1]
+    if str(package_root) not in sys.path:
+        sys.path.insert(0, str(package_root))
+
+from rl.environment import Environment
 
 class QLearningAgentTileCoding:
 

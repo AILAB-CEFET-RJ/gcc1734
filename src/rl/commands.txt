@@ -1,5 +1,0 @@
-python tql_train.py --num_episodes 60000 --env_name Taxi-v3
-python tql_test.py --num_episodes 200 --env_name Taxi-v3 
-
-python lql_train.py --num_episodes 10000 --max_steps 100 --env_name Taxi-v3
-python lql_test.py --num_episodes 200 --env_name Taxi-v3 

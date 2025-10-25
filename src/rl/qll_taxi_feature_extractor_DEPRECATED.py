@@ -27,7 +27,7 @@ References:
 '''
 
 import numpy as np
-from feature_extractor import FeatureExtractor
+from rl.qll_feature_extractor import FeatureExtractor
 
 special_locations_dict = {0: (0,0), 1: (0,4), 2: (4,0), 3: (4,3)}
 

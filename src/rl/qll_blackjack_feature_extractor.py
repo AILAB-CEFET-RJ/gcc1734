@@ -1,5 +1,5 @@
 import numpy as np
-from feature_extractor import FeatureExtractor
+from rl.qll_feature_extractor import FeatureExtractor
 
 class Actions:
   STICK = 0

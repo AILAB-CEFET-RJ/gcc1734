@@ -1,13 +1,20 @@
 import gymnasium as gym
 
-env = gym.make("LunarLander-v2", render_mode="human")
-observation, info = env.reset(seed=123, options={})
+# Initialise the environment
+env = gym.make("Humanoid-v4", render_mode="human")
 
-done = False
-while not done:
-    action = env.action_space.sample()  # agent policy that uses the observation and info
+# Reset the environment to generate the first observation
+observation, info = env.reset(seed=42)
+for _ in range(1000):
+    # this is where you would insert your policy
+    action = env.action_space.sample()
+
+    # step (transition) through the environment with the action
+    # receiving the next observation, reward and if the episode has terminated or truncated
     observation, reward, terminated, truncated, info = env.step(action)
 
-    done = terminated or truncated
+    # If the episode has ended then we can reset to start a new episode
+    if terminated or truncated:
+        observation, info = env.reset()
 
 env.close()

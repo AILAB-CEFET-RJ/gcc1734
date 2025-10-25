@@ -2,7 +2,7 @@ import numpy as np
 import pickle
 import logging
 from timeit import default_timer as timer
-from environment import Environment
+from rl.environment import Environment
 
 logger = logging.getLogger(__name__)
 

@@ -1,4 +1,4 @@
-from environment import Environment
+from rl.environment import Environment
 
 class BlackjackEnvironment(Environment):
     def __init__(self, env):

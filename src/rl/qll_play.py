@@ -1,9 +1,17 @@
 import argparse
-import gymnasium as gym
-from lql import QLearningAgentLinear
-from taxi_environment import TaxiEnvironment
-from blackjack_environment import BlackjackEnvironment
 import os
+import sys
+from pathlib import Path
+
+if __package__ is None or __package__ == "":
+    package_root = Path(__file__).resolve().parents[1]
+    if str(package_root) not in sys.path:
+        sys.path.insert(0, str(package_root))
+
+import gymnasium as gym
+from rl.qll import QLearningAgentLinear
+from rl.environment_taxi import TaxiEnvironment
+from rl.environment_blackjack import BlackjackEnvironment
 
 
 def main():

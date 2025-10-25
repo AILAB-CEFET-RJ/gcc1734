@@ -1,0 +1,105 @@
+# Neural / Replay Q-Learning
+
+Este material descreve a versão com **rede neural (MLP) + Experience Replay** do agente de Q-Learning usado na disciplina **GCC1734 – Inteligência Artificial (CEFET/RJ)**. A implementação utiliza PyTorch para aproximar \(Q(s,a)\) e compartilha o mesmo fluxo de execução do restante do pacote `rl`.
+
+---
+
+## Componentes principais
+
+| Arquivo | Papel |
+| ------- | ----- |
+| `qln.py` | Define `QLearningAgentReplay`: rede feed-forward (duas camadas ocultas, ReLU), *replay buffer* e política ε-greedy com decaimento exponencial. |
+| `qll_taxi_feature_extractor.py` / `qll_blackjack_feature_extractor.py` | Reuso dos extratores de *features* para gerar vetores de entrada da MLP. |
+| `train_qlearning.py` | CLI unificado para treinar agentes tabular, linear e neural (`--agent replay`). |
+| `qll_train.py` | Wrapper de compatibilidade; quando executado com `--agent replay` direciona para o CLI principal. |
+
+---
+
+## Requisitos
+
+- Python 3.10+
+- gymnasium
+- numpy
+- torch
+- matplotlib
+- scipy
+
+Instalação recomendada (modo editável):
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install torch gymnasium numpy matplotlib scipy
+pip install --no-build-isolation -e .  # adicione --user se precisar
+```
+
+---
+
+## Como treinar
+
+```bash
+python -m rl.train_qlearning \
+  --agent replay \
+  --env_name Taxi-v3 \
+  --num_episodes 5000 \
+  --hidden_dim 128 \
+  --batch_size 128 \
+  --plot
+```
+
+Parâmetros específicos da versão neural:
+
+| Flag | Descrição | Padrão |
+| ---- | --------- | ------ |
+| `--hidden_dim` | Número de neurônios nas camadas ocultas da MLP | `64` |
+| `--batch_size` | Tamanho do minibatch amostrado do replay buffer | `64` |
+| `--max_steps` | Limite de passos por episódio (controla coleta de experiências) | `500` |
+| `--decay_rate` | Taxa de decaimento exponencial de ε | `0.0005` |
+| `--learning_rate` | Taxa de aprendizado do otimizador Adam | `0.001` |
+| `--train_every` | (definido em código: 4) número de passos entre atualizações da rede |
+| `--seed` | Controle de reprodutibilidade | `42` |
+
+O wrapper antigo também funciona:
+
+```bash
+python src/rl/qll_train.py --agent replay --env_name Taxi-v3
+```
+
+---
+
+## Artefatos gerados
+
+- `taxi-v3-replay-agent.pkl` – checkpoint contendo pesos do modelo, otimizador e hiperparâmetros de ε.
+- `taxi-v3-replay-agent-learning_curve.png` – curva de recompensa (suavizada via Savitzky-Golay).
+- `taxi-v3-replay-agent-epsilons.png` – histórico de ε por episódio.
+- `taxi-v3-replay-agent-summary.png` – painel com recompensa × ε.
+
+Os nomes refletem o ambiente (`env_name`) utilizado.
+
+---
+
+## Avaliação
+
+A versão neural compartilha o mesmo script de “play” do agente linear (`qll_play.py`), pois ambos usam `policy(state)` para selecionar ações sem exploração. Carregue o checkpoint e avalie:
+
+```bash
+python src/rl/qll_play.py --env_name Taxi-v3 --max_steps 500 --render
+```
+
+> Para ambientes que suportam renderização gráfica (ex.: Taxi-v3), use `--render`. Caso contrário, será usada saída textual (`ansi`).
+
+---
+
+## Observações didáticas
+
+- O replay buffer (deque com 50 000 transições) reduz a correlação entre amostras consecutivas e melhora a estabilidade do treinamento.
+- O uso da perda Huber (`SmoothL1Loss`) protege contra outliers no TD error.
+- Gradientes são *clipped* (`max_norm = 5.0`) para evitar explosão.
+- O desempenho depende bastante da escolha de *features*: o extrator para Taxi funciona bem, enquanto Blackjack continua difícil por natureza.
+
+---
+
+## Licença
+
+Uso livre para fins acadêmicos e de ensino.  
+(C) CEFET/RJ – Escola de Informática e Computação.

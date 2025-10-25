@@ -1,7 +1,7 @@
 from timeit import default_timer as timer
 import numpy as np
 import pickle
-from environment import Environment
+from rl.environment import Environment
 
 class QLearningAgentTabular:
 

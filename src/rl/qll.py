@@ -1,10 +1,10 @@
 from timeit import default_timer as timer
 import pickle
 import numpy as np
-from environment import Environment
+from rl.environment import Environment
 
-from taxi_feature_extractor import TaxiFeatureExtractor
-from blackjack_feature_extractor import BlackjackFeatureExtractor
+from rl.qll_taxi_feature_extractor import TaxiFeatureExtractor
+from rl.qll_blackjack_feature_extractor import BlackjackFeatureExtractor
 
 feature_extractors_dict = {
     "Blackjack-v1": BlackjackFeatureExtractor,
@@ -24,16 +24,19 @@ class QLearningAgentLinear:
                  learning_rate: float,
                  gamma: float):
         self.env = gym_env
-        env_name = self.env.get_id()
+        env_name = getattr(self.env, "get_id", lambda: None)()
+
+        if env_name not in feature_extractors_dict:
+            raise ValueError(f"Unsupported environment: {env_name}")
 
         self.fex = feature_extractors_dict[env_name](gym_env.env)
 
-        # Inicialização dos pesos centrada em zero (com bias explícito)
-        self.w = np.random.uniform(-0.01, 0.01, size=self.fex.get_num_features() + 1)
+        # pesos centrados em zero, compatíveis com as features
+        self.w = np.random.uniform(-0.2, 0.2, size=self.fex.get_num_features())
 
         self.steps = 0
-        self.epsilon = 0.5
-        self.max_epsilon = 0.5
+        self.epsilon = 1.0
+        self.max_epsilon = 1.0
         self.min_epsilon = 0.05
         self.epsilon_decay_rate = epsilon_decay_rate
         self.learning_rate = learning_rate
@@ -64,14 +67,10 @@ class QLearningAgentLinear:
     # Q-value e features
     # =========================================================
     def get_features(self, state, action):
-        f = self.fex.get_features(state, action).astype(float)
-        if np.max(np.abs(f)) > 0:
-            f = f / np.max(np.abs(f))  # normaliza em [-1,1]
-        return np.concatenate(([1.0], f))  # adiciona bias
+        return self.fex.get_features(state, action)
 
     def get_qvalue(self, state, action):
-        features = self.get_features(state, action)
-        return float(np.dot(self.w, features))
+        return float(np.dot(self.w, self.get_features(state, action)))
 
     # =========================================================
     # Atualização dos pesos
@@ -87,7 +86,11 @@ class QLearningAgentLinear:
     # =========================================================
     # Treinamento
     # =========================================================
-    def train(self, num_episodes: int):
+    def train(self, num_episodes: int, max_steps_per_episode: int = 1000):
+        """
+        Treina o agente Linear Q-Learning.
+        Inclui controle de limite de passos por episódio e logs detalhados.
+        """
         rewards_per_episode = []
         penalties_per_episode = []
         cumulative_success = []
@@ -102,11 +105,12 @@ class QLearningAgentLinear:
             total_penalties = 0
             self.steps = 0
 
-            while not (terminated or truncated):
+            while not (terminated or truncated) and self.steps < max_steps_per_episode:
                 self.steps += 1
                 action = self.choose_action(state)
                 next_state, reward, terminated, truncated, _ = self.env.step(action)
 
+                # Atualização
                 if reward == -10:
                     total_penalties += 1
 
@@ -114,7 +118,15 @@ class QLearningAgentLinear:
                 total_reward += reward
                 state = next_state
 
-            # Decaimento linear de epsilon
+                # Diagnóstico opcional
+                if self.steps % 500 == 0:
+                    print(f"[Episode {episode}] Step {self.steps} | Reward {reward:.2f} | Terminated={terminated}")
+
+            # Aviso se o episódio atingiu o limite de passos
+            if self.steps >= max_steps_per_episode:
+                print(f"[Warning] Episode {episode} reached max_steps ({max_steps_per_episode}).")
+
+            # Atualiza epsilon (decay linear)
             frac = episode / max(1, num_episodes - 1)
             self.epsilon = max(self.min_epsilon, self.max_epsilon * (1 - frac))
             self.epsilon_history.append(self.epsilon)
@@ -126,17 +138,21 @@ class QLearningAgentLinear:
             penalties_per_episode.append(total_penalties)
             cumulative_success.append(successful_episodes)
 
+            # Log periódico
             if episode % 50 == 0:
                 elapsed = timer() - start_time
                 print(f"Episode {episode}/{num_episodes} ({successful_episodes} successful)")
+                print(f"\tSteps: {self.steps}")
                 print(f"\tTotal reward: {total_reward}")
-                print(f"\tTotal steps: {self.steps}")
                 print(f"\tEpsilon: {self.epsilon:.4f}")
                 print(f"\tWeight norm: {np.linalg.norm(self.w):.4f}")
                 print(f"\tElapsed: {elapsed:.2f}s\n")
                 start_time = timer()
 
+            if episode == 5000: self.epsilon = 0.2  # reexploração tardia
+
         return penalties_per_episode, rewards_per_episode, cumulative_success
+
 
     # =========================================================
     # Utilitários
