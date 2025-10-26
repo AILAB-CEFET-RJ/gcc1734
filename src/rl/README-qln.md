@@ -10,7 +10,7 @@ Este material descreve a versão com **rede neural (MLP) + Experience Replay** d
 | ------- | ----- |
 | `qln.py` | Define `QLearningAgentReplay`: rede feed-forward (duas camadas ocultas, ReLU), *replay buffer* e política ε-greedy com decaimento exponencial. |
 | `qll_taxi_feature_extractor.py` / `qll_blackjack_feature_extractor.py` | Reuso dos extratores de *features* para gerar vetores de entrada da MLP. |
-| `train_qlearning.py` | CLI unificado para treinar agentes tabular, linear e neural (`--agent neural`). |
+| `ql_train.py` | CLI unificado para treinar agentes tabular, linear e neural (`--agent neural`). |
 
 ---
 
@@ -39,7 +39,7 @@ pip install --no-build-isolation -e .  # adicione --user se precisar
 > Execute os comandos a partir da raiz do repositório (`~/ailab/gcc1734`) com o ambiente ativado.
 
 ```bash
-python -m rl.train_qlearning \
+python -m rl.ql_train \
   --agent neural \
   --env_name Taxi-v3 \
   --num_episodes 5000 \
@@ -76,7 +76,7 @@ Os nomes refletem o ambiente (`env_name`) utilizado.
 Utilize o runner genérico para reexecutar a política aprendida:
 
 ```bash
-python -m rl.play_qlearning --agent neural --env_name Taxi-v3 --num_episodes 5 --max_steps 500
+python -m rl.ql_play --agent neural --env_name Taxi-v3 --num_episodes 5 --max_steps 500
 ```
 
 > Acrescente `--render` para visualizar o ambiente. Caso o backend não suporte renderização gráfica, será usada saída textual (`ansi`).

@@ -10,8 +10,8 @@ Implementações e utilitários para **Q-Learning com aproximação linear** uti
 | ------- | --------- |
 | `qll.py` | Classe `QLearningAgentLinear` com política ε-greedy, atualização incremental sobre pesos `w` e *clipping* de erro temporal. |
 | `qll_taxi_feature_extractor.py` / `qll_blackjack_feature_extractor.py` | Extratores de *features* responsáveis por transformar observações em vetores densos. |
-| `train_qlearning.py` | Script genérico de treinamento para todas as variantes (tabular, linear, neural). |
-| `play_qlearning.py` | Runner genérico; use `--agent linear` (ou `--agent neural`) para reproduzir políticas aproximadas. |
+| `ql_train.py` | Script genérico de treinamento para todas as variantes (tabular, linear, neural). |
+| `ql_play.py` | Runner genérico; use `--agent linear` (ou `--agent neural`) para reproduzir políticas aproximadas. |
 
 ---
 
@@ -25,7 +25,7 @@ pip install --no-build-isolation -e .
 
 > Caso a instalação editável falhe por permissão, adicione `--user`.
 
-Com o pacote instalado, os módulos podem ser referenciados como `rl.qll`, `rl.qll_taxi_feature_extractor`, etc., e o CLI unificado fica disponível via `python -m rl.train_qlearning`.
+Com o pacote instalado, os módulos podem ser referenciados como `rl.qll`, `rl.qll_taxi_feature_extractor`, etc., e o CLI unificado fica disponível via `python -m rl.ql_train`.
 
 ---
 
@@ -34,7 +34,7 @@ Com o pacote instalado, os módulos podem ser referenciados como `rl.qll`, `rl.q
 > Execute os comandos a partir da raiz do repositório (`~/ailab/gcc1734`) com o ambiente ativado.
 
 ```bash
-python -m rl.train_qlearning \
+python -m rl.ql_train \
   --agent linear \
   --env_name Taxi-v3 \
   --num_episodes 8000 \
@@ -71,7 +71,7 @@ Os nomes mudam conforme `env_name` e tipo de agente.
 ## Execução do agente
 
 ```bash
-python -m rl.play_qlearning --agent linear --env_name Taxi-v3 --num_episodes 5
+python -m rl.ql_play --agent linear --env_name Taxi-v3 --num_episodes 5
 ```
 
 Funcionalidades:

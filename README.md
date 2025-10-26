@@ -34,7 +34,7 @@ Cada subdiretório relevante contém um README específico com detalhes adiciona
 
 3. **Verificar**
    ```bash
-   python -m rl.train_qlearning --help
+   python -m rl.ql_train --help
    ```
 
 ---
@@ -45,17 +45,17 @@ Cada subdiretório relevante contém um README específico com detalhes adiciona
 
 - **Treinar agente tabular Taxi-v3**
   ```bash
-  python -m rl.train_qlearning --agent tabular --env_name Taxi-v3 --num_episodes 8000
+  python -m rl.ql_train --agent tabular --env_name Taxi-v3 --num_episodes 8000
   ```
 
 - **Treinar agente neural (MLP + replay)**
   ```bash
-  python -m rl.train_qlearning --agent neural --env_name Taxi-v3 --num_episodes 5000 --plot
+  python -m rl.ql_train --agent neural --env_name Taxi-v3 --num_episodes 5000 --plot
   ```
 
 - **Executar agente treinado**
   ```bash
-  python -m rl.play_qlearning --agent tabular --env_name Taxi-v3 --num_episodes 5
+  python -m rl.ql_play --agent tabular --env_name Taxi-v3 --num_episodes 5
   ```
 
 - **Executar notebooks**

@@ -10,8 +10,8 @@ Implementação didática de Q-Learning tabular utilizada na disciplina **GCC173
 | ------- | --------- |
 | `qlt.py` | Classe `QLearningAgentTabular` com atualização Q-learning, política ε-greedy com decaimento exponencial e histórico completo (`rewards`, `penalties`, `epsilons`, `steps`). |
 | `environment_taxi.py` / `environment_blackjack.py` | Wrappers que adaptam os ambientes nativos do Gymnasium (`Taxi-v3`, `Blackjack-v1`) para a API esperada pelo agente (métodos `reset`, `step`, `get_num_states`, etc.). |
-| `train_qlearning.py` | CLI unificado para treinar agentes tabulares, lineares e neurais. |
-| `play_qlearning.py` | Runner genérico; use `--agent tabular` para executar políticas tabulares salvas. |
+| `ql_train.py` | CLI unificado para treinar agentes tabulares, lineares e neurais. |
+| `ql_play.py` | Runner genérico; use `--agent tabular` para executar políticas tabulares salvas. |
 
 ---
 
@@ -25,7 +25,7 @@ pip install --no-build-isolation -e .  # instala o pacote rl em modo editável
 
 > Se o diretório do ambiente não for gravável, acrescente `--user`.
 
-Após a instalação, os módulos podem ser importados como `rl.qlt`, `rl.environment_taxi`, etc., e é possível executar os CLIs com `python -m rl.train_qlearning`.
+Após a instalação, os módulos podem ser importados como `rl.qlt`, `rl.environment_taxi`, etc., e é possível executar os CLIs com `python -m rl.ql_train`.
 
 ---
 
@@ -36,7 +36,7 @@ Após a instalação, os módulos podem ser importados como `rl.qlt`, `rl.enviro
 O training script unificado aceita diferentes variantes de agente. Para a versão tabular:
 
 ```bash
-python -m rl.train_qlearning \
+python -m rl.ql_train \
   --agent tabular \
   --env_name Taxi-v3 \
   --num_episodes 8000 \
@@ -75,7 +75,7 @@ Os prefixos mudam conforme o ambiente selecionado.
 ## Execução do agente
 
 ```bash
-python -m rl.play_qlearning --agent tabular --env_name Taxi-v3 --num_episodes 5
+python -m rl.ql_play --agent tabular --env_name Taxi-v3 --num_episodes 5
 ```
 
 Recursos:

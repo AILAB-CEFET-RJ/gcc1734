@@ -39,7 +39,7 @@ class AgentPlaySpec:
 
 
 def _tabular_default_model(env_name: str) -> str:
-    return f"{env_name.lower()}-tql-agent.pkl"
+    return f"{env_name.lower()}-tabular-agent.pkl"
 
 
 def _linear_default_model(env_name: str) -> str:
