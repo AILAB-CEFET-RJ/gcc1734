@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "gcc1734"
 version = "0.1.0"
-description = "Reinforcement learning experiments and utilities for the gcc1734 project."
+description = "Example code for the GCC1734 course."
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = []

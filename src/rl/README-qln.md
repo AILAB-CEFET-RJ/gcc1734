@@ -42,9 +42,10 @@ pip install --no-build-isolation -e .  # adicione --user se precisar
 python -m rl.ql_train \
   --agent neural \
   --env_name Taxi-v3 \
-  --num_episodes 5000 \
-  --hidden_dim 128 \
-  --batch_size 128 \
+  --num_episodes 8000 \
+  --max_steps 400 \
+	--learning_rate 0.002 \
+	--epsilon_decay_rate 0.0001 \
   --plot
 ```
 
@@ -55,7 +56,7 @@ Parâmetros específicos da versão neural:
 | `--hidden_dim` | Número de neurônios nas camadas ocultas da MLP | `64` |
 | `--batch_size` | Tamanho do minibatch amostrado do replay buffer | `64` |
 | `--max_steps` | Limite de passos por episódio (controla coleta de experiências) | `500` |
-| `--decay_rate` | Taxa de decaimento exponencial de ε | `0.0005` |
+| `--epsilon_decay_rate` | Taxa de decaimento exponencial de ε | `0.0005` |
 | `--learning_rate` | Taxa de aprendizado do otimizador Adam | `0.001` |
 | `--train_every` | (definido em código: 4) número de passos entre atualizações da rede |
 | `--seed` | Controle de reprodutibilidade | `42` |
