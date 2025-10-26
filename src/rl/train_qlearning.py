@@ -18,7 +18,7 @@ if __package__ is None or __package__ == "":
 
 from rl.environment_blackjack import BlackjackEnvironment
 from rl.environment_taxi import TaxiEnvironment
-from rl.qln import QLearningAgentReplay as QLearningAgentNeural
+from rl.qln import QLearningAgentNeural as QLearningAgentNeural
 from rl.qll import QLearningAgentLinear
 from rl.qlt import QLearningAgentTabular
 
@@ -98,14 +98,16 @@ class AgentSpec:
     basename_fn: Callable[[str], str]
     filename_fn: Callable[[str], str]
     label: str
+    default_min_epsilon: float
+    default_max_epsilon: float
 
 
 def _build_tabular(env, args: argparse.Namespace) -> QLearningAgentTabular:
     return QLearningAgentTabular(
         env=env,
-        decay_rate=args.decay_rate,
         learning_rate=args.learning_rate,
         gamma=args.gamma,
+        epsilon_decay_rate=args.epsilon_decay_rate,
         min_epsilon=args.min_epsilon,
         max_epsilon=args.max_epsilon,
         verbose=not args.quiet,
@@ -115,20 +117,27 @@ def _build_tabular(env, args: argparse.Namespace) -> QLearningAgentTabular:
 def _build_linear(env, args: argparse.Namespace) -> QLearningAgentLinear:
     return QLearningAgentLinear(
         gym_env=env,
-        epsilon_decay_rate=args.decay_rate,
         learning_rate=args.learning_rate,
         gamma=args.gamma,
+        epsilon_decay_rate=args.epsilon_decay_rate,
+        min_epsilon=args.min_epsilon,
+        max_epsilon=args.max_epsilon,
     )
 
 
 def _build_neural(env, args: argparse.Namespace) -> QLearningAgentNeural:
     return QLearningAgentNeural(
         gym_env=env,
-        epsilon_decay_rate=args.decay_rate,
         learning_rate=args.learning_rate,
         gamma=args.gamma,
         hidden_dim=args.hidden_dim,
         batch_size=args.batch_size,
+        epsilon_decay_rate=args.epsilon_decay_rate,
+        min_epsilon=args.min_epsilon,
+        max_epsilon=args.max_epsilon,
+        checkpoint_dir=args.checkpoint_dir,
+        checkpoint_interval=args.checkpoint_every if args.checkpoint_every else None,
+        checkpoint_prefix=args.checkpoint_prefix or getattr(args, "model_base_name", None),
     )
 
 
@@ -136,9 +145,11 @@ AGENT_REGISTRY: MutableMapping[str, AgentSpec] = {
     "tabular": AgentSpec(
         build_agent=_build_tabular,
         train_agent=_train_tabular,
-        basename_fn=lambda env_name: f"{env_name.lower()}-tql",
-        filename_fn=lambda base: f"{base}-agent.pkl",
+        basename_fn=lambda env_name: f"{env_name.lower()}-tabular-agent",
+        filename_fn=lambda base: f"{base}.pkl",
         label="Tabular",
+        default_min_epsilon=0.01,
+        default_max_epsilon=1.0,
     ),
     "linear": AgentSpec(
         build_agent=_build_linear,
@@ -146,6 +157,8 @@ AGENT_REGISTRY: MutableMapping[str, AgentSpec] = {
         basename_fn=lambda env_name: f"{env_name.lower()}-linear-agent",
         filename_fn=lambda base: f"{base}.pkl",
         label="Linear",
+        default_min_epsilon=0.05,
+        default_max_epsilon=1.0,
     ),
     "neural": AgentSpec(
         build_agent=_build_neural,
@@ -153,22 +166,19 @@ AGENT_REGISTRY: MutableMapping[str, AgentSpec] = {
         basename_fn=lambda env_name: f"{env_name.lower()}-neural-agent",
         filename_fn=lambda base: f"{base}.pkl",
         label="Neural",
+        default_min_epsilon=0.05,
+        default_max_epsilon=1.0,
     ),
 }
 
-AGENT_ALIASES: Dict[str, str] = {
-    "replay": "neural",
-}
-
-
 def _prepare_parser() -> argparse.ArgumentParser:
-    agent_choices = sorted(set(AGENT_REGISTRY.keys()) | set(AGENT_ALIASES.keys()))
+    agent_choices = sorted(set(AGENT_REGISTRY.keys()))
     parser = argparse.ArgumentParser(description="Train Q-Learning agents (tabular, linear, neural)")
     parser.add_argument("--agent", choices=agent_choices, default="tabular",
-                        help="Agent variant to train (alias: replay -> neural)")
+                        help="Agent variant to train")
     parser.add_argument("--env_name", type=str, default="Taxi-v3", help="Environment name")
     parser.add_argument("--num_episodes", type=int, default=6000, help="Number of training episodes")
-    parser.add_argument("--decay_rate", type=float, default=0.0001, help="Epsilon decay rate")
+    parser.add_argument("--epsilon_decay_rate", type=float, default=0.0001, help="Epsilon decay rate")
     parser.add_argument("--learning_rate", type=float, default=0.7, help="Learning rate (alpha)")
     parser.add_argument("--gamma", type=float, default=0.618, help="Discount factor (gamma)")
     parser.add_argument("--seed", type=int, default=42, help="Random seed for reproducibility")
@@ -182,10 +192,16 @@ def _prepare_parser() -> argparse.ArgumentParser:
                         help="Mini-batch size for neural agents")
     parser.add_argument("--hidden_dim", type=int, default=64,
                         help="Hidden layer size for approximate agents")
-    parser.add_argument("--min_epsilon", type=float, default=0.01,
-                        help="Minimum epsilon during training (tabular agent)")
-    parser.add_argument("--max_epsilon", type=float, default=1.0,
-                        help="Maximum epsilon during training (tabular agent)")
+    parser.add_argument("--min_epsilon", type=float, default=None,
+                        help="Minimum epsilon during training (default depends on agent)")
+    parser.add_argument("--max_epsilon", type=float, default=None,
+                        help="Maximum epsilon during training (default depends on agent)")
+    parser.add_argument("--checkpoint_dir", type=str, default=None,
+                        help="Directory to store intermediate checkpoints (neural agent only)")
+    parser.add_argument("--checkpoint_every", type=int, default=0,
+                        help="Number of episodes between neural checkpoints")
+    parser.add_argument("--checkpoint_prefix", type=str, default=None,
+                        help="Filename prefix for neural checkpoints (defaults to model base name)")
     return parser
 
 
@@ -263,8 +279,17 @@ def main(argv: Optional[List[str]] = None) -> int:
     env.reset(seed=args.seed)
     env = environment_dict[args.env_name](env)
 
-    agent_key = AGENT_ALIASES.get(args.agent, args.agent)
-    agent_spec = AGENT_REGISTRY[agent_key]
+    agent_spec = AGENT_REGISTRY[args.agent]
+    base_name = agent_spec.basename_fn(args.env_name)
+    args.model_base_name = base_name
+
+    min_epsilon = agent_spec.default_min_epsilon if args.min_epsilon is None else args.min_epsilon
+    max_epsilon = agent_spec.default_max_epsilon if args.max_epsilon is None else args.max_epsilon
+    if max_epsilon < min_epsilon:
+        raise ValueError(f"max_epsilon ({max_epsilon}) cannot be smaller than min_epsilon ({min_epsilon})")
+    args.min_epsilon = min_epsilon
+    args.max_epsilon = max_epsilon
+
     agent = agent_spec.build_agent(env, args)
 
     print(f"\nTraining {agent_spec.label} Q-Learning agent on {args.env_name}...\n")
@@ -274,7 +299,6 @@ def main(argv: Optional[List[str]] = None) -> int:
     elapsed = timer() - start
     print(f"\nTraining finished in {elapsed:.2f} seconds.\n")
 
-    base_name = agent_spec.basename_fn(args.env_name)
     model_path = agent_spec.filename_fn(base_name)
     agent.save(model_path)
     print(f"Saved agent to {model_path}")

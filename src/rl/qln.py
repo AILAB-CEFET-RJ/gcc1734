@@ -1,4 +1,6 @@
 import random
+from pathlib import Path
+from typing import Optional
 import numpy as np
 import torch
 import torch.nn as nn
@@ -39,21 +41,26 @@ class QNetwork(nn.Module):
 # ============================================================
 #  Agente DQN simplificado com Replay e vetorização
 # ============================================================
-class QLearningAgentReplay:
+class QLearningAgentNeural:
     """
     Q-Learning com aproximação neural, experience replay
     e vetorização no cálculo de Q(s,a).
     """
     def __init__(self,
                  gym_env: Environment,
-                 epsilon_decay_rate: float,
                  learning_rate: float,
                  gamma: float,
                  hidden_dim: int = 64,
                  replay_size: int = 50000,
                  batch_size: int = 64,
                  train_every: int = 4,
-                 device: str = None):
+                 device: str = None,
+                 epsilon_decay_rate: float = 0.003,
+                 min_epsilon: float = 0.05,
+                 max_epsilon: float = 1.0,
+                 checkpoint_dir: Optional[str] = None,
+                 checkpoint_interval: Optional[int] = None,
+                 checkpoint_prefix: Optional[str] = None):
 
         self.env = gym_env
         env_name = getattr(self.env, "get_id", lambda: None)()
@@ -71,9 +78,9 @@ class QLearningAgentReplay:
 
         self.gamma = gamma
         self.learning_rate = learning_rate
-        self.epsilon = 1.0
-        self.max_epsilon = 1.0
-        self.min_epsilon = 0.05
+        self.epsilon = max_epsilon
+        self.max_epsilon = max_epsilon
+        self.min_epsilon = min_epsilon
         self.epsilon_decay_rate = epsilon_decay_rate
         self.epsilon_history = []
         self.steps = 0
@@ -82,6 +89,12 @@ class QLearningAgentReplay:
         self.replay_buffer = deque(maxlen=replay_size)
         self.batch_size = batch_size
         self.train_every = train_every
+        self.checkpoint_interval = checkpoint_interval if checkpoint_interval and checkpoint_interval > 0 else None
+        self.checkpoint_dir = Path(checkpoint_dir) if checkpoint_dir else None
+        default_prefix = env_name.lower() if isinstance(env_name, str) else "checkpoint"
+        self.checkpoint_prefix = checkpoint_prefix or default_prefix
+        if self.checkpoint_dir:
+            self.checkpoint_dir.mkdir(parents=True, exist_ok=True)
 
     # =========================================================
     # Seleção de ações
@@ -189,6 +202,7 @@ class QLearningAgentReplay:
             rewards_per_episode.append(total_reward)
             penalties_per_episode.append(total_penalties)
             cumulative_success.append(successful_episodes)
+            self._maybe_checkpoint(episode)
 
             if episode % 50 == 0:
                 elapsed = timer() - start_time
@@ -209,6 +223,25 @@ class QLearningAgentReplay:
     # =========================================================
     # Utilitários
     # =========================================================
+    def _should_checkpoint(self, episode: int) -> bool:
+        return (
+            self.checkpoint_dir is not None
+            and self.checkpoint_interval is not None
+            and (episode + 1) % self.checkpoint_interval == 0
+        )
+
+    def _checkpoint_path(self, episode: int) -> Path:
+        filename = f"{self.checkpoint_prefix}-ep{episode + 1:05d}.pkl"
+        if self.checkpoint_dir is None:
+            raise RuntimeError("Checkpoint directory not configured")
+        return self.checkpoint_dir / filename
+
+    def _maybe_checkpoint(self, episode: int) -> None:
+        if not self._should_checkpoint(episode):
+            return
+        path = self._checkpoint_path(episode)
+        self.save(path)
+
     def save(self, filename):
         with open(filename, "wb") as f:
             pickle.dump({
@@ -225,7 +258,7 @@ class QLearningAgentReplay:
     @staticmethod
     def load_agent(filename, gym_env):
         checkpoint = pickle.load(open(filename, "rb"))
-        agent = QLearningAgentReplay(
+        agent = QLearningAgentNeural(
             gym_env=gym_env,
             epsilon_decay_rate=checkpoint["params"]["epsilon_decay_rate"],
             learning_rate=checkpoint["params"]["learning_rate"],

@@ -41,6 +41,8 @@ Cada subdiretório relevante contém um README específico com detalhes adiciona
 
 ## Exemplos rápidos
 
+- Todos os comandos abaixo devem ser executados a partir da raiz do projeto (`~/ailab/gcc1734`) depois de ativar o ambiente e instalar o pacote.
+
 - **Treinar agente tabular Taxi-v3**
   ```bash
   python -m rl.train_qlearning --agent tabular --env_name Taxi-v3 --num_episodes 8000
@@ -49,6 +51,11 @@ Cada subdiretório relevante contém um README específico com detalhes adiciona
 - **Treinar agente neural (MLP + replay)**
   ```bash
   python -m rl.train_qlearning --agent neural --env_name Taxi-v3 --num_episodes 5000 --plot
+  ```
+
+- **Executar agente treinado**
+  ```bash
+  python -m rl.play_qlearning --agent tabular --env_name Taxi-v3 --num_episodes 5
   ```
 
 - **Executar notebooks**

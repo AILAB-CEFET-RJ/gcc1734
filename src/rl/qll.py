@@ -20,9 +20,11 @@ class QLearningAgentLinear:
 
     def __init__(self,
                  gym_env: Environment,
-                 epsilon_decay_rate: float,
                  learning_rate: float,
-                 gamma: float):
+                 gamma: float,
+                 epsilon_decay_rate: float = 0.003,
+                 min_epsilon: float = 0.05,
+                 max_epsilon: float = 1.0):
         self.env = gym_env
         env_name = getattr(self.env, "get_id", lambda: None)()
 
@@ -35,9 +37,9 @@ class QLearningAgentLinear:
         self.w = np.random.uniform(-0.2, 0.2, size=self.fex.get_num_features())
 
         self.steps = 0
-        self.epsilon = 1.0
-        self.max_epsilon = 1.0
-        self.min_epsilon = 0.05
+        self.epsilon = max_epsilon
+        self.max_epsilon = max_epsilon
+        self.min_epsilon = min_epsilon
         self.epsilon_decay_rate = epsilon_decay_rate
         self.learning_rate = learning_rate
         self.gamma = gamma

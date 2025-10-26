@@ -14,9 +14,9 @@ class QLearningAgentTabular:
     def __init__(
         self, 
         env: Environment, 
-        decay_rate: float, 
         learning_rate: float, 
         gamma: float,
+        epsilon_decay_rate: float, 
         min_epsilon: float = 0.01,
         max_epsilon: float = 1.0,
         verbose: bool = True
@@ -26,7 +26,7 @@ class QLearningAgentTabular:
         self.epsilon = max_epsilon
         self.max_epsilon = max_epsilon
         self.min_epsilon = min_epsilon
-        self.decay_rate = decay_rate
+        self.decay_rate = epsilon_decay_rate
         self.learning_rate = learning_rate
         self.gamma = gamma
         self.epsilons_ = []

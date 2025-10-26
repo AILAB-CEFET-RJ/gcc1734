@@ -11,8 +11,7 @@ Implementações e utilitários para **Q-Learning com aproximação linear** uti
 | `qll.py` | Classe `QLearningAgentLinear` com política ε-greedy, atualização incremental sobre pesos `w` e *clipping* de erro temporal. |
 | `qll_taxi_feature_extractor.py` / `qll_blackjack_feature_extractor.py` | Extratores de *features* responsáveis por transformar observações em vetores densos. |
 | `train_qlearning.py` | Script genérico de treinamento para todas as variantes (tabular, linear, neural). |
-| `qll_train.py` | Wrapper de compatibilidade que injeta `--agent linear` se nenhum agente for informado. |
-| `qll_play.py` | Reproduz políticas treinadas com renderização opcional. |
+| `play_qlearning.py` | Runner genérico; use `--agent linear` (ou `--agent neural`) para reproduzir políticas aproximadas. |
 
 ---
 
@@ -31,6 +30,8 @@ Com o pacote instalado, os módulos podem ser referenciados como `rl.qll`, `rl.q
 ---
 
 ## Treinamento
+
+> Execute os comandos a partir da raiz do repositório (`~/ailab/gcc1734`) com o ambiente ativado.
 
 ```bash
 python -m rl.train_qlearning \
@@ -54,16 +55,6 @@ Parâmetros úteis (padrões em parênteses):
 | `--seed` (`42`) | Controle de aleatoriedade. |
 | `--plot` | Abre os gráficos ao final do treinamento. |
 
-Para manter scripts antigos, é possível rodar diretamente:
-
-```bash
-python src/rl/qll_train.py --env_name Taxi-v3 --num_episodes 8000
-```
-
-Esse comando converte automaticamente `--agent_type linear` das versões anteriores para o novo formato.
-
----
-
 ## Artefatos produzidos
 
 | Arquivo | Conteúdo |
@@ -80,13 +71,13 @@ Os nomes mudam conforme `env_name` e tipo de agente.
 ## Execução do agente
 
 ```bash
-python src/rl/qll_play.py --env_name Taxi-v3 --num_episodes 5 --render
+python -m rl.play_qlearning --agent linear --env_name Taxi-v3 --num_episodes 5
 ```
 
 Funcionalidades:
 
-- Valida a existência de `*-linear-agent.pkl`.
-- Utiliza `render_mode="human"` quando o backend suporta, ou `render_mode="ansi"` (texto).
+- Carrega automaticamente `*-linear-agent.pkl` (ou utilize `--model_path`).
+- Utiliza `render_mode="human"` quando o backend suporta, ou `render_mode="ansi"` (texto). Acrescente `--render` para exibir o ambiente.
 - Interpreta ações com `policy(state)` (sem exploração) e gera estatísticas de recompensa média e passos por episódio.
 
 ---

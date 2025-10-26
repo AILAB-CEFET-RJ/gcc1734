@@ -11,7 +11,6 @@ Este material descreve a versão com **rede neural (MLP) + Experience Replay** d
 | `qln.py` | Define `QLearningAgentReplay`: rede feed-forward (duas camadas ocultas, ReLU), *replay buffer* e política ε-greedy com decaimento exponencial. |
 | `qll_taxi_feature_extractor.py` / `qll_blackjack_feature_extractor.py` | Reuso dos extratores de *features* para gerar vetores de entrada da MLP. |
 | `train_qlearning.py` | CLI unificado para treinar agentes tabular, linear e neural (`--agent neural`). |
-| `qll_train.py` | Wrapper de compatibilidade; aceita tanto `--agent neural` quanto o alias legado `--agent replay`. |
 
 ---
 
@@ -37,6 +36,8 @@ pip install --no-build-isolation -e .  # adicione --user se precisar
 
 ## Como treinar
 
+> Execute os comandos a partir da raiz do repositório (`~/ailab/gcc1734`) com o ambiente ativado.
+
 ```bash
 python -m rl.train_qlearning \
   --agent neural \
@@ -59,14 +60,6 @@ Parâmetros específicos da versão neural:
 | `--train_every` | (definido em código: 4) número de passos entre atualizações da rede |
 | `--seed` | Controle de reprodutibilidade | `42` |
 
-Comandos legados ainda funcionam graças ao alias `--agent replay`:
-
-```bash
-python src/rl/qll_train.py --agent neural --env_name Taxi-v3
-```
-
----
-
 ## Artefatos gerados
 
 - `taxi-v3-neural-agent.pkl` – checkpoint contendo pesos do modelo, otimizador e hiperparâmetros de ε.
@@ -80,13 +73,13 @@ Os nomes refletem o ambiente (`env_name`) utilizado.
 
 ## Avaliação
 
-A versão neural compartilha o mesmo script de “play” do agente linear (`qll_play.py`), pois ambos usam `policy(state)` para selecionar ações sem exploração. Carregue o checkpoint e avalie:
+Utilize o runner genérico para reexecutar a política aprendida:
 
 ```bash
-python src/rl/qll_play.py --env_name Taxi-v3 --max_steps 500 --render
+python -m rl.play_qlearning --agent neural --env_name Taxi-v3 --num_episodes 5 --max_steps 500
 ```
 
-> Para ambientes que suportam renderização gráfica (ex.: Taxi-v3), use `--render`. Caso contrário, será usada saída textual (`ansi`).
+> Acrescente `--render` para visualizar o ambiente. Caso o backend não suporte renderização gráfica, será usada saída textual (`ansi`).
 
 ---
 
