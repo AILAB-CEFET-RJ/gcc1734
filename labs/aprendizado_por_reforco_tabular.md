@@ -183,5 +183,5 @@ Ao final do tempo, cada grupo deve entregar:
 - as contas dos itens numéricos
 - uma justificativa curta, mas clara, para as perguntas conceituais
 
-Se sobrar tempo, comparem as respostas entre grupos e identifiquem em quais
-itens houve maior divergência de interpretação.
+Cada grupo deve produzir um único notebook Jupyter.
+Cada componente do grupo deve submeter o mesmo notebok Jupyter produzido durante a aula.
