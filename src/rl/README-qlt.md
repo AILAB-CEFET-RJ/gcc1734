@@ -51,7 +51,8 @@ Flags úteis (padrões entre parênteses):
 | `--num_episodes N` (`6000`) | Total de episódios de treinamento. |
 | `--learning_rate LR` (`0.7`) | Fator α de atualização. |
 | `--gamma G` (`0.618`) | Fator de desconto. |
-| `--decay_rate D` (`0.0001`) | Taxa do decaimento exponencial de ε. |
+| `--epsilon_decay_rate D` (`0.0001`) | Taxa do decaimento exponencial de ε. |
+| `--max_steps` (`500`) | Limite de passos por episódio. |
 | `--min_epsilon` (`0.01`) / `--max_epsilon` (`1.0`) | Limites de exploração. |
 | `--seed` (`42`) | Reprodutibilidade. |
 | `--plot` | Exibe gráficos ao fim do treinamento. |
@@ -63,12 +64,14 @@ Após o treinamento, são gravados no diretório atual:
 
 | Arquivo | Conteúdo |
 | ------- | -------- |
-| `taxi-v3-tql-agent.pkl` | Agente treinado (pickle). |
-| `taxi-v3-tql-learning_curve.png` | Série de recompensas por episódio com suavização de Savitzky-Golay. |
-| `taxi-v3-tql-epsilons.png` | Decaimento de ε. |
-| `taxi-v3-tql-summary.png` | Recompensas e ε lado a lado. |
+| `taxi-v3-tabular-agent.pkl` | Agente treinado (pickle). |
+| `taxi-v3-tabular-agent-learning_curve.png` | Série de recompensas por episódio com suavização de Savitzky-Golay. |
+| `taxi-v3-tabular-agent-epsilons.png` | Decaimento de ε. |
+| `taxi-v3-tabular-agent-summary.png` | Recompensas e ε lado a lado. |
 
 Os prefixos mudam conforme o ambiente selecionado.
+
+Ao fim do treinamento, o script também imprime um sumário com tempo total, recompensas média/melhor/pior, média recente, penalidades recentes, episódios bem-sucedidos e ε final.
 
 ---
 
@@ -80,7 +83,7 @@ python -m rl.ql_play --agent tabular --env_name Taxi-v3 --num_episodes 5
 
 Recursos:
 
-- Carrega automaticamente `*-tql-agent.pkl` (ajuste `--model_path` se necessário).
+- Carrega automaticamente `*-tabular-agent.pkl` (ajuste `--model_path` se necessário).
 - Recria o ambiente com `render_mode="human"` (GUI quando suportado) ou `render_mode="ansi"` (texto).
 - Executa múltiplos episódios, imprime métricas agregadas; utilize `--render` para visualizar o ambiente.
 

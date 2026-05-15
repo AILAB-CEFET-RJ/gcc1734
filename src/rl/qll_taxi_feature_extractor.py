@@ -14,13 +14,14 @@ class Actions:
 
 class TaxiFeatureExtractor(FeatureExtractor):
     """
-    Enhanced feature extractor for the Taxi-v3 environment.
+    Feature extractor for Taxi-v3 designed for didactic linear approximation.
 
-    Key additions:
-    - Directional features (Δx, Δy) from taxi to passenger.
-    - Exponential epsilon decay compatibility.
-    - Scaled features with stronger contrast (tanh-based).
-    - Bias-centered spatial coordinates for smoother gradients.
+    The features focus on the main structure of the task:
+    - where the taxi is;
+    - whether the passenger is already onboard;
+    - how far the taxi is from the current objective;
+    - whether pickup/drop actions are correct or illegal;
+    - whether a movement attempts to cross a wall.
     """
 
     __actions_one_hot_encoding = {
@@ -41,15 +42,24 @@ class TaxiFeatureExtractor(FeatureExtractor):
             self.f_bias,
             self.f_pos_row,
             self.f_pos_col,
+            self.f_passenger_onboard,
+            self.f_target_is_passenger,
+            self.f_target_is_destination,
             self.f_dx_passenger,
             self.f_dy_passenger,
-            self.f_dist_taxi_to_passenger,
-            self.f_dist_taxi_to_destiny,
+            self.f_dx_destination,
+            self.f_dy_destination,
+            self.f_dist_to_current_target,
             self.f_pick_correct,
             self.f_drop_correct,
-            self.f_wrong_boarding,
+            self.f_illegal_pick,
+            self.f_illegal_drop,
             self.f_wall_bump
         ]
+        for location_id in range(4):
+            self.features_list.append(self._make_passenger_location_feature(location_id))
+        for location_id in range(4):
+            self.features_list.append(self._make_destination_location_feature(location_id))
 
     # ============================================================
     # Dimensionalidade
@@ -79,9 +89,6 @@ class TaxiFeatureExtractor(FeatureExtractor):
         """
         base_f = np.array([f(state, action) for f in self.features_list], dtype=float)
 
-        # Amplia contraste e mantém estabilidade
-        base_f = np.tanh(base_f * 5.0)
-
         one_hot = self.get_action_one_hot_encoded(action)
         full_vector = np.kron(one_hot, base_f)
 
@@ -104,38 +111,53 @@ class TaxiFeatureExtractor(FeatureExtractor):
         _, c, _, _ = self.env.unwrapped.decode(state)
         return (c - 2) / 2.0  # centralizado em 0
 
-    # --- Novas features direcionais ---
+    def f_passenger_onboard(self, state, action):
+        _, _, p, _ = self.env.unwrapped.decode(state)
+        return 1.0 if p == 4 else 0.0
+
+    def f_target_is_passenger(self, state, action):
+        _, _, p, _ = self.env.unwrapped.decode(state)
+        return 1.0 if p < 4 else 0.0
+
+    def f_target_is_destination(self, state, action):
+        _, _, p, _ = self.env.unwrapped.decode(state)
+        return 1.0 if p == 4 else 0.0
+
     def f_dx_passenger(self, state, action):
-        """Diferença horizontal (direção) entre táxi e passageiro."""
         l, c, p, _ = self.env.unwrapped.decode(state)
         taxi = (l, c)
         passenger = (l, c) if p == 4 else special_locations_dict[p]
         dx = passenger[1] - taxi[1]
-        return np.tanh(dx / 2.0)
+        return dx / 4.0
 
     def f_dy_passenger(self, state, action):
-        """Diferença vertical (direção) entre táxi e passageiro."""
         l, c, p, _ = self.env.unwrapped.decode(state)
         taxi = (l, c)
         passenger = (l, c) if p == 4 else special_locations_dict[p]
         dy = passenger[0] - taxi[0]
-        return np.tanh(dy / 2.0)
+        return dy / 4.0
 
-    def f_dist_taxi_to_passenger(self, state, action):
-        """Distância de Manhattan inversa entre táxi e passageiro."""
-        l, c, p, _ = self.env.unwrapped.decode(state)
-        taxi = (l, c)
-        passenger = (l, c) if p == 4 else special_locations_dict[p]
-        dist = self.__manhattanDistance(taxi, passenger)
-        return 1.0 / (dist + 0.5)
-
-    def f_dist_taxi_to_destiny(self, state, action):
-        """Distância de Manhattan inversa entre táxi e destino."""
-        l, c, p, d = self.env.unwrapped.decode(state)
+    def f_dx_destination(self, state, action):
+        l, c, _, d = self.env.unwrapped.decode(state)
         taxi = (l, c)
         dest = self.env.unwrapped.locs[d]
-        dist = self.__manhattanDistance(taxi, dest)
-        return 1.0 / (dist + 0.5)
+        dx = dest[1] - taxi[1]
+        return dx / 4.0
+
+    def f_dy_destination(self, state, action):
+        l, c, _, d = self.env.unwrapped.decode(state)
+        taxi = (l, c)
+        dest = self.env.unwrapped.locs[d]
+        dy = dest[0] - taxi[0]
+        return dy / 4.0
+
+    def f_dist_to_current_target(self, state, action):
+        l, c, p, _ = self.env.unwrapped.decode(state)
+        taxi = (l, c)
+        _, _, _, d = self.env.unwrapped.decode(state)
+        target = self.env.unwrapped.locs[d] if p == 4 else special_locations_dict[p]
+        dist = self.__manhattanDistance(taxi, target)
+        return dist / 8.0
 
     def f_pick_correct(self, state, action):
         l, c, p, _ = self.env.unwrapped.decode(state)
@@ -149,11 +171,21 @@ class TaxiFeatureExtractor(FeatureExtractor):
             return 1.0 if (l, c) == self.env.unwrapped.locs[d] else 0.0
         return 0.0
 
-    def f_wrong_boarding(self, state, action):
-        l, c, p, d = self.env.unwrapped.decode(state)
-        if p == 4 and action == Actions.PICK:
+    def f_illegal_pick(self, state, action):
+        l, c, p, _ = self.env.unwrapped.decode(state)
+        if action != Actions.PICK:
+            return 0.0
+        if p == 4:
             return 1.0
-        if p < 4 and action == Actions.DROP:
+        return 0.0 if (l, c) == self.env.unwrapped.locs[p] else 1.0
+
+    def f_illegal_drop(self, state, action):
+        l, c, p, d = self.env.unwrapped.decode(state)
+        if action != Actions.DROP:
+            return 0.0
+        if p != 4:
+            return 1.0
+        if (l, c) != self.env.unwrapped.locs[d]:
             return 1.0
         return 0.0
 
@@ -170,6 +202,18 @@ class TaxiFeatureExtractor(FeatureExtractor):
                         ((l == 3) and (c == 2) and (action == Actions.RIGHT)) or \
                         ((l == 3) and (c == 3) and (action == Actions.LEFT))
         return 1.0 if (border_bump or internal_bump) else 0.0
+
+    def _make_passenger_location_feature(self, location_id):
+        def feature(state, action):
+            _, _, p, _ = self.env.unwrapped.decode(state)
+            return 1.0 if p == location_id else 0.0
+        return feature
+
+    def _make_destination_location_feature(self, location_id):
+        def feature(state, action):
+            _, _, _, d = self.env.unwrapped.decode(state)
+            return 1.0 if d == location_id else 0.0
+        return feature
 
     # ============================================================
     # Auxiliar

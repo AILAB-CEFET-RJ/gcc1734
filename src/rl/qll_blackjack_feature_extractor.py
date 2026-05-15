@@ -19,7 +19,12 @@ class BlackjackFeatureExtractor(FeatureExtractor):
     self.env = env
     self.features_list = []
     self.features_list.append(self.f0)
-    self.features_list.append(self.f1)
+    self.features_list.append(self.f_player_sum_norm)
+    self.features_list.append(self.f_dealer_card_norm)
+    self.features_list.append(self.f_usable_ace)
+    self.features_list.append(self.f_player_high_total)
+    self.features_list.append(self.f_dealer_strong_card)
+    self.features_list.append(self.f_safe_hit_margin)
 
   def get_num_features(self):
     '''
@@ -72,8 +77,29 @@ class BlackjackFeatureExtractor(FeatureExtractor):
     '''
     return 1.0
 
-  def f1(self, state, action):
-    # Implemente esta e outras features que achar adequadas.
-    return 0 
+  def f_player_sum_norm(self, state, action):
+    player_sum, _, _ = state
+    return player_sum / 21.0
 
+  def f_dealer_card_norm(self, state, action):
+    _, dealer_card, _ = state
+    return dealer_card / 10.0
+
+  def f_usable_ace(self, state, action):
+    _, _, usable_ace = state
+    return 1.0 if usable_ace else 0.0
+
+  def f_player_high_total(self, state, action):
+    player_sum, _, _ = state
+    return 1.0 if player_sum >= 17 else 0.0
+
+  def f_dealer_strong_card(self, state, action):
+    _, dealer_card, _ = state
+    return 1.0 if dealer_card >= 7 else 0.0
+
+  def f_safe_hit_margin(self, state, action):
+    player_sum, _, usable_ace = state
+    threshold = 21 if usable_ace else 17
+    margin = max(0, threshold - player_sum)
+    return margin / 10.0
 

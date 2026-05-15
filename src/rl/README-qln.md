@@ -1,6 +1,6 @@
 # Neural Q-Learning
 
-Este material descreve a versão com **rede neural (MLP) + Experience Replay** do agente de Q-Learning usado na disciplina **GCC1734 – Inteligência Artificial (CEFET/RJ)**. A implementação utiliza PyTorch para aproximar \(Q(s,a)\) e compartilha o mesmo fluxo de execução do restante do pacote `rl`.
+Este material descreve a versão com **rede neural (MLP) + Experience Replay** do agente de Q-Learning usado na disciplina **GCC1734 – Inteligência Artificial (CEFET/RJ)**. A implementação utiliza PyTorch para aproximar \(Q(s,a)\), reaproveita os mesmos extratores de *features* da versão linear e compartilha o mesmo fluxo de execução do restante do pacote `rl`.
 
 ---
 
@@ -8,9 +8,30 @@ Este material descreve a versão com **rede neural (MLP) + Experience Replay** d
 
 | Arquivo | Papel |
 | ------- | ----- |
-| `qln.py` | Define `QLearningAgentReplay`: rede feed-forward (duas camadas ocultas, ReLU), *replay buffer* e política ε-greedy com decaimento exponencial. |
+| `qln.py` | Define `QLearningAgentNeural`: rede feed-forward (duas camadas ocultas, ReLU), *replay buffer* e política ε-greedy com decaimento exponencial. |
 | `qll_taxi_feature_extractor.py` / `qll_blackjack_feature_extractor.py` | Reuso dos extratores de *features* para gerar vetores de entrada da MLP. |
 | `ql_train.py` | CLI unificado para treinar agentes tabular, linear e neural (`--agent neural`). |
+
+---
+
+## Natureza da implementação
+
+Esta versão deve ser entendida como uma **aproximação neural de Q-learning com replay**, próxima de um **DQN simplificado**.
+
+Ela inclui:
+
+- aproximação de `Q(s, a)` por uma MLP;
+- atualização *off-policy* com alvo `r + γ max_a' Q(s', a')`;
+- *experience replay*;
+- perda Huber e *gradient clipping*.
+
+Ela **não** inclui alguns mecanismos clássicos do DQN completo, em particular:
+
+- rede-alvo (*target network*) separada;
+- atualização periódica de pesos-alvo;
+- codificação direta do estado cru do ambiente.
+
+Em vez disso, a rede recebe como entrada vetores de *features* manuais `f(s, a)`, um passo intermediário entre a aproximação linear e um DQN mais completo.
 
 ---
 
@@ -43,9 +64,9 @@ python -m rl.ql_train \
   --agent neural \
   --env_name Taxi-v3 \
   --num_episodes 8000 \
-  --max_steps 400 \
-	--learning_rate 0.002 \
-	--epsilon_decay_rate 0.0001 \
+  --max_steps 500 \
+  --learning_rate 0.001 \
+  --epsilon_decay_rate 0.0005 \
   --plot
 ```
 
@@ -58,6 +79,7 @@ Parâmetros específicos da versão neural:
 | `--max_steps` | Limite de passos por episódio (controla coleta de experiências) | `500` |
 | `--epsilon_decay_rate` | Taxa de decaimento exponencial de ε | `0.0005` |
 | `--learning_rate` | Taxa de aprendizado do otimizador Adam | `0.001` |
+| `--gamma` | Fator de desconto | `0.95` |
 | `--train_every` | (definido em código: 4) número de passos entre atualizações da rede |
 | `--seed` | Controle de reprodutibilidade | `42` |
 
@@ -69,6 +91,8 @@ Parâmetros específicos da versão neural:
 - `taxi-v3-neural-agent-summary.png` – painel com recompensa × ε.
 
 Os nomes refletem o ambiente (`env_name`) utilizado.
+
+Ao fim do treinamento, o script também imprime um sumário com tempo total, recompensas média/melhor/pior, média recente, penalidades recentes, episódios bem-sucedidos e ε final.
 
 ---
 
@@ -89,7 +113,8 @@ python -m rl.ql_play --agent neural --env_name Taxi-v3 --num_episodes 5 --max_st
 - O replay buffer (deque com 50 000 transições) reduz a correlação entre amostras consecutivas e melhora a estabilidade do treinamento.
 - O uso da perda Huber (`SmoothL1Loss`) protege contra outliers no TD error.
 - Gradientes são *clipped* (`max_norm = 5.0`) para evitar explosão.
-- O desempenho depende bastante da escolha de *features*: o extrator para Taxi funciona bem, enquanto Blackjack continua difícil por natureza.
+- Como não há rede-alvo separada, o treinamento é conceitualmente mais simples, mas também menos estável do que em um DQN clássico.
+- O desempenho depende bastante da escolha de *features*: o extrator para Taxi tende a funcionar melhor, enquanto Blackjack continua difícil por natureza.
 
 ---
 

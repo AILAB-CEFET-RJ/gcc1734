@@ -77,13 +77,11 @@ class QLearningAgentLinear:
     # =========================================================
     # Atualização dos pesos
     # =========================================================
-    def update(self, state, action, reward, next_state, terminated):
-        next_value = 0 if terminated else self.get_value(next_state)
+    def update(self, state, action, reward, next_state, done):
+        next_value = 0.0 if done else self.get_value(next_state)
         td_error = reward + self.gamma * next_value - self.get_qvalue(state, action)
-        td_error = np.clip(td_error, -10, 10)
         features = self.get_features(state, action)
         self.w += self.learning_rate * td_error * features
-        self.w = np.clip(self.w, -1e3, 1e3)
 
     # =========================================================
     # Treinamento
@@ -116,7 +114,8 @@ class QLearningAgentLinear:
                 if reward == -10:
                     total_penalties += 1
 
-                self.update(state, action, reward, next_state, terminated)
+                done = terminated or truncated
+                self.update(state, action, reward, next_state, done)
                 total_reward += reward
                 state = next_state
 
@@ -128,9 +127,9 @@ class QLearningAgentLinear:
             if self.steps >= max_steps_per_episode:
                 print(f"[Warning] Episode {episode} reached max_steps ({max_steps_per_episode}).")
 
-            # Atualiza epsilon (decay linear)
-            frac = episode / max(1, num_episodes - 1)
-            self.epsilon = max(self.min_epsilon, self.max_epsilon * (1 - frac))
+            # Decaimento exponencial, consistente com o parâmetro epsilon_decay_rate.
+            self.epsilon = self.min_epsilon + (self.max_epsilon - self.min_epsilon) * \
+                           np.exp(-self.epsilon_decay_rate * episode)
             self.epsilon_history.append(self.epsilon)
 
             if terminated:
@@ -150,8 +149,6 @@ class QLearningAgentLinear:
                 print(f"\tWeight norm: {np.linalg.norm(self.w):.4f}")
                 print(f"\tElapsed: {elapsed:.2f}s\n")
                 start_time = timer()
-
-            if episode == 5000: self.epsilon = 0.2  # reexploração tardia
 
         return {
             "penalties": penalties_per_episode,

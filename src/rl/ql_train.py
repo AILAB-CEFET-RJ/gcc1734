@@ -98,6 +98,10 @@ class AgentSpec:
     basename_fn: Callable[[str], str]
     filename_fn: Callable[[str], str]
     label: str
+    default_learning_rate: float
+    default_gamma: float
+    default_epsilon_decay_rate: float
+    default_max_steps: int
     default_min_epsilon: float
     default_max_epsilon: float
 
@@ -148,6 +152,10 @@ AGENT_REGISTRY: MutableMapping[str, AgentSpec] = {
         basename_fn=lambda env_name: f"{env_name.lower()}-tabular-agent",
         filename_fn=lambda base: f"{base}.pkl",
         label="Tabular",
+        default_learning_rate=0.7,
+        default_gamma=0.618,
+        default_epsilon_decay_rate=0.0001,
+        default_max_steps=500,
         default_min_epsilon=0.01,
         default_max_epsilon=1.0,
     ),
@@ -157,6 +165,10 @@ AGENT_REGISTRY: MutableMapping[str, AgentSpec] = {
         basename_fn=lambda env_name: f"{env_name.lower()}-linear-agent",
         filename_fn=lambda base: f"{base}.pkl",
         label="Linear",
+        default_learning_rate=0.05,
+        default_gamma=0.95,
+        default_epsilon_decay_rate=0.0005,
+        default_max_steps=200,
         default_min_epsilon=0.05,
         default_max_epsilon=1.0,
     ),
@@ -166,6 +178,10 @@ AGENT_REGISTRY: MutableMapping[str, AgentSpec] = {
         basename_fn=lambda env_name: f"{env_name.lower()}-neural-agent",
         filename_fn=lambda base: f"{base}.pkl",
         label="Neural",
+        default_learning_rate=0.001,
+        default_gamma=0.95,
+        default_epsilon_decay_rate=0.0005,
+        default_max_steps=500,
         default_min_epsilon=0.05,
         default_max_epsilon=1.0,
     ),
@@ -178,16 +194,19 @@ def _prepare_parser() -> argparse.ArgumentParser:
                         help="Agent variant to train")
     parser.add_argument("--env_name", type=str, default="Taxi-v3", help="Environment name")
     parser.add_argument("--num_episodes", type=int, default=6000, help="Number of training episodes")
-    parser.add_argument("--epsilon_decay_rate", type=float, default=0.0001, help="Epsilon decay rate")
-    parser.add_argument("--learning_rate", type=float, default=0.7, help="Learning rate (alpha)")
-    parser.add_argument("--gamma", type=float, default=0.618, help="Discount factor (gamma)")
+    parser.add_argument("--epsilon_decay_rate", type=float, default=None,
+                        help="Epsilon decay rate (default depends on agent)")
+    parser.add_argument("--learning_rate", type=float, default=None,
+                        help="Learning rate alpha (default depends on agent)")
+    parser.add_argument("--gamma", type=float, default=None,
+                        help="Discount factor gamma (default depends on agent)")
     parser.add_argument("--seed", type=int, default=42, help="Random seed for reproducibility")
     parser.add_argument("--plot", action="store_true", help="Show plots interactively after training")
     parser.add_argument("--quiet", action="store_true", help="Run without verbose agent logging (tabular only)")
 
     # Agent-specific knobs (optional for tabular)
-    parser.add_argument("--max_steps", type=int, default=500,
-                        help="Maximum steps per episode (most relevant for linear/neural)")
+    parser.add_argument("--max_steps", type=int, default=None,
+                        help="Maximum steps per episode (default depends on agent)")
     parser.add_argument("--batch_size", type=int, default=64,
                         help="Mini-batch size for neural agents")
     parser.add_argument("--hidden_dim", type=int, default=64,
@@ -217,30 +236,26 @@ def _plot_learning_curves(base_name: str,
                           show: bool) -> None:
     smooth_rewards = _safe_savgol(rewards)
 
-    plt.figure(figsize=(10, 4))
-    plt.plot(smooth_rewards, label="Smoothed reward")
-    plt.title(f"Learning Curve ({env_name}, {agent_label})")
-    plt.xlabel("Episode")
-    plt.ylabel("Total Reward")
-    plt.grid(True)
-    plt.legend()
-    plt.tight_layout()
-    plt.savefig(f"{base_name}-learning_curve.png")
-    if show:
-        plt.show()
-    plt.close()
+    fig_reward, ax_reward = plt.subplots(figsize=(10, 4))
+    ax_reward.plot(smooth_rewards, label="Smoothed reward")
+    ax_reward.set_title(f"Learning Curve ({env_name}, {agent_label})")
+    ax_reward.set_xlabel("Episode")
+    ax_reward.set_ylabel("Total Reward")
+    ax_reward.grid(True)
+    ax_reward.legend()
+    fig_reward.tight_layout()
+    fig_reward.savefig(f"{base_name}-learning_curve.png")
+    plt.close(fig_reward)
 
-    plt.figure(figsize=(10, 4))
-    plt.plot(epsilons, color="orange")
-    plt.title(f"Epsilon Decay ({env_name}, {agent_label})")
-    plt.xlabel("Episode")
-    plt.ylabel("ε")
-    plt.grid(True)
-    plt.tight_layout()
-    plt.savefig(f"{base_name}-epsilons.png")
-    if show:
-        plt.show()
-    plt.close()
+    fig_epsilon, ax_epsilon = plt.subplots(figsize=(10, 4))
+    ax_epsilon.plot(epsilons, color="orange")
+    ax_epsilon.set_title(f"Epsilon Decay ({env_name}, {agent_label})")
+    ax_epsilon.set_xlabel("Episode")
+    ax_epsilon.set_ylabel("ε")
+    ax_epsilon.grid(True)
+    fig_epsilon.tight_layout()
+    fig_epsilon.savefig(f"{base_name}-epsilons.png")
+    plt.close(fig_epsilon)
 
     fig, ax = plt.subplots(1, 2, figsize=(10, 4))
     ax[0].plot(smooth_rewards)
@@ -260,6 +275,37 @@ def _plot_learning_curves(base_name: str,
     if show:
         plt.show()
     plt.close()
+
+
+def _print_training_summary(metrics: Dict[str, Iterable[float]],
+                            rewards: np.ndarray,
+                            epsilons: np.ndarray,
+                            elapsed: float,
+                            model_path: str) -> None:
+    def _tail_mean(values: np.ndarray, window: int = 100) -> float:
+        if values.size == 0:
+            return float("nan")
+        return float(np.mean(values[-min(window, values.size):]))
+
+    successes = _to_numpy(metrics.get("successes", []))
+    penalties = _to_numpy(metrics.get("penalties", []))
+
+    print("******** Training Summary ********")
+    print(f"Episodes: {rewards.size}")
+    print(f"Elapsed time: {elapsed:.2f}s")
+    if rewards.size:
+        print(f"Reward mean (all): {float(np.mean(rewards)):.2f}")
+        print(f"Reward mean (last 100): {_tail_mean(rewards):.2f}")
+        print(f"Best reward: {float(np.max(rewards)):.2f}")
+        print(f"Worst reward: {float(np.min(rewards)):.2f}")
+    if penalties.size:
+        print(f"Penalties mean (last 100): {_tail_mean(penalties):.2f}")
+    if successes.size:
+        print(f"Successful episodes: {int(successes[-1])}/{successes.size}")
+    if epsilons.size:
+        print(f"Final epsilon: {float(epsilons[-1]):.4f}")
+    print(f"Saved model: {model_path}")
+    print("**********************************")
 
 
 def main(argv: Optional[List[str]] = None) -> int:
@@ -282,6 +328,14 @@ def main(argv: Optional[List[str]] = None) -> int:
     agent_spec = AGENT_REGISTRY[args.agent]
     base_name = agent_spec.basename_fn(args.env_name)
     args.model_base_name = base_name
+
+    args.learning_rate = agent_spec.default_learning_rate if args.learning_rate is None else args.learning_rate
+    args.gamma = agent_spec.default_gamma if args.gamma is None else args.gamma
+    args.epsilon_decay_rate = (
+        agent_spec.default_epsilon_decay_rate
+        if args.epsilon_decay_rate is None else args.epsilon_decay_rate
+    )
+    args.max_steps = agent_spec.default_max_steps if args.max_steps is None else args.max_steps
 
     min_epsilon = agent_spec.default_min_epsilon if args.min_epsilon is None else args.min_epsilon
     max_epsilon = agent_spec.default_max_epsilon if args.max_epsilon is None else args.max_epsilon
@@ -306,6 +360,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     rewards = _to_numpy(metrics.get("rewards", []))
     epsilons = _to_numpy(metrics.get("epsilons", []))
     _plot_learning_curves(base_name, args.env_name, agent_spec.label, rewards, epsilons, args.plot)
+    _print_training_summary(metrics, rewards, epsilons, elapsed, model_path)
 
     if not args.plot:
         plt.close("all")

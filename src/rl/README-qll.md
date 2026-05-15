@@ -8,7 +8,7 @@ Implementações e utilitários para **Q-Learning com aproximação linear** uti
 
 | Arquivo | Descrição |
 | ------- | --------- |
-| `qll.py` | Classe `QLearningAgentLinear` com política ε-greedy, atualização incremental sobre pesos `w` e *clipping* de erro temporal. |
+| `qll.py` | Classe `QLearningAgentLinear` com política ε-greedy e atualização incremental dos pesos `w` pela regra do Q-learning aproximado. |
 | `qll_taxi_feature_extractor.py` / `qll_blackjack_feature_extractor.py` | Extratores de *features* responsáveis por transformar observações em vetores densos. |
 | `ql_train.py` | Script genérico de treinamento para todas as variantes (tabular, linear, neural). |
 | `ql_play.py` | Runner genérico; use `--agent linear` (ou `--agent neural`) para reproduzir políticas aproximadas. |
@@ -38,7 +38,10 @@ python -m rl.ql_train \
   --agent linear \
   --env_name Taxi-v3 \
   --num_episodes 8000 \
-  --max_steps 500 \
+  --max_steps 300 \
+  --learning_rate 0.05 \
+  --gamma 0.95 \
+  --epsilon_decay_rate 0.001 \
   --plot
 ```
 
@@ -47,13 +50,54 @@ Parâmetros úteis (padrões em parênteses):
 | Flag | Finalidade |
 | ---- | ---------- |
 | `--env_name {Taxi-v3,Blackjack-v1}` (`Taxi-v3`) | Ambiente Gymnasium escolhido. |
-| `--num_episodes N` (`5000`) | Episódios de treinamento. |
-| `--learning_rate LR` (`0.001`) | Taxa de atualização dos pesos. |
+| `--num_episodes N` (`6000`) | Episódios de treinamento. |
+| `--learning_rate LR` (`0.05` para `--agent linear`) | Taxa de atualização dos pesos. |
 | `--gamma G` (`0.95`) | Fator de desconto. |
-| `--decay_rate D` (`0.0005`) | Decaimento de ε para política ε-greedy. |
-| `--max_steps` (`500`) | Limite de passos por episódio. |
+| `--epsilon_decay_rate D` (`0.0005` para `--agent linear`) | Taxa de decaimento exponencial de ε na política ε-greedy. |
+| `--max_steps` (`200` para `--agent linear`) | Limite de passos por episódio. |
 | `--seed` (`42`) | Controle de aleatoriedade. |
 | `--plot` | Abre os gráficos ao final do treinamento. |
+
+## Regra de atualização
+
+O agente implementa a hipótese linear:
+
+```text
+Q(s, a) = w · f(s, a)
+```
+
+e, para cada transição `(s, a, r, s')`, atualiza os pesos segundo:
+
+```text
+δ = r + γ max_a' Q(s', a') - Q(s, a)
+w_i <- w_i + α δ f_i(s, a)
+```
+
+Quando a transição encerra o episódio (`terminated` ou `truncated`), o termo de bootstrap é zerado, isto é, `max_a' Q(s', a') = 0` no alvo TD.
+
+Essa formulação é a mesma apresentada nas notas de aula para Q-learning com aproximação linear.
+
+## Representação por features
+
+O comportamento do agente depende diretamente do extrator `f(s, a)` usado em cada ambiente.
+
+Para `Taxi-v3`, o extrator atual foi simplificado para fins didáticos e inclui:
+
+- posição do táxi no grid;
+- indicador de passageiro a bordo;
+- deslocamentos relativos até o passageiro e até o destino;
+- distância até o alvo da fase atual da tarefa;
+- indicadores de `pickup` correto e `drop` correto;
+- indicadores de `pickup` ilegal, `drop` ilegal e tentativa de atravessar parede.
+
+Essas *features* procuram tornar explícitas as duas fases centrais do problema: buscar o passageiro e, depois, levá-lo ao destino.
+
+Para `Blackjack-v1`, o extrator usa *features* simples e interpretáveis, como:
+
+- soma atual do jogador;
+- carta aberta do dealer;
+- presença de ás utilizável;
+- indicadores binários associados a mãos altas e a carta forte do dealer.
 
 ## Artefatos produzidos
 
@@ -85,7 +129,13 @@ Funcionalidades:
 ## Expectativas de desempenho
 
 - **Taxi-v3**: convergência mais lenta que a versão tabular, mas as recompensas tendem para valores positivos após milhares de episódios. Oscilações são comuns devido à aproximação linear.
-- **Blackjack-v1**: evolução ruidosa, normalmente oscilando em torno de zero. O resultado depende fortemente das *features* escolhidas.
+- **Blackjack-v1**: evolução ruidosa, normalmente oscilando em torno de zero. O resultado depende fortemente das *features* escolhidas; o extrator atual usa atributos simples como soma do jogador, carta aberta do dealer e presença de ás utilizável.
+
+## Observações didáticas
+
+- A versão linear compartilha pesos entre muitos pares `(s, a)`, o que permite generalização, mas também pode induzir generalizações indevidas quando as *features* não capturam distinções importantes do ambiente.
+- Em `Taxi-v3`, a representação combina *features* de estado com codificação por ação, permitindo que a função linear distinga tanto a fase do problema quanto a adequação de ações como `pickup` e `drop`.
+- Em `Blackjack-v1`, as *features* são simples e intencionalmente interpretáveis, mas a qualidade da política aprendida continua bastante sensível à escolha da representação.
 
 ---
 
