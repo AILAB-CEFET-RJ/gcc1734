@@ -1,5 +1,6 @@
 from timeit import default_timer as timer
 import pickle
+from pathlib import Path
 import numpy as np
 from rl.environment import Environment
 
@@ -33,8 +34,8 @@ class QLearningAgentLinear:
 
         self.fex = feature_extractors_dict[env_name](gym_env.env)
 
-        # pesos centrados em zero, compatíveis com as features
-        self.w = np.random.uniform(-0.2, 0.2, size=self.fex.get_num_features())
+        # Inicialização nula deixa o comportamento mais estável e didático.
+        self.w = np.zeros(self.fex.get_num_features(), dtype=float)
 
         self.steps = 0
         self.epsilon = max_epsilon
@@ -165,10 +166,19 @@ class QLearningAgentLinear:
         return self.w.copy()
 
     def save(self, filename):
-        with open(filename, "wb") as f:
+        path = Path(filename)
+        tmp_path = path.with_suffix(path.suffix + ".tmp")
+        with open(tmp_path, "wb") as f:
             pickle.dump(self, f)
+        tmp_path.replace(path)
 
     @staticmethod
     def load_agent(filename):
-        with open(filename, "rb") as f:
-            return pickle.load(f)
+        try:
+            with open(filename, "rb") as f:
+                return pickle.load(f)
+        except (EOFError, pickle.UnpicklingError) as exc:
+            raise ValueError(
+                f"Invalid or corrupted linear agent file: {filename}. "
+                "Retrain the agent to regenerate the checkpoint."
+            ) from exc

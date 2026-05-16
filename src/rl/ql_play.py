@@ -15,7 +15,6 @@ from rl.environment_blackjack import BlackjackEnvironment
 from rl.environment_taxi import TaxiEnvironment
 from rl.qlt import QLearningAgentTabular
 from rl.qll import QLearningAgentLinear
-from rl.qln import QLearningAgentNeural
 
 
 EnvironmentWrapper = Callable[[gym.Env], object]
@@ -59,6 +58,11 @@ def _select_action_policy(agent, _env, state) -> int:
     return int(agent.policy(state))
 
 
+def _load_neural_agent(path, env, **_):
+    from rl.qln import QLearningAgentNeural
+    return QLearningAgentNeural.load_agent(path, env)
+
+
 AGENT_REGISTRY: Dict[str, AgentPlaySpec] = {
     "tabular": AgentPlaySpec(
         label="Tabular",
@@ -79,7 +83,7 @@ AGENT_REGISTRY: Dict[str, AgentPlaySpec] = {
     "neural": AgentPlaySpec(
         label="Neural",
         default_model_path=_neural_default_model,
-        load_agent=lambda path, env, **_: QLearningAgentNeural.load_agent(path, env),
+        load_agent=_load_neural_agent,
         requires_env_for_load=True,
         set_env_after_load=False,
         select_action=_select_action_policy,

@@ -18,7 +18,6 @@ if __package__ is None or __package__ == "":
 
 from rl.environment_blackjack import BlackjackEnvironment
 from rl.environment_taxi import TaxiEnvironment
-from rl.qln import QLearningAgentNeural as QLearningAgentNeural
 from rl.qll import QLearningAgentLinear
 from rl.qlt import QLearningAgentTabular
 
@@ -75,7 +74,7 @@ def _train_linear(agent: QLearningAgentLinear, args: argparse.Namespace) -> Dict
     }
 
 
-def _train_neural(agent: QLearningAgentNeural, args: argparse.Namespace) -> Dict[str, Iterable[float]]:
+def _train_neural(agent, args: argparse.Namespace) -> Dict[str, Iterable[float]]:
     result = agent.train(
         num_episodes=args.num_episodes,
         max_steps_per_episode=args.max_steps,
@@ -129,7 +128,9 @@ def _build_linear(env, args: argparse.Namespace) -> QLearningAgentLinear:
     )
 
 
-def _build_neural(env, args: argparse.Namespace) -> QLearningAgentNeural:
+def _build_neural(env, args: argparse.Namespace):
+    from rl.qln import QLearningAgentNeural
+
     return QLearningAgentNeural(
         gym_env=env,
         learning_rate=args.learning_rate,
@@ -165,7 +166,7 @@ AGENT_REGISTRY: MutableMapping[str, AgentSpec] = {
         basename_fn=lambda env_name: f"{env_name.lower()}-linear-agent",
         filename_fn=lambda base: f"{base}.pkl",
         label="Linear",
-        default_learning_rate=0.05,
+        default_learning_rate=0.02,
         default_gamma=0.95,
         default_epsilon_decay_rate=0.0005,
         default_max_steps=200,

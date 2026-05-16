@@ -38,10 +38,10 @@ python -m rl.ql_train \
   --agent linear \
   --env_name Taxi-v3 \
   --num_episodes 8000 \
-  --max_steps 300 \
-  --learning_rate 0.05 \
+  --max_steps 200 \
+  --learning_rate 0.02 \
   --gamma 0.95 \
-  --epsilon_decay_rate 0.001 \
+  --epsilon_decay_rate 0.0005 \
   --plot
 ```
 
@@ -51,7 +51,7 @@ Parâmetros úteis (padrões em parênteses):
 | ---- | ---------- |
 | `--env_name {Taxi-v3,Blackjack-v1}` (`Taxi-v3`) | Ambiente Gymnasium escolhido. |
 | `--num_episodes N` (`6000`) | Episódios de treinamento. |
-| `--learning_rate LR` (`0.05` para `--agent linear`) | Taxa de atualização dos pesos. |
+| `--learning_rate LR` (`0.02` para `--agent linear`) | Taxa de atualização dos pesos. |
 | `--gamma G` (`0.95`) | Fator de desconto. |
 | `--epsilon_decay_rate D` (`0.0005` para `--agent linear`) | Taxa de decaimento exponencial de ε na política ε-greedy. |
 | `--max_steps` (`200` para `--agent linear`) | Limite de passos por episódio. |
@@ -81,16 +81,17 @@ Essa formulação é a mesma apresentada nas notas de aula para Q-learning com a
 
 O comportamento do agente depende diretamente do extrator `f(s, a)` usado em cada ambiente.
 
-Para `Taxi-v3`, o extrator atual foi simplificado para fins didáticos e inclui:
+Para `Taxi-v3`, o extrator atual usa uma representação **esparsa** e mais estruturada, incluindo:
 
-- posição do táxi no grid;
-- indicador de passageiro a bordo;
-- deslocamentos relativos até o passageiro e até o destino;
-- distância até o alvo da fase atual da tarefa;
-- indicadores de `pickup` correto e `drop` correto;
-- indicadores de `pickup` ilegal, `drop` ilegal e tentativa de atravessar parede.
+- célula exata do táxi no grid;
+- localização atual do passageiro (ou indicador de que ele já está a bordo);
+- destino final;
+- fase atual da tarefa;
+- depósito-alvo relevante na fase corrente;
+- interação entre posição do táxi e alvo atual;
+- indicadores de `pickup` correto, `drop` correto, `pickup` ilegal, `drop` ilegal e colisão com parede.
 
-Essas *features* procuram tornar explícitas as duas fases centrais do problema: buscar o passageiro e, depois, levá-lo ao destino.
+Essas *features* procuram tornar explícitas as duas fases centrais do problema e reduzir ambiguidades que prejudicavam a aproximação linear com descritores excessivamente genéricos.
 
 Para `Blackjack-v1`, o extrator usa *features* simples e interpretáveis, como:
 
@@ -134,7 +135,7 @@ Funcionalidades:
 ## Observações didáticas
 
 - A versão linear compartilha pesos entre muitos pares `(s, a)`, o que permite generalização, mas também pode induzir generalizações indevidas quando as *features* não capturam distinções importantes do ambiente.
-- Em `Taxi-v3`, a representação combina *features* de estado com codificação por ação, permitindo que a função linear distinga tanto a fase do problema quanto a adequação de ações como `pickup` e `drop`.
+- Em `Taxi-v3`, a representação combina codificação por ação com uma descrição esparsa do estado e do alvo atual, o que melhora bastante o desempenho do agente linear nesse domínio.
 - Em `Blackjack-v1`, as *features* são simples e intencionalmente interpretáveis, mas a qualidade da política aprendida continua bastante sensível à escolha da representação.
 
 ---
