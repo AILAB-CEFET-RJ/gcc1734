@@ -1,0 +1,5 @@
+git+https://github.com/guardrails-ai/guardrails.git@v0.9.3#egg=guardrails-ai
+langgraph>=0.2.0
+langchain-core>=0.3.0
+langchain-ollama>=0.3.3
+pydantic>=2.7.0
