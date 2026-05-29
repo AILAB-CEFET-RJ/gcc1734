@@ -35,3 +35,4 @@ src/rl/__pycache__/*
 src/rl/__pycache__/taxi_feature_extractor.cpython-310.pyc
 src/rl/misc/lunar_lander.py
 src/rl/__pycache__/lql.cpython-310.pyc
+.DS_Store
