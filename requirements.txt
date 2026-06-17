@@ -12,6 +12,7 @@ torch>=2.3.0
 # LangChain / LLM tooling
 langchain>=0.1.20
 langchain_community>=0.0.34
+langchain-text-splitters>=0.0.1
 langchain_ollama>=0.3.3
 langgraph>=0.0.38
 openai>=1.30.0
