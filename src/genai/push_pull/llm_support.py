@@ -16,6 +16,23 @@ def call_openai_json(
     messages: list[dict[str, str]],
     log: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    """Chama a API da OpenAI esperando uma resposta JSON.
+
+    Esta função concentra a integração real com o LLM. As outras funções deste
+    módulo montam prompts específicos e delegam a chamada para ela.
+
+    Args:
+        stage: Nome da etapa, usado no log para rastrear a execução.
+        messages: Lista de mensagens no formato da API de chat da OpenAI.
+        log: Lista opcional que recebe prompts, respostas e erros para inspeção.
+
+    Returns:
+        Dicionário produzido a partir do JSON retornado pelo modelo.
+
+    Raises:
+        RuntimeError: Se a chamada falhar, a resposta vier vazia ou o conteúdo
+            não puder ser interpretado como JSON.
+    """
     try:
         load_env()
         client = OpenAI()
@@ -26,6 +43,8 @@ def call_openai_json(
             messages=messages,
         )
         content = response.choices[0].message.content
+        # print(f"LLM response for stage {stage}: {content}")
+        
         if content is None:
             raise ValueError("A API retornou uma resposta vazia.")
 
@@ -63,6 +82,22 @@ def draft_push_alert(
     threshold: float,
     log: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    """Pede ao LLM que redija e justifique um alerta Push.
+
+    O agente já observou vendas e estoque por meio de ferramentas. O LLM recebe
+    essas observações e decide como comunicar o alerta, sem acessar dados por
+    conta própria.
+
+    Args:
+        sales: Observação retornada por `query_sales`.
+        stock: Observação retornada por `check_stock`.
+        drop: Queda relativa observada, em escala decimal. Exemplo: `0.47`.
+        threshold: Limiar de alerta, também em escala decimal.
+        log: Lista opcional para registrar prompt e resposta.
+
+    Returns:
+        Dicionário com `should_alert`, `severity`, `reasoning` e `message`.
+    """
     messages = [
         {
             "role": "system",
@@ -105,11 +140,29 @@ def plan_pull_tool_call(
     session_state: dict[str, Any],
     log: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    """Pede ao LLM que planeje uma chamada de ferramenta no modo Pull.
+
+    Esta função representa a etapa em que o assistente interpreta a pergunta do
+    analista e escolhe uma ferramenta. O plano ainda será validado pelo host em
+    `agents.py` antes de qualquer ferramenta ser executada.
+
+    Args:
+        question: Pergunta feita pelo analista.
+        session_state: Estado acumulado da investigação Pull.
+        log: Lista opcional para registrar prompt e resposta.
+
+    Returns:
+        Dicionário com `tool`, `arguments` e `reasoning`.
+
+    Raises:
+        ValueError: Se o LLM escolher uma ferramenta fora da lista permitida ou
+            retornar uma estrutura inválida.
+    """
     messages = [
         {
             "role": "system",
             "content": (
-                "Você é um agente Pull de investigação comercial. "
+                "Você é um agente de investigação comercial. "
                 "Escolha exatamente uma ferramenta para responder à pergunta do usuário. "
                 "Responda apenas em JSON com as chaves 'tool', 'arguments' e 'reasoning'. "
                 "Ferramentas disponíveis: "
@@ -150,11 +203,28 @@ def draft_pull_answer(
     session_state: dict[str, Any],
     log: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    """Pede ao LLM que sintetize a resposta ao analista.
+
+    Nesta etapa, a ferramenta já foi executada. O LLM recebe a pergunta, o plano,
+    a observação da ferramenta e o estado de sessão para produzir uma resposta em
+    linguagem natural.
+
+    Args:
+        question: Pergunta original feita pelo analista.
+        tool_plan: Plano de ferramenta validado pelo host.
+        observation: Resultado retornado pela ferramenta executada.
+        session_state: Estado acumulado da investigação Pull.
+        log: Lista opcional para registrar prompt e resposta.
+
+    Returns:
+        Dicionário com a chave `answer`. Se o modelo devolver um objeto em vez
+        de string, o valor é serializado para manter o fluxo didático executável.
+    """
     messages = [
         {
             "role": "system",
             "content": (
-                "Você é um agente Pull de análise comercial. "
+                "Você é um assistente de análise comercial respondendo a uma pergunta do analista. "
                 "Responda em português, de forma objetiva, usando apenas a observação "
                 "da ferramenta e o estado de sessão. Responda apenas em JSON com a chave "
                 "'answer'. O valor de 'answer' deve ser uma string em linguagem natural, "
@@ -186,6 +256,19 @@ def draft_manager_notification(
     diagnosis: dict[str, Any],
     log: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    """Pede ao LLM que redija a notificação final ao gestor.
+
+    Esta função pertence à fase de ação coordenada. Ela transforma um diagnóstico
+    estruturado em uma mensagem curta, clara e orientada à ação.
+
+    Args:
+        diagnosis: Dados estruturados sobre pedido, causa provável e impacto.
+        log: Lista opcional para registrar prompt e resposta.
+
+    Returns:
+        Dicionário com a chave `message`. Se o modelo devolver outro tipo de
+        valor, ele é serializado como JSON para preservar a execução.
+    """
     messages = [
         {
             "role": "system",
@@ -209,6 +292,16 @@ def draft_manager_notification(
 
 
 def validate_required_keys(result: dict[str, Any], schema: dict[str, type]) -> None:
+    """Valida se a resposta estruturada do LLM segue o contrato esperado.
+
+    Args:
+        result: Dicionário retornado pelo LLM.
+        schema: Mapeamento entre nome da chave e tipo esperado.
+
+    Raises:
+        ValueError: Se uma chave obrigatória estiver ausente ou vier com tipo
+            diferente do esperado.
+    """
     for key, expected_type in schema.items():
         if key not in result:
             raise ValueError(f"Resposta do LLM sem a chave obrigatória: {key}")

@@ -14,6 +14,11 @@ class HourlySale:
 PRODUCT = "X"
 REGION = "Sul"
 HISTORICAL_HOURLY_AVERAGE = 12_000.0
+HISTORICAL_HOURLY_AVERAGE_BY_PRODUCT = {
+    PRODUCT: 12_000.0,
+    "Y": 9_000.0,
+    "Z": 5_600.0,
+}
 
 HOURLY_SALES = [
     HourlySale(PRODUCT, "2024-11-18 00:00", 6_120.0, REGION),
@@ -69,4 +74,3 @@ def format_brl(value: float) -> str:
 
 def percent_drop(current_average: float, baseline: float) -> float:
     return (baseline - current_average) / baseline
-
