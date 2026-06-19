@@ -12,5 +12,8 @@ src/search_solns
 
 src/rl/misc/lunar_lander.py
 .DS_Store
-src/genai/.env
-src/genai/deprecated/llm/.env
+
+.env
+*.env
+**/.env
+**/*.env
