@@ -1,0 +1,15 @@
+sudo apt update && sudo apt upgrade -y
+
+pip install chainlit
+
+curl -fsSL https://ollama.com/install.sh | sh
+
+ollama serve
+
+ollama pull llama3.1
+
+ollama --version
+
+ollama list
+
+ollama run llama3.1
