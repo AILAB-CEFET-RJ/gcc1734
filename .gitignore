@@ -17,3 +17,6 @@ src/rl/misc/lunar_lander.py
 *.env
 **/.env
 **/*.env
+
+.chainlit/
+**/.chainlit/
