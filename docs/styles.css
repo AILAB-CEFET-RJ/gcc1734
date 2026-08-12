@@ -42,7 +42,7 @@ img { max-width: 100%; }
   padding: 4.5rem 0 3.8rem;
 }
 .eyebrow { margin: 0 0 .5rem; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; font-size: .83rem; }
-h1 { margin: 0; max-width: 900px; font-size: clamp(2.2rem, 6vw, 4.5rem); line-height: 1.05; }
+h1 { margin: 0; max-width: 900px; font-size: clamp(1.32rem, 3.6vw, 2.7rem); line-height: 1.05; }
 .subtitle { font-size: 1.2rem; color: #d8e8f7; }
 .quick-links { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.6rem; }
 .button {
