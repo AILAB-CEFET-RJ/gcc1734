@@ -1,10 +1,26 @@
 from __future__ import annotations
+import argparse
+import sys
+import time
 from dataclasses import dataclass
 from typing import Callable, Dict, Iterable, List, Optional, Set, Tuple
 from collections import deque
 import heapq
 
 State = Tuple[int, int]  # (row, col)
+
+
+DEFAULT_GRID = [
+    "S..........#",
+    "######.###.#",
+    "#....#.###.#",
+    "#.##.#.....#",
+    "#.##.#####.#",
+    "#.##.....#.#",
+    "#.######.#.#",
+    "#........#.G",
+    "############",
+]
 
 
 # ----------------------------
@@ -17,7 +33,7 @@ class MazeProblem:
     - '#' = parede
     - 'S' = início
     - 'G' = objetivo
-    - '.' = livre
+    - '.' ou espaço = livre
     Movimentos: N, S, E, W. Custo por passo: 1.
     """
 
@@ -29,11 +45,34 @@ class MazeProblem:
     }
 
     def __init__(self, grid: List[str]):
+        self._validate_grid(grid)
         self.grid = grid
         self.R = len(grid)
         self.C = len(grid[0]) if self.R > 0 else 0
         self.s0 = self._find("S")
         self.goal = self._find("G")
+
+    def _validate_grid(self, grid: List[str]) -> None:
+        if not grid:
+            raise ValueError("O labirinto não pode ser vazio.")
+
+        width = len(grid[0])
+        if width == 0:
+            raise ValueError("As linhas do labirinto não podem ser vazias.")
+
+        if any(len(row) != width for row in grid):
+            raise ValueError("Todas as linhas do labirinto devem ter o mesmo tamanho.")
+
+        chars = "".join(grid)
+        if chars.count("S") != 1:
+            raise ValueError("O labirinto deve conter exatamente um estado inicial 'S'.")
+        if chars.count("G") != 1:
+            raise ValueError("O labirinto deve conter exatamente um objetivo 'G'.")
+
+        allowed = {"#", ".", " ", "S", "G"}
+        invalid = sorted(set(chars) - allowed)
+        if invalid:
+            raise ValueError(f"Caracteres inválidos no labirinto: {invalid}")
 
     def _find(self, ch: str) -> State:
         for r in range(self.R):
@@ -68,13 +107,28 @@ class MazeProblem:
 
     def render_with_path(self, path_states: List[State]) -> str:
         path_set = set(path_states)
+        return self.render(path=path_set)
+
+    def render(
+        self,
+        path: Optional[Set[State]] = None,
+        agent: Optional[State] = None,
+        explored: Optional[Set[State]] = None,
+    ) -> str:
+        path = path or set()
+        explored = explored or set()
         out = []
         for r in range(self.R):
             row = []
             for c in range(self.C):
+                s = (r, c)
                 ch = self.grid[r][c]
-                if (r, c) in path_set and ch not in ("S", "G"):
+                if agent == s:
+                    row.append("@")
+                elif s in path and ch not in ("S", "G"):
                     row.append("*")
+                elif s in explored and ch not in ("S", "G"):
+                    row.append("+")
                 else:
                     row.append(ch)
             out.append("".join(row))
@@ -114,16 +168,22 @@ FrontierPop = Callable[[], Node]
 FrontierPush = Callable[[Node], None]
 FrontierEmpty = Callable[[], bool]
 
+@dataclass
+class SearchResult:
+    goal_node: Optional[Node]
+    explored_order: List[State]
+
 def generic_graph_search(
     problem: MazeProblem,
     frontier_push: FrontierPush,
     frontier_pop: FrontierPop,
     frontier_empty: FrontierEmpty,
-) -> Optional[Node]:
+) -> SearchResult:
     start = Node(state=problem.s0, parent=None, action=None, g=0)
     frontier_push(start)
 
     explored: Set[State] = set()
+    explored_order: List[State] = []
     in_frontier: Set[State] = {start.state}  # pra evitar duplicar estado na fronteira
 
     while not frontier_empty():
@@ -131,9 +191,10 @@ def generic_graph_search(
         in_frontier.discard(n.state)
 
         if problem.GoalTest(n.state):
-            return n
+            return SearchResult(goal_node=n, explored_order=explored_order)
 
         explored.add(n.state)
+        explored_order.append(n.state)
 
         for a in problem.ACTIONS_fn(n.state):
             s2 = problem.T(n.state, a)
@@ -143,14 +204,14 @@ def generic_graph_search(
             frontier_push(n2)
             in_frontier.add(s2)
 
-    return None
+    return SearchResult(goal_node=None, explored_order=explored_order)
 
 
 # ----------------------------
 # Instâncias: BFS, DFS, UCS
 # ----------------------------
 
-def bfs(problem: MazeProblem) -> Optional[Node]:
+def bfs(problem: MazeProblem) -> SearchResult:
     q = deque()
 
     def push(n: Node) -> None:
@@ -164,7 +225,7 @@ def bfs(problem: MazeProblem) -> Optional[Node]:
 
     return generic_graph_search(problem, push, pop, empty)
 
-def dfs(problem: MazeProblem) -> Optional[Node]:
+def dfs(problem: MazeProblem) -> SearchResult:
     st: List[Node] = []
 
     def push(n: Node) -> None:
@@ -178,7 +239,7 @@ def dfs(problem: MazeProblem) -> Optional[Node]:
 
     return generic_graph_search(problem, push, pop, empty)
 
-def ucs(problem: MazeProblem) -> Optional[Node]:
+def ucs(problem: MazeProblem) -> SearchResult:
     heap: List[Tuple[int, int, Node]] = []
     counter = 0  # desempate estável
 
@@ -196,32 +257,117 @@ def ucs(problem: MazeProblem) -> Optional[Node]:
     return generic_graph_search(problem, push, pop, empty)
 
 
-# ----------------------------
-# Demo com o labirinto 3x3
-# ----------------------------
+SOLVERS = {
+    "bfs": bfs,
+    "dfs": dfs,
+    "ucs": ucs,
+}
+
+
+def load_maze(path: str) -> List[str]:
+    with open(path, "r", encoding="utf-8") as f:
+        rows = [line.rstrip("\n") for line in f]
+    return rows
+
+
+def clear_screen() -> None:
+    print("\033[H\033[J", end="")
+
+
+def animate_solution(
+    problem: MazeProblem,
+    path_states: List[State],
+    explored_order: List[State],
+    delay: float,
+    show_explored: bool,
+) -> None:
+    explored = set(explored_order) if show_explored else set()
+    path_so_far: Set[State] = set()
+
+    for state in path_states:
+        path_so_far.add(state)
+        clear_screen()
+        print(problem.render(path=path_so_far, agent=state, explored=explored))
+        time.sleep(delay)
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Demonstra busca em um labirinto configurável."
+    )
+    parser.add_argument(
+        "-a",
+        "--algorithm",
+        choices=sorted(SOLVERS),
+        default="bfs",
+        help="algoritmo de busca usado na solução",
+    )
+    parser.add_argument(
+        "-m",
+        "--maze-file",
+        help="arquivo texto com o labirinto; use # para parede, . ou espaço para livre, S para início e G para objetivo",
+    )
+    parser.add_argument(
+        "-d",
+        "--delay",
+        type=float,
+        default=0.25,
+        help="atraso, em segundos, entre os quadros da animação",
+    )
+    parser.add_argument(
+        "--show-explored",
+        action="store_true",
+        help="marca com + os estados expandidos antes de animar a solução",
+    )
+    parser.add_argument(
+        "--no-animation",
+        action="store_true",
+        help="mostra apenas o resultado final, sem animação",
+    )
+    return parser.parse_args()
+
+
+def main() -> int:
+    args = parse_args()
+    grid = load_maze(args.maze_file) if args.maze_file else DEFAULT_GRID
+    problem = MazeProblem(grid)
+    result = SOLVERS[args.algorithm](problem)
+
+    print(f"Algoritmo: {args.algorithm.upper()}")
+    print(f"Estados expandidos: {len(result.explored_order)}")
+
+    if result.goal_node is None:
+        print("Falha: sem solução.")
+        print(problem.render(explored=set(result.explored_order)))
+        return 1
+
+    states, actions = reconstruct_path(result.goal_node)
+    print("Ações:", actions)
+    print("Custo g:", result.goal_node.g)
+    print("Caminho (estados):", states)
+
+    if args.no_animation:
+        print(problem.render_with_path(states))
+        return 0
+
+    print("\nIniciando animação...")
+    time.sleep(1.0)
+    animate_solution(
+        problem=problem,
+        path_states=states,
+        explored_order=result.explored_order,
+        delay=args.delay,
+        show_explored=args.show_explored,
+    )
+    print("\nLegenda: # parede, . livre, S início, G objetivo, @ agente, * caminho, + expandido")
+    return 0
 
 if __name__ == "__main__":
-    # Seu labirinto 3x3:
-    # S . .
-    # # # .
-    # . . G
-    grid = [
-        "S..",
-        "##.",
-        "..G",
-    ]
-
-    prob = MazeProblem(grid)
-
-    for name, solver in [("BFS", bfs), ("DFS", dfs), ("UCS", ucs)]:
-        goal_node = solver(prob)
-        print(f"\n=== {name} ===")
-        if goal_node is None:
-            print("Falha: sem solução.")
-            continue
-
-        states, actions = reconstruct_path(goal_node)
-        print("Ações:", actions)
-        print("Custo g:", goal_node.g)
-        print("Caminho (estados):", states)
-        print(prob.render_with_path(states))
+    try:
+        raise SystemExit(main())
+    except KeyboardInterrupt:
+        print("\nAnimação interrompida.", file=sys.stderr)
+        raise SystemExit(130)
+    except ValueError as exc:
+        print(f"Erro: {exc}", file=sys.stderr)
+        raise SystemExit(2)
