@@ -1139,7 +1139,7 @@ def main() -> None:
 
     1. Execução padrão — IA vs IA no grid "lab" com busca quiescente:
 
-        python3 busca_adversarial.py
+        python3 busca_adversarial_minimax.py
 
         Ambos os jogadores são controlados por IA usando o algoritmo
         quiescent (H-Minimax com extensão de quiescência, profundidade 4).
@@ -1150,7 +1150,7 @@ def main() -> None:
 
     2. Grid "beco" com H-Minimax de profundidade 3:
 
-        python3 busca_adversarial.py --grid beco --algorithm hminimax --depth 3
+        python3 busca_adversarial_minimax.py --grid beco --algorithm hminimax --depth 3
 
         O grid "beco" tem um corredor estreito que dificulta a fuga do
         Pacman. Com H-Minimax puro (sem quiescência) e profundidade 3,
@@ -1163,7 +1163,7 @@ def main() -> None:
 
     3. Grid "beco" com busca quiescente de profundidade 2:
 
-        python3 busca_adversarial.py --grid beco --algorithm quiescent --depth 2
+        python3 busca_adversarial_minimax.py --grid beco --algorithm quiescent --depth 2
 
         Mesma configuração do exemplo anterior, mas com profundidade 2 e
         extensão de quiescência ativada. Quando o agente detecta que o estado
@@ -1176,7 +1176,7 @@ def main() -> None:
 
     4. Você controla o Pacman; fantasma usa IA adversarial:
 
-        python3 busca_adversarial.py --pacman-mode human --ghost-mode ai --algorithm quiescent
+        python3 busca_adversarial_minimax.py --pacman-mode human --ghost-mode ai --algorithm quiescent
 
         Use as teclas c/b/e/d (ou Enter para parar) para mover o Pacman.
         O fantasma escolhe automaticamente a melhor jogada segundo a busca
@@ -1188,7 +1188,7 @@ def main() -> None:
 
     5. Pacman usa IA; fantasma move aleatoriamente:
 
-        python3 busca_adversarial.py --pacman-mode ai --ghost-mode random --algorithm hminimax
+        python3 busca_adversarial_minimax.py --pacman-mode ai --ghost-mode random --algorithm hminimax
 
         O Pacman usa H-Minimax enquanto o fantasma é aleatório. Serve como
         linha de base para comparar a qualidade da busca: um agente bem

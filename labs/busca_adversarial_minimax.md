@@ -1,13 +1,38 @@
-# Perguntas de discussão — `busca_adversarial.py`
+# Perguntas de discussão — `busca_adversarial_minimax.py`
 
-As perguntas estão organizadas em blocos temáticos, em ordem crescente de
-abstração. Cada grupo deve elaborar respostas justificadas, referenciando
-partes do código sempre que possível.
+Formem grupos de 2 a 4 componentes. Cada grupo deve elaborar respostas justificadas, referenciando partes do código sempre que possível.
 
 O arquivo acompanha uma implementação jogável de um **Pacman simplificado**,
 com alternância de turnos entre Pacman (MAX) e fantasma (MIN), além de suporte
 para **Minimax**, **poda alfa-beta**, **H-Minimax** e uma versão com **busca
 quiescente**.
+
+## Como executar o script
+
+O laboratório requer Python 3. A partir da raiz do repositório, entre na pasta
+do laboratório e consulte primeiro as opções disponíveis:
+
+```bash
+cd labs
+python3 busca_adversarial_minimax.py --help
+```
+
+Para iniciar a execução padrão, use:
+
+```bash
+python3 busca_adversarial_minimax.py
+```
+
+Por padrão, o jogo usa o grid `lab`, profundidade 4 e busca quiescente. Pacman
+e fantasma são controlados por IA; portanto, a partida avança automaticamente.
+Em cada turno, observem o agente que jogou, a ação escolhida, o valor estimado
+e o número de nós examinados pela busca.
+
+Também é possível executar o script sem mudar de diretório, usando
+`python3 labs/busca_adversarial_minimax.py ...` a partir da raiz do repositório.
+Os parâmetros mais importantes são `--grid`, `--algorithm`, `--depth`,
+`--pacman-mode` e `--ghost-mode`. Os comandos ao final deste roteiro apresentam
+configurações adequadas para comparar os algoritmos e os modos de controle.
 
 ---
 
@@ -106,7 +131,7 @@ sequência forçada de derrota?
 **15.** O comando abaixo roda Pacman humano contra fantasma controlado por IA:
 
 ```bash
-python3 busca_adversarial.py --pacman-mode human --ghost-mode ai --algorithm quiescent
+python3 busca_adversarial_minimax.py --pacman-mode human --ghost-mode ai --algorithm quiescent
 ```
 
 Explique passo a passo o que ocorrerá em cada turno.
@@ -116,9 +141,9 @@ Explique passo a passo o que ocorrerá em cada turno.
 ## Comandos úteis
 
 ```bash
-python3 busca_adversarial.py
-python3 busca_adversarial.py --grid beco --algorithm hminimax --depth 3
-python3 busca_adversarial.py --grid beco --algorithm quiescent --depth 2
-python3 busca_adversarial.py --pacman-mode human --ghost-mode ai --algorithm quiescent
-python3 busca_adversarial.py --pacman-mode ai --ghost-mode random --algorithm hminimax
+python3 busca_adversarial_minimax.py
+python3 busca_adversarial_minimax.py --grid beco --algorithm hminimax --depth 3
+python3 busca_adversarial_minimax.py --grid beco --algorithm quiescent --depth 2
+python3 busca_adversarial_minimax.py --pacman-mode human --ghost-mode ai --algorithm quiescent
+python3 busca_adversarial_minimax.py --pacman-mode ai --ghost-mode random --algorithm hminimax
 ```
