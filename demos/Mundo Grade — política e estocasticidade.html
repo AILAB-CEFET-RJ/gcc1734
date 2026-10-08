@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mundo Grade — política e estocasticidade</title>
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#f3f1ec;--panel:#fbfaf7;--ink:#23262b;--mute:#6b6f76;--line:#cfcbc0;
+  --cell:#dfe8f6;--cellbd:#8a97ad;--pos:#bfe3bf;--neg:#f2b9b9;--wall:#3a3d46;
+  --agent:#1c3f95;--accent:#1c3f95;--hit:#b4650a;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#16181d;--panel:#1e2128;--ink:#e6e7ea;--mute:#9aa0aa;--line:#363a44;
+  --cell:#26324a;--cellbd:#4b5873;--pos:#2f6a3a;--neg:#7a3434;--wall:#0d0e11;
+  --agent:#8fb0ff;--accent:#8fb0ff;--hit:#f0a54a;}}
+:root[data-theme="dark"]{
+  --bg:#16181d;--panel:#1e2128;--ink:#e6e7ea;--mute:#9aa0aa;--line:#363a44;
+  --cell:#26324a;--cellbd:#4b5873;--pos:#2f6a3a;--neg:#7a3434;--wall:#0d0e11;
+  --agent:#8fb0ff;--accent:#8fb0ff;--hit:#f0a54a;}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 "Trebuchet MS","Segoe UI",system-ui,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:18px;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:18px}
+@media(max-width:820px){main{grid-template-columns:1fr}}
+h1{font:700 22px/1.2 Georgia,"Times New Roman",serif;margin:0 0 4px}
+.sub{color:var(--mute);margin:0 0 14px;font-size:14px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:14px}
+.panel h2{font:700 15px/1.2 Georgia,serif;margin:0 0 8px}
+#grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.cell{position:relative;aspect-ratio:1.15;background:var(--cell);border:2px solid var(--cellbd);border-radius:6px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;font-weight:700}
+.cell.pos{background:var(--pos)}.cell.neg{background:var(--neg)}.cell.wall{background:var(--wall);border-color:var(--wall)}
+.cell .xy{position:absolute;left:5px;top:3px;font:11px monospace;color:var(--mute);font-weight:400}
+.cell .tv{font-size:clamp(18px,4vw,30px)}
+.cell .v{position:absolute;right:5px;bottom:3px;font:11px monospace;font-weight:400;color:var(--mute)}
+.big{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(26px,6vw,44px);color:var(--accent);opacity:.8}
+.pa{position:absolute;font-size:clamp(10px,1.6vw,13px);color:var(--accent);white-space:nowrap;font-family:monospace}
+.pa.N{top:3px;left:50%;transform:translateX(-50%)}.pa.S{bottom:3px;left:50%;transform:translateX(-50%)}
+.pa.E{right:4px;top:50%;transform:translateY(-50%)}.pa.W{left:4px;top:50%;transform:translateY(-50%)}
+.agent{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(26px,6vw,42px);pointer-events:none;
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,.4));transition:transform .12s}
+.cell.cur{outline:3px solid var(--hit);outline-offset:-3px}
+.dpad{display:grid;grid-template-columns:repeat(3,44px);grid-template-rows:repeat(2,40px);gap:4px;justify-content:center;margin-top:12px}
+.dpad button{font-size:18px}
+.dpad .n{grid-column:2}.dpad .w{grid-column:1;grid-row:2}.dpad .s{grid-column:2;grid-row:2}.dpad .e{grid-column:3;grid-row:2}
+button,select{font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--cellbd);border-radius:6px;padding:6px 10px;cursor:pointer}
+button:hover{border-color:var(--accent)}button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--hit);outline-offset:1px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0}
+label{display:flex;gap:6px;align-items:center;font-size:14px}
+input[type=range]{width:120px;accent-color:var(--accent)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.stats b{display:block;font:700 20px Georgia,serif}.stats span{font-size:12px;color:var(--mute)}
+#log{font:12.5px/1.5 monospace;max-height:210px;overflow:auto;margin:0;padding:0;list-style:none}
+#log li{padding:2px 0;border-bottom:1px dotted var(--line)}
+#log .dev{color:var(--hit);font-weight:700}
+table{border-collapse:collapse;width:100%;font-size:13.5px}td,th{padding:3px 6px;border-bottom:1px solid var(--line);text-align:left}
+kbd{border:1px solid var(--cellbd);border-radius:4px;padding:0 5px;font:12px monospace;background:var(--panel)}
+.msg{min-height:22px;font-weight:700;color:var(--hit)}
+</style>
+</head>
+<body>
+<main>
+<section>
+  <h1>Mundo Grade</h1>
+  <p class="sub">Use as setas <kbd>←</kbd><kbd>↑</kbd><kbd>→</kbd><kbd>↓</kbd> para escolher a ação. O ambiente decide o resultado.</p>
+  <div id="grid" role="grid" aria-label="Mundo Grade 4 por 3"></div>
+  <div class="dpad" aria-label="Controles">
+    <button class="n" data-d="0" aria-label="Norte">↑</button><button class="w" data-d="3" aria-label="Oeste">←</button>
+    <button class="s" data-d="2" aria-label="Sul">↓</button><button class="e" data-d="1" aria-label="Leste">→</button>
+  </div>
+  <p class="msg" id="msg" aria-live="polite"></p>
+</section>
+
+<section>
+  <div class="panel">
+    <h2>Episódio</h2>
+    <div class="stats">
+      <div><b id="sT">0</b><span>passos</span></div>
+      <div><b id="sG">0,00</b><span>retorno sem desconto</span></div>
+      <div><b id="sD">0,00</b><span>retorno descontado</span></div>
+    </div>
+    <div class="row"><button id="reset">Reiniciar (R)</button></div>
+  </div>
+
+  <div class="panel">
+    <h2>Ambiente (T e R)</h2>
+    <div class="row"><label>Prob. de sucesso <input type="range" id="pS" min="0.4" max="1" step="0.05" value="0.8"><b id="pSv">0,80</b></label></div>
+    <div class="row"><label>Living reward <input type="range" id="lr" min="-0.5" max="0.1" step="0.02" value="-0.04"><b id="lrv">-0,04</b></label></div>
+    <div class="row"><label>γ <input type="range" id="gm" min="0.1" max="0.99" step="0.01" value="0.9"><b id="gmv">0,90</b></label></div>
+    <table id="trans"></table>
+  </div>
+
+  <div class="panel">
+    <h2>Política π</h2>
+    <div class="row">
+      <select id="pol" aria-label="Tipo de política">
+        <option value="none">Ocultar política</option>
+        <option value="opt" selected>π* determinística</option>
+        <option value="eps">Estocástica: ε-greedy sobre π*</option>
+        <option value="uni">Estocástica: uniforme</option>
+      </select>
+      <select id="ov" aria-label="Valores">
+        <option value="0">Sem valores</option><option value="1">Mostrar V*(s)</option>
+      </select>
+    </div>
+    <div class="row"><label>ε <input type="range" id="eps" min="0" max="1" step="0.05" value="0.3"><b id="epsv">0,30</b></label></div>
+    <div class="row"><button id="step">Agente segue π (Espaço)</button><button id="auto">Auto ▶</button></div>
+  </div>
+
+  <div class="panel"><h2>Registro</h2><ul id="log"></ul></div>
+</section>
+</main>
+
+<script>
+const NM=['Norte','Leste','Sul','Oeste'],AR=['↑','→','↓','←'],DL=[[0,1],[1,0],[0,-1],[-1,0]],LET=['N','E','S','W'];
+const TERM={'4,3':1,'4,2':-1},WALL='2,2',START=[1,1];
+const $=id=>document.getElementById(id);
+const f2=x=>x.toFixed(2).replace('.',',');
+let P={ps:.8,lr:-.04,g:.9,eps:.3},Q={},V={},pos,steps,G,Gd,done,log,lastA=0,timer=null,lastDev=null;
+
+const key=(c,r)=>c+','+r;
+const isT=k=>k in TERM;
+function mv(c,r,d){const nc=c+DL[d][0],nr=r+DL[d][1];
+  if(nc<1||nc>4||nr<1||nr>3||key(nc,nr)===WALL)return[c,r];return[nc,nr];}
+function outcomes(c,r,d){ // [{d,p,s}]
+  const q=(1-P.ps)/2;
+  return [[d,P.ps],[(d+3)%4,q],[(d+1)%4,q]].map(([dd,p])=>({d:dd,p,s:mv(c,r,dd)}));
+}
+const rew=s=>isT(key(...s))?TERM[key(...s)]:P.lr;
+
+function solve(){ // iteração de valor
+  V={};Q={};
+  const S=[];for(let c=1;c<=4;c++)for(let r=1;r<=3;r++){const k=key(c,r);if(k!==WALL){S.push([c,r]);V[k]=0;}}
+  for(let it=0;it<300;it++)for(const [c,r] of S){const k=key(c,r);if(isT(k))continue;
+    let best=-1e9;for(let d=0;d<4;d++){let q=0;
+      for(const o of outcomes(c,r,d)){const ks=key(...o.s);q+=o.p*(rew(o.s)+(isT(ks)?0:P.g*V[ks]));}
+      Q[k+'|'+d]=q;best=Math.max(best,q);}
+    V[k]=best;}
+}
+function policy(c,r){
+  const k=key(c,r),m=$('pol').value;
+  if(m==='none')return null;
+  if(m==='uni')return[.25,.25,.25,.25];
+  let b=0;for(let d=1;d<4;d++)if(Q[k+'|'+d]>Q[k+'|'+b]+1e-9)b=d;
+  const e=m==='eps'?P.eps:0;
+  return[0,1,2,3].map(d=>e/4+(d===b?1-e:0));
+}
+
+function render(){
+  const g=$('grid');let h='';
+  for(let r=3;r>=1;r--)for(let c=1;c<=4;c++){
+    const k=key(c,r);
+    if(k===WALL){h+='<div class="cell wall" role="gridcell" aria-label="obstáculo"></div>';continue;}
+    const cur=pos[0]===c&&pos[1]===r;
+    let cls='cell'+(isT(k)?(TERM[k]>0?' pos':' neg'):'')+(cur?' cur':'');
+    let inner=`<span class="xy">(${c},${r})</span>`;
+    if(isT(k))inner+=`<span class="tv">${TERM[k]>0?'+1':'−1'}</span>`;
+    else{
+      const p=policy(c,r);
+      if(p){
+        const mx=Math.max(...p);
+        if(mx>.999)inner+=`<span class="big">${AR[p.indexOf(mx)]}</span>`;
+        else p.forEach((x,d)=>{if(x>.004)inner+=`<span class="pa ${LET[d]}" style="opacity:${.3+.7*x}">${AR[d]}${Math.round(x*100)}%</span>`;});
+      }
+      if($('ov').value==='1')inner+=`<span class="v">${f2(V[k])}</span>`;
+    }
+    if(cur)inner+='<span class="agent">🤖</span>';
+    h+=`<div class="${cls}" role="gridcell">${inner}</div>`;
+  }
+  g.innerHTML=h;
+  $('sT').textContent=steps;$('sG').textContent=f2(G);$('sD').textContent=f2(Gd);
+  $('msg').textContent=done?(TERM[key(...pos)]>0?'Chegou à saída (+1). Pressione R ou qualquer seta para reiniciar.':'Caiu no precipício (−1). Pressione R ou qualquer seta para reiniciar.'):'';
+  renderTrans();
+  $('log').innerHTML=log.slice(-30).reverse().map(x=>`<li>${x}</li>`).join('');
+}
+function renderTrans(){
+  if(isT(key(...pos))){$('trans').innerHTML='';return;}
+  const os=outcomes(pos[0],pos[1],lastA);
+  const lab=['pretendida','90° à esquerda','90° à direita'];
+  $('trans').innerHTML=`<tr><th colspan="4">T(s,${NM[lastA]},s′) em s=(${pos})</th></tr>`+
+    os.map((o,i)=>`<tr><td>${NM[o.d]} <small>(${lab[i]})</small></td><td>${f2(o.p)}</td><td>→ (${o.s})</td><td>r=${f2(rew(o.s))}</td></tr>`).join('');
+}
+
+function reset(){pos=[...START];steps=0;G=0;Gd=0;done=false;log=[];lastDev=null;render();}
+function act(d){
+  if(done){reset();}
+  lastA=d;
+  const os=outcomes(pos[0],pos[1],d);
+  let u=Math.random(),acc=0,o=os[os.length-1];
+  for(const x of os){acc+=x.p;if(u<acc){o=x;break;}}
+  const from=[...pos],r=rew(o.s);
+  G+=r;Gd+=Math.pow(P.g,steps)*r;steps++;pos=[...o.s];
+  const dev=o.d!==d;
+  const bump=o.s[0]===from[0]&&o.s[1]===from[1]?' (bateu na parede/obstáculo)':'';
+  log.push(`${steps}. (${from}) pede <b>${NM[d]}</b> → ${dev?`<span class="dev">desvio: ${NM[o.d]}</span>`:'sem desvio'} → (${pos})${bump} r=${f2(r)}`);
+  if(isT(key(...pos)))done=true;
+  render();
+}
+function follow(){
+  if(done){reset();return;}
+  const p=policy(pos[0],pos[1])||policy.call(null,pos[0],pos[1]);
+  let pp=p;if(!pp){const sv=$('pol').value;$('pol').value='opt';pp=policy(pos[0],pos[1]);$('pol').value=sv;}
+  let u=Math.random(),acc=0,d=3;for(let i=0;i<4;i++){acc+=pp[i];if(u<acc){d=i;break;}}
+  act(d);
+}
+
+document.addEventListener('keydown',e=>{
+  const m={ArrowUp:0,ArrowRight:1,ArrowDown:2,ArrowLeft:3}[e.key];
+  if(m!==undefined){e.preventDefault();act(m);}
+  else if(e.key===' '&&!/BUTTON|SELECT|INPUT/.test(e.target.tagName)){e.preventDefault();follow();}
+  else if(e.key==='r'||e.key==='R')reset();
+});
+document.querySelectorAll('.dpad button').forEach(b=>b.onclick=()=>act(+b.dataset.d));
+$('reset').onclick=reset;$('step').onclick=follow;
+$('auto').onclick=()=>{if(timer){clearInterval(timer);timer=null;$('auto').textContent='Auto ▶';}
+  else{timer=setInterval(follow,450);$('auto').textContent='Pausar ❚❚';}};
+$('pol').onchange=$('ov').onchange=render;
+function params(){P.ps=+$('pS').value;P.lr=+$('lr').value;P.g=+$('gm').value;P.eps=+$('eps').value;
+  $('pSv').textContent=f2(P.ps);$('lrv').textContent=f2(P.lr);$('gmv').textContent=f2(P.g);$('epsv').textContent=f2(P.eps);
+  solve();}
+['pS','lr','gm'].forEach(i=>$(i).oninput=()=>{params();reset();});
+$('eps').oninput=()=>{params();render();};
+params();reset();
+</script>
+</body>
+</html>
