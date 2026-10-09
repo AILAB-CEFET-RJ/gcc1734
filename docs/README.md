@@ -6,6 +6,8 @@ Esta pasta contém a página estática da disciplina **GCC1734 — Inteligência
 
 ```text
 docs/
+├── demos/
+│   └── mundo-grade-politica-estocasticidade.html
 ├── index.html
 ├── styles.css
 └── README.md
@@ -32,6 +34,9 @@ A primeira publicação pode levar alguns minutos.
 ## Atualização
 
 Edite `docs/index.html` para alterar conteúdo e `docs/styles.css` para alterar a apresentação. Depois, faça commit e push para a branch `main`.
+
+As demonstrações interativas publicadas pela página devem ficar em `docs/demos/`,
+pois o GitHub Pages é configurado para publicar somente a pasta `docs/`.
 
 Os links das notas apontam para arquivos confirmados no repositório:
 
