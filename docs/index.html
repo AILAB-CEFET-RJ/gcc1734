@@ -84,6 +84,48 @@
             inferência probabilística; aprendizado por reforço; fundamentos de
             aprendizado de máquina; modelos de linguagem e agentes baseados em
             IA generativa.</p>
+          <h3>Conteúdo programático: aprendizado e modelos de linguagem</h3>
+          <p>A sequência de aprendizado por reforço é seguida por três encontros
+            de fundamentos de aprendizado de máquina e três encontros de
+            Modelos de Linguagem. Esses fundamentos preparam o estudo de agentes
+            baseados em LLMs.</p>
+          <ol>
+            <li><strong>Fundamentos e generalização em AM:</strong> paradigmas
+              supervisionado, não supervisionado, autossupervisionado e por
+              reforço; entradas, alvos, parâmetros e funções de perda; treino,
+              validação e teste; vazamento de dados; diagnóstico de underfitting
+              e overfitting; intuição de viés, variância e regularização.</li>
+            <li><strong>Modelos lineares e aprendizado por gradiente:</strong>
+              regressão linear e logística; gradiente descendente, SGD e
+              mini-lotes; escala das entradas; logits, softmax e entropia
+              cruzada.</li>
+            <li><strong>Redes neurais e representações aprendidas:</strong>
+              neurônio e MLP; funções de ativação e não linearidade;
+              retropropagação e otimização; características manuais,
+              representações aprendidas e embeddings; generalização em redes.</li>
+            <li><strong>Modelagem da linguagem:</strong> tokens, embeddings e
+              posições; distribuição do próximo token; probabilidade de
+              sequências e entropia cruzada; treinamento e geração.</li>
+            <li><strong>Transformer e pré-treinamento:</strong> autoatenção,
+              consultas, chaves e valores; máscara causal; pré-treinamento
+              autossupervisionado.</li>
+            <li><strong>Pós-treinamento e alinhamento:</strong> ajuste
+              supervisionado para seguir instruções (SFT); aprendizado a partir
+              de preferências; visão conceitual de RLHF e DPO; limitações do
+              alinhamento; distinção entre modelo de linguagem e agente.</li>
+          </ol>
+          <p>Na sequência, o curso aborda arquiteturas de agentes, planejamento
+            iterativo, uso de ferramentas, RAG, MCP, observabilidade, avaliação,
+            segurança e guardrails.</p>
+          <div class="callout">
+            <strong>Apêndices opcionais da nota de AM:</strong> árvores de
+            decisão e métodos ensemble; <em>k</em>-means e PCA; aprofundamentos
+            em modelos lineares, engenharia de características, generalização,
+            regularização, validação cruzada, métricas e redes neurais. Esses
+            tópicos e suas atividades não integram o roteiro obrigatório nem
+            seus objetivos de avaliação e não são pré-requisitos para Modelos
+            de Linguagem.
+          </div>
           <div class="callout">
             <strong>Pré-requisitos recomendados:</strong> estruturas de dados,
             recursividade, probabilidade básica, relações de recorrência e
@@ -281,7 +323,7 @@
                     profundidade limitada</td><td data-label="Natureza"><span
                       class="tag">Aula</span></td></tr>
                 <tr class="practice"><td data-label="Data"><time
-                      datetime="2026-09-11">15/09/2026</time></td><td
+                      datetime="2026-09-15">15/09/2026</time></td><td
                     data-label="Atividade">Lab: Busca adversarial -
                     minimax</td><td data-label="Natureza"><span
                       class="tag">Prática</span></td></tr>
@@ -322,95 +364,102 @@
                 <tr class="class"><td data-label="Data"><time
                       datetime="2026-10-20">20/10/2026</time></td><td
                     data-label="Atividade">Aprendizado por reforço: Aprendizado TDL;
-                    Q-learning, SARSA</td><td data-label="Natureza"><span
+                    Q-learning</td><td data-label="Natureza"><span
                       class="tag">Aula</span></td></tr>
                 <tr class="class"><td data-label="Data"><time
                       datetime="2026-10-23">23/10/2026</time></td><td
-                    data-label="Atividade">Aprendizado por reforço: Aproximação de funções e ambientes
-                    Gymnasium</td><td data-label="Natureza"><span
-                      class="tag">Aula</span></td></tr>
-                <tr class="class"><td data-label="Data"><time
-                      datetime="2026-10-27">27/10/2026</time></td><td
-                    data-label="Atividade">Exploração versus explotação;
-                    técnicas de exploração</td><td data-label="Natureza"><span
+                    data-label="Atividade">Aprendizado por reforço: Aproximação linear de Q-funções</td><td data-label="Natureza"><span
                       class="tag">Aula</span></td></tr>
                 <tr class="practice"><td data-label="Data"><time
-                      datetime="2026-10-30">30/10/2026</time></td><td
+                      datetime="2026-10-27">27/10/2026</time></td><td
                     data-label="Atividade">Lab: Aprendizado por
                     reforço</td><td data-label="Natureza"><span
                       class="tag">Prática</span></td></tr>
                 <tr class="class"><td data-label="Data"><time
-                      datetime="2026-11-03">03/11/2026</time></td><td
-                    data-label="Atividade">Aprendizado por reforço: Projeto de funções-recompensa</td><td data-label="Natureza"><span
-                      class="tag">Aula</span></td></tr>
-                <tr class="class"><td data-label="Data"><time
-                      datetime="2026-11-06">06/11/2026</time></td><td
-                    data-label="Atividade">Aprendizado de máquina: taxonomia e
-                    aprendizado supervisionado</td><td
+                      datetime="2026-10-30">30/10/2026</time></td><td
+                    data-label="Atividade">Aprendizado de máquina — fundamentos e generalização: taxonomia, dados, modelos e perda; treino, validação e teste; vazamento, overfitting e regularização<br>
+                    <small>Nota de AM: seções 1–3; atividades do encontro 1 na seção 7.</small></td><td
                     data-label="Natureza"><span
                       class="tag">Aula</span></td></tr>
                 <tr class="class"><td data-label="Data"><time
-                      datetime="2026-11-10">10/11/2026</time></td><td
-                    data-label="Atividade">Modelos lineares e gradiente
-                    descendente</td><td data-label="Natureza"><span
+                      datetime="2026-11-03">03/11/2026</time></td><td
+                    data-label="Atividade">Aprendizado de máquina — modelos lineares e aprendizado por gradiente: regressão linear e logística; SGD, logits, softmax e entropia cruzada<br>
+                    <small>Nota de AM: seção 4; atividades do encontro 2 na seção 7.</small></td><td data-label="Natureza"><span
                       class="tag">Aula</span></td></tr>
+
+                <tr class="class"><td data-label="Data"><time
+                      datetime="2026-11-06">06/11/2026</time></td><td
+                    data-label="Atividade">Aprendizado de máquina — redes neurais e representações aprendidas: MLP, não linearidade, retropropagação e embeddings; generalização em redes<br>
+                    <small>Nota de AM: seções 5–6; atividades do encontro 3 na seção 7.</small></td><td data-label="Natureza"><span
+                      class="tag">Aula</span></td></tr>
+
+                <tr class="practice"><td data-label="Data"><time
+                      datetime="2026-11-10">10/11/2026</time></td><td
+                    data-label="Atividade">Lab: Aprendizado de Máquina</td><td data-label="Natureza"><span
+                      class="tag">Prática</span></td></tr>
+
+                      
                 <tr class="class"><td data-label="Data"><time
                       datetime="2026-11-13">13/11/2026</time></td><td
-                    data-label="Atividade">Generalização, viés-variância e
-                    regularização</td><td data-label="Natureza"><span
+                    data-label="Atividade">Modelos de Linguagem I — tokens, embeddings e posições; modelagem autoregressiva, probabilidade de sequências e perda; treinamento e geração</td><td data-label="Natureza"><span
                       class="tag">Aula</span></td></tr>
-                <tr class="assessment"><td data-label="Data"><time
+
+                <tr class="class"><td data-label="Data"><time
                       datetime="2026-11-17">17/11/2026</time></td><td
-                    data-label="Atividade">Teste 2</td><td
-                    data-label="Natureza"><span class="tag">Avaliação</span></td></tr>
+                    data-label="Atividade">Modelos de Linguagem II — autoatenção, arquitetura Transformer, máscara causal e pré-treinamento autossupervisionado</td><td
+                    data-label="Natureza"><span
+                      class="tag">Aula</span></td></tr>
+
                 <tr class="holiday"><td data-label="Data"><time
-                      datetime="2026-11-20">20/11/2026</time></td><td
+                    datetime="2026-11-20">20/11/2026</time></td><td
                     data-label="Atividade">Dia Nacional de Zumbi e da
                     Consciência Negra — sem aula</td><td
                     data-label="Natureza"><span class="tag">Calendário
                       institucional</span></td></tr>
+
                 <tr class="class"><td data-label="Data"><time
                       datetime="2026-11-24">24/11/2026</time></td><td
-                    data-label="Atividade">Árvores de decisão e métodos
-                    ensemble</td><td data-label="Natureza"><span
-                      class="tag">Aula</span></td></tr>
-                <tr class="class"><td data-label="Data"><time
-                      datetime="2026-11-27">27/11/2026</time></td><td
-                    data-label="Atividade">Redes neurais, aprendizado não
-                    supervisionado e embeddings</td><td
+                    data-label="Atividade">Modelos de Linguagem III — SFT, preferências e alinhamento; visão conceitual de RLHF e DPO; limitações e passagem do modelo ao agente</td><td
                     data-label="Natureza"><span
                       class="tag">Aula</span></td></tr>
+
+                <tr class="assessment"><td data-label="Data"><time
+                      datetime="2026-11-27">27/11/2026</time></td><td
+                    data-label="Atividade">Teste 2</td><td
+                    data-label="Natureza"><span class="tag">Avaliação</span></td></tr>
+
                 <tr class="class"><td data-label="Data"><time
                       datetime="2026-12-01">01/12/2026</time></td><td
-                    data-label="Atividade">Modelos de linguagem e arquiteturas
-                    de agentes baseados em LLMs</td><td
-                    data-label="Natureza"><span
-                      class="tag">Aula</span></td></tr>
-                <tr class="class"><td data-label="Data"><time
-                      datetime="2026-12-04">04/12/2026</time></td><td
-                    data-label="Atividade">Planejamento iterativo: ReAct,
+                    data-label="Atividade">Agentes baseados em LLM — Planejamento iterativo: ReAct,
                     Plan-and-Act e Reflexion</td><td data-label="Natureza"><span
                       class="tag">Aula</span></td></tr>
+
                 <tr class="class"><td data-label="Data"><time
-                      datetime="2026-12-08">08/12/2026</time></td><td
-                    data-label="Atividade">Uso de ferramentas e integração com
+                      datetime="2026-12-04">04/12/2026</time></td><td
+                    data-label="Atividade">Agentes baseados em LLM — Uso de ferramentas e integração com
                     bases de conhecimento (RAG)</td><td
                     data-label="Natureza"><span
                       class="tag">Aula</span></td></tr>
+
+                <tr class="practice"><td data-label="Data"><time
+                      datetime="2026-12-08">08/12/2026</time></td><td
+                    data-label="Atividade">Lab: Agentes baseados em LLM</td><td data-label="Natureza"><span
+                      class="tag">Prática</span></td></tr>
+
                 <tr class="class"><td data-label="Data"><time
                       datetime="2026-12-11">11/12/2026</time></td><td
-                    data-label="Atividade">MCP, observabilidade, avaliação,
+                    data-label="Atividade">Agentes baseados em LLM — MCP, observabilidade, avaliação,
                     segurança e guardrails</td><td data-label="Natureza"><span
                       class="tag">Aula</span></td></tr>
+                <tr class="assessment"><td data-label="Data"><time
+                      datetime="2026-12-15">15/12/2026</time></td><td
+                    data-label="Atividade">Exame Final</td><td
+                    data-label="Natureza"><span class="tag">Avaliação</span></td></tr>
                 <tr class="assessment"><td data-label="Data"><time
                       datetime="2026-12-18">18/12/2026</time></td><td
                     data-label="Atividade">Segunda chamada</td><td
                     data-label="Natureza"><span class="tag">Avaliação</span></td></tr>
               </tbody>
-                <tr class="assessment"><td data-label="Data"><time
-                      datetime="2026-12-15">15/12/2026</time></td><td
-                    data-label="Atividade">Exame Final</td><td
-                    data-label="Natureza"><span class="tag">Avaliação</span></td></tr>
             </table>
           </div>
 
@@ -419,7 +468,7 @@
             03/08, o encerramento das aulas em 18/12 e o período final em
             dezembro derivam do calendário institucional. As datas de T1, T2,
             Teste 1, Teste 2, segunda chamada e exame final são propostas e
-            serão confirmadas pelo professor no Teams.
+            serão confirmadas pelo professor via MS Teams.
           </div>
         </div>
       </section>
@@ -462,6 +511,10 @@
           <p>As notas de aula são o texto central da disciplina. O estudante
             deve lê-las antes do encontro correspondente. A aula não repete o
             texto. Ela parte da leitura prévia.</p>
+          <p>Para a nota de Aprendizado de Máquina, siga o roteiro de três
+            encontros: seções 1–3, seção 4 e seções 5–6, respectivamente, com as
+            atividades correspondentes da seção 7. Os apêndices A–H são de
+            consulta e aprofundamento opcionais.</p>
           <p>Uma estratégia recomendada é a Técnica de Feynman: explicar o
             conceito com palavras próprias, identificar lacunas, revisar o
             material e reconstruir a explicação de forma mais simples e
