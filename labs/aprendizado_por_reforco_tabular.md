@@ -46,16 +46,13 @@ significa subir na grade.
 Não é necessário listar todas as transições uma a uma, mas a descrição deve ser
 precisa.
 
-**2.** Explique por que esse problema pode ser tratado como um processo com
-propriedade de Markov. Em seguida, dê um exemplo de informação histórica que
-**não** precisaria ser armazenada no estado para o agente agir.
+**2.** Explique por que esse problema pode ser tratado como um processo com propriedade de Markov. Em seguida, dê um exemplo de informação histórica que **não** precisaria ser armazenada no estado para o agente agir.
 
 **3.** Compare este problema com um problema clássico de busca monoagente.
 Indique:
 
 - o que a formulação PDM representa que a busca clássica não representa bem
-- por que, no aprendizado por reforço, o agente não pode simplesmente planejar
-  a política ótima antes de interagir com o ambiente
+- por que, no aprendizado por reforço, o agente não pode simplesmente planejar a política ótima antes de interagir com o ambiente
 
 ---
 
@@ -70,19 +67,16 @@ terminal com recompensa `+1`.
 
 **4.** Calcule o retorno descontado dessa trajetória a partir do estado inicial.
 
-**5.** Suponha que, em um certo momento do treinamento, o agente tenha as
-seguintes estimativas no estado `(2,3)`:
+**5.** Suponha que, em um certo momento do treinamento, o agente tenha as seguintes estimativas no estado `(2,3)`:
 
 - `Q((2,3), Norte) = 0,10`
 - `Q((2,3), Sul) = -0,20`
 - `Q((2,3), Leste) = 0,80`
 - `Q((2,3), Oeste) = 0,05`
 
-Qual seria a ação escolhida por uma política gulosa nesse estado? Qual seria o
-valor estimado `V((2,3))` sob essa política?
+Qual seria a ação escolhida por uma política gulosa nesse estado? Qual seria o valor estimado `V((2,3))` sob essa política?
 
-**6.** Explique, sem fazer novas contas, como o valor de uma mesma trajetória
-mudaria se:
+**6.** Explique, sem fazer novas contas, como o valor de uma mesma trajetória mudaria se:
 
 - `gamma = 0`
 - `gamma` fosse muito próximo de `1`
@@ -112,9 +106,7 @@ Use o valor atualizado no item anterior e assuma que, no estado `(2,3)`, a
 melhor ação continua sendo `Leste`. Calcule a atualização de
 `Q((2,2), Norte)` por Q-learning.
 
-**9.** Com base nos itens 7 e 8, expliquem a ideia de **propagação de valor**.
-Por que estados mais próximos do terminal positivo tendem a receber boas
-estimativas antes dos estados mais distantes?
+**9.** Com base nos itens 7 e 8, expliquem a ideia de **propagação de valor**. Por que estados mais próximos do terminal positivo tendem a receber boas estimativas antes dos estados mais distantes?
 
 ---
 
@@ -177,11 +169,10 @@ Justifiquem conceitualmente; não é preciso propor fórmulas novas.
 
 ## Entrega esperada
 
-Ao final do tempo, cada grupo deve entregar:
+Ao final do tempo, cada grupo deve entregar, na forma de um único arquivo em formato MarkDown:
 
 - as respostas dos itens `1` a `15`
 - as contas dos itens numéricos
 - uma justificativa curta, mas clara, para as perguntas conceituais
 
-Cada grupo deve produzir um único notebook Jupyter.
-Cada componente do grupo deve submeter o mesmo notebok Jupyter produzido durante a aula.
+Cada componente do grupo deve submeter o mesmo arquivo MarkDown produzido durante a aula.
