@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Retropropagação em um MLP 2-2-2</title>
+<style>
+:root{--bg:#f6f7fb;--fg:#1b2033;--mut:#5b6380;--card:#fff;--bd:#d9ddeb;--acc:#2a4bd7;--accfg:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10131f;--fg:#e8ebf7;--mut:#99a1c0;--card:#192033;--bd:#2c3556;--acc:#7b93ff;--accfg:#10131f}}
+:root[data-theme="dark"]{--bg:#10131f;--fg:#e8ebf7;--mut:#99a1c0;--card:#192033;--bd:#2c3556;--acc:#7b93ff;--accfg:#10131f}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1080px;margin:0 auto;padding:16px}
+h1{font-size:1.35rem;margin:.2em 0}
+p.sub{color:var(--mut);margin:0 0 12px}
+.grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:14px}
+@media(max-width:820px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px}
+.stage{background:radial-gradient(circle at 30% 20%,#17305e,#0a1024 70%);border-radius:14px;padding:6px}
+svg{width:100%;height:auto;display:block}
+.tag{font:800 16px system-ui}
+.edge{stroke:#4a6a9a;stroke-width:2.5;opacity:.7;fill:none}
+.edge.on{stroke:#2cf08a;opacity:1;stroke-width:3.5}
+.edge.hl{stroke:#ffd23f;opacity:1;stroke-width:4.5}
+.lw{font:700 12px ui-monospace,Menlo,Consolas,monospace;fill:#fff;text-anchor:middle}
+.lg{font:700 11px ui-monospace,Menlo,Consolas,monospace;fill:#2cf08a;text-anchor:middle}
+.node rect{fill:#fff;stroke:#0a1024;stroke-width:2.5}
+.node.loss rect{fill:#ffd6df}
+.node.out rect{fill:#e3f6e8}
+.node.dead rect{fill:#d5d8e2}
+.node.glow rect{stroke:#ffd23f;stroke-width:4;filter:drop-shadow(0 0 7px #ffd23f)}
+.node text{font:700 14px ui-monospace,Menlo,Consolas,monospace;fill:#14182b;text-anchor:middle}
+.ng{font:700 11.5px ui-monospace,Menlo,Consolas,monospace;fill:#2cf08a;text-anchor:middle}
+.nl{font:700 11px system-ui;fill:#ffd23f;text-anchor:middle}
+.cap{font-size:1.06rem;font-weight:600;min-height:3.6em;margin:10px 4px 4px}
+.cap b{background:#ffd23f;color:#1b2033;border-radius:4px;padding:0 4px}
+.ctrl{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+button{font:600 15px system-ui;padding:9px 14px;border-radius:10px;border:1px solid var(--bd);background:var(--card);color:var(--fg);cursor:pointer}
+button.pri,button.sel{background:var(--acc);color:var(--accfg);border-color:var(--acc)}
+button:disabled{opacity:.45;cursor:default}
+.dots{display:flex;gap:4px;margin:10px 4px 0}
+.dots i{flex:1;height:5px;border-radius:3px;background:var(--bd)}
+.dots i.on{background:var(--acc)}
+pre{margin:0;white-space:pre-wrap;font:13.5px/1.6 ui-monospace,Menlo,Consolas,monospace}
+h2{font-size:1rem;margin:0 0 6px}
+.mut{color:var(--mut);font-size:.9rem}
+label{font-size:.9rem;color:var(--mut)}
+input[type=number]{width:80px;padding:5px;border-radius:8px;border:1px solid var(--bd);background:var(--bg);color:var(--fg)}
+.hist div{font:14px ui-monospace,Menlo,Consolas,monospace}
+</style>
+</head>
+<body>
+<main>
+  <h1>Retropropagação em um MLP 2-2-2</h1>
+  <p class="sub">Exemplo resolvido da nota: <code>x = (1, 2)</code>, camada oculta com ReLU, saída softmax e perda de entropia cruzada.</p>
+  <div class="grid">
+    <div>
+      <div class="stage"><svg id="svg" viewBox="0 0 680 430" role="img" aria-label="Rede neural 2-2-2"></svg></div>
+      <div class="cap" id="cap"></div>
+      <div class="dots" id="dots"></div>
+      <div class="ctrl">
+        <button id="prev">← Anterior</button>
+        <button id="next" class="pri">Próximo →</button>
+        <button id="play">▶ Reproduzir</button>
+        <button id="reset">Reiniciar tudo</button>
+      </div>
+    </div>
+    <div style="display:grid;gap:14px;align-content:start">
+      <div class="card"><h2>Cálculo desta etapa</h2><pre id="math"></pre></div>
+      <div class="card">
+        <h2>Configuração</h2>
+        <div class="ctrl" style="margin:0 0 8px"><button id="t0">alvo: classe 1</button><button id="t1">alvo: classe 2</button></div>
+        <label>taxa α <input type="number" id="lr" value="0.1" step="0.05" min="0.01" max="1"></label>
+        <p class="mut" style="margin:8px 0 0">No fim, “Novo ciclo” repete o processo com os parâmetros atualizados.</p>
+      </div>
+      <div class="card hist"><h2>Perda por ciclo</h2><div id="hist"></div></div>
+    </div>
+  </div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const fmt=v=>{let s=(Math.round(v*1000)/1000).toFixed(3).replace(/0+$/,'').replace(/\.$/,'');if(s==='-0')s='0';return s.replace('.',',').replace('-','−')};
+const sub=['₁','₂'];
+const P0=()=>({W1:[[1,-1],[1,1]],b1:[0,0],W2:[[1,1],[0,0]],b2:[0,0]});
+const x=[1,2];
+function calc(P,t){
+  const u=[0,1].map(j=>P.W1[j][0]*x[0]+P.W1[j][1]*x[1]+P.b1[j]);
+  const h=u.map(v=>Math.max(0,v));
+  const z=[0,1].map(i=>P.W2[i][0]*h[0]+P.W2[i][1]*h[1]+P.b2[i]);
+  const m=Math.max(...z),e=z.map(v=>Math.exp(v-m)),s=e[0]+e[1],p=e.map(v=>v/s);
+  const l=-Math.log(p[t]),y=[0,1].map(i=>i===t?1:0);
+  const dz=[0,1].map(i=>p[i]-y[i]);
+  const dW2=dz.map(d=>h.map(hj=>d*hj));
+  const dh=[0,1].map(j=>P.W2[0][j]*dz[0]+P.W2[1][j]*dz[1]);
+  const du=dh.map((d,j)=>u[j]>0?d:0);
+  const dW1=du.map(d=>x.map(xi=>d*xi));
+  const dx=[0,1].map(i=>P.W1[0][i]*du[0]+P.W1[1][i]*du[1]);
+  return{u,h,z,p,l,dz,dW2,db2:dz,dh,du,dW1,db1:du,dx};
+}
+const upd=(P,c,a)=>({W1:P.W1.map((r,j)=>r.map((w,i)=>w-a*c.dW1[j][i])),b1:P.b1.map((b,j)=>b-a*c.db1[j]),
+  W2:P.W2.map((r,i)=>r.map((w,j)=>w-a*c.dW2[i][j])),b2:P.b2.map((b,i)=>b-a*c.db2[i])});
+let base=P0(),t=0,step=0,timer=null,hist=[],N=12;
+hist=[calc(base,t).l];
+const Y=[120,250],XC=60,HC=235,ZC=420,PC=575;
+function render(){
+  const a=parseFloat($('lr').value)||0.1;
+  const c=calc(base,t);let P=base,d=c;
+  if(step===11){P=upd(base,c,a);d=calc(P,t)}
+  const on=new Set(),hl=new Set(),glow=new Set();
+  let tag='FORWARD PASS',tc='#27b6ff',cap='',math='';
+  const V=(arr,f=fmt)=>arr.map(f).join(', ');
+  const L=['u','h','z'];
+  if(step===0){cap='Entrada <b>x</b> e parâmetros atuais. Ainda não calculamos nada.';
+    math='x = ('+V(x)+')\nW⁽¹⁾ = ['+P.W1.map(r=>V(r)).join(' ; ')+']\nb⁽¹⁾ = ('+V(P.b1)+')\nW⁽²⁾ = ['+P.W2.map(r=>V(r)).join(' ; ')+']\nb⁽²⁾ = ('+V(P.b2)+')\nalvo: classe '+(t+1)}
+  if(step===1){cap='Combinações da camada oculta: <b>u = W⁽¹⁾x + b⁽¹⁾</b>.';[0,1].forEach(j=>glow.add('u'+j));
+    math=[0,1].map(j=>'u'+sub[j]+' = '+fmt(P.W1[j][0])+'·'+fmt(x[0])+' + '+fmt(P.W1[j][1])+'·'+fmt(x[1])+' + '+fmt(P.b1[j])+' = '+fmt(d.u[j])).join('\n')}
+  if(step===2){cap='A <b>ReLU</b> zera o que é negativo: h = max(0, u).';[0,1].forEach(j=>glow.add('h'+j));
+    math=[0,1].map(j=>'h'+sub[j]+' = max(0, '+fmt(d.u[j])+') = '+fmt(d.h[j])).join('\n')}
+  if(step===3){cap='A camada de saída produz os <b>logits</b>: z = W⁽²⁾h + b⁽²⁾.';[0,1].forEach(j=>glow.add('z'+j));
+    math=[0,1].map(i=>'z'+sub[i]+' = '+fmt(P.W2[i][0])+'·'+fmt(d.h[0])+' + '+fmt(P.W2[i][1])+'·'+fmt(d.h[1])+' + '+fmt(P.b2[i])+' = '+fmt(d.z[i])).join('\n')}
+  if(step===4){cap='A <b>softmax</b> converte logits em probabilidades.';[0,1].forEach(j=>glow.add('p'+j));
+    math='p'+sub[0]+' = e^'+fmt(d.z[0])+' / (e^'+fmt(d.z[0])+' + e^'+fmt(d.z[1])+') ≈ '+fmt(d.p[0])+'\np'+sub[1]+' = e^'+fmt(d.z[1])+' / (e^'+fmt(d.z[0])+' + e^'+fmt(d.z[1])+') ≈ '+fmt(d.p[1])}
+  if(step===5){cap='A <b>entropia cruzada</b> mede quão pouca probabilidade foi dada à classe correta.';glow.add('l');
+    math='ℓ = −log p'+sub[t]+' = −log('+fmt(d.p[t])+') ≈ '+fmt(d.l)+'\n\nCom o outro alvo, a mesma\nprevisão daria ℓ ≈ '+fmt(-Math.log(d.p[1-t]))}
+  if(step>=6&&step<11){tag=step===6?'BACKWARD PASS':'GRADIENTS FLOW BACK';tc='#2cf08a'}
+  if(step===11){tag='ONE STEP OF LEARNING';tc='#2cf08a'}
+  if(step===6){cap='Comece pelo fim: com softmax + entropia cruzada, <b>∂ℓ/∂z = p − y</b>.';glow.add('z0');glow.add('z1');on.add('zp0');on.add('zp1');
+    math='y = ('+(t===0?'1, 0':'0, 1')+')  (alvo one-hot)\n∂ℓ/∂z'+sub[0]+' = '+fmt(d.p[0])+' − '+(t===0?1:0)+' = '+fmt(c.dz[0])+'\n∂ℓ/∂z'+sub[1]+' = '+fmt(d.p[1])+' − '+(t===1?1:0)+' = '+fmt(c.dz[1])}
+  if(step===7){cap='Gradiente dos pesos de saída: <b>∂ℓ/∂W⁽²⁾ᵢⱼ = ∂ℓ/∂zᵢ · hⱼ</b>.';on.add('W2');hl.add('W2_0_1');
+    math='∂ℓ/∂W⁽²⁾₁,₂ = ∂ℓ/∂z₁ · h₂\n  = '+fmt(c.dz[0])+' × '+fmt(c.h[1])+' = '+fmt(c.dW2[0][1])+'\n\nGradiente de W⁽²⁾:\n'+c.dW2.map(r=>'['+V(r)+']').join('\n')+'\n∂ℓ/∂b⁽²⁾ = ('+V(c.db2)+')\n\nSinal negativo: aumentar W⁽²⁾₁,₂\nreduz a perda deste exemplo.'}
+  if(step===8){cap='O gradiente continua para trás, <b>pelas mesmas conexões</b>: ∂ℓ/∂h = W⁽²⁾ᵀ ∂ℓ/∂z.';on.add('W2');[0,1].forEach(j=>glow.add('h'+j));
+    math=[0,1].map(j=>'∂ℓ/∂h'+sub[j]+' = '+fmt(P.W2[0][j])+'·'+fmt(c.dz[0])+' + '+fmt(P.W2[1][j])+'·'+fmt(c.dz[1])+' = '+fmt(c.dh[j])).join('\n')}
+  if(step===9){cap='Passando pela <b>ReLU</b>: derivada 1 se u > 0 e 0 se u ≤ 0. Neurônio com u ≤ 0 não recebe gradiente.';[0,1].forEach(j=>glow.add('u'+j));
+    math=[0,1].map(j=>'∂ℓ/∂u'+sub[j]+' = ∂ℓ/∂h'+sub[j]+' · '+(c.u[j]>0?1:0)+'  (u'+sub[j]+' = '+fmt(c.u[j])+')\n  = '+fmt(c.du[j])).join('\n')}
+  if(step===10){cap='Gradiente dos pesos ocultos: <b>∂ℓ/∂W⁽¹⁾ⱼᵢ = ∂ℓ/∂uⱼ · xᵢ</b>.';on.add('W1');
+    math='Gradiente de W⁽¹⁾:\n'+c.dW1.map(r=>'['+V(r)+']').join('\n')+'\n∂ℓ/∂b⁽¹⁾ = ('+V(c.db1)+')\n∂ℓ/∂x = ('+V(c.dx)+')\n\nA linha do neurônio com ReLU\ninativa é zero.'}
+  if(step===11){cap='Atualize cada parâmetro <b>contra</b> o seu gradiente: θ ← θ − α∇θ.';
+    ['W2_0_1'].forEach(k=>hl.add(k));
+    math='α = '+fmt(a)+'\nW⁽²⁾₁,₂: '+fmt(base.W2[0][1])+' − '+fmt(a)+'·('+fmt(c.dW2[0][1])+') = '+fmt(P.W2[0][1])+'\n\nW⁽¹⁾ = ['+P.W1.map(r=>V(r)).join(' ; ')+']\nW⁽²⁾ = ['+P.W2.map(r=>V(r)).join(' ; ')+']\nb⁽¹⁾ = ('+V(P.b1)+')\nb⁽²⁾ = ('+V(P.b2)+')\n\nPerda: '+fmt(c.l)+' → '+fmt(d.l)}
+  // desenho
+  let s=`<text class="tag" x="18" y="34" fill="${tc}">${tag}</text>`;
+  const ex=(x1,y1,x2,y2,cls)=>`<line class="edge ${cls}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`;
+  let lab='';
+  const gW1=step>=10,gW2=step>=7;
+  for(let j=0;j<2;j++)for(let i=0;i<2;i++){ // x_i -> h_j
+    const x1=XC+35,y1=Y[i],x2=HC-55,y2=Y[j];
+    s+=ex(x1,y1,x2,y2,on.has('W1')?'on':'');
+    const tx=x1+(x2-x1)*.3,ty=y1+(y2-y1)*.3;
+    lab+=`<text class="lw" x="${tx}" y="${ty-3}">${fmt(P.W1[j][i])}</text>`+(gW1?`<text class="lg" x="${tx}" y="${ty+10}">∇ ${fmt(c.dW1[j][i])}</text>`:'');
+  }
+  for(let i=0;i<2;i++)for(let j=0;j<2;j++){ // h_j -> z_i
+    const x1=HC+55,y1=Y[j],x2=ZC-42,y2=Y[i];const k='W2_'+i+'_'+j;
+    s+=ex(x1,y1,x2,y2,hl.has(k)?'hl':on.has('W2')?'on':'');
+    const tx=x1+(x2-x1)*.3,ty=y1+(y2-y1)*.3;
+    lab+=`<text class="lw" x="${tx}" y="${ty-3}">${fmt(P.W2[i][j])}</text>`+(gW2?`<text class="lg" x="${tx}" y="${ty+10}">∇ ${fmt(c.dW2[i][j])}</text>`:'');
+  }
+  for(let i=0;i<2;i++){s+=ex(ZC+42,Y[i],PC-45,Y[i],on.has('zp'+i)?'on':'')}
+  s+=`<text class="lw" x="${(ZC+PC)/2}" y="195" opacity=".8">softmax</text>`;
+  for(let i=0;i<2;i++)s+=`<polyline class="edge" points="${PC+45},${Y[i]} 655,${Y[i]} 655,360 640,360"/>`;
+  s+=lab;
+  const box=(cx,cy,w,h,cls,lines,key,grad)=>`<g class="node ${cls} ${(key===true||glow.has(key))?'glow':''}"><rect x="${cx-w/2}" y="${cy-h/2}" rx="9" width="${w}" height="${h}"/>`+lines.map((l,n)=>`<text x="${cx}" y="${cy-(lines.length-1)*8+n*17+5}">${l}</text>`).join('')+`</g>`+(grad?`<text class="ng" x="${cx}" y="${cy+h/2+14}">${grad}</text>`:'');
+  const showGrad=step>=6&&step<11;
+  for(let i=0;i<2;i++){
+    s+=box(XC,Y[i],70,46,'',['x'+sub[i]+' = '+fmt(x[i])],'',step>=10&&step<11?'∇ '+fmt(c.dx[i]):'');
+    const dead=step>=2&&d.u[i]<=0;
+    const hl2=[step>=1?'u'+sub[i]+' = '+fmt(d.u[i]):'u'+sub[i],step>=2?'h'+sub[i]+' = '+fmt(d.h[i]):'h'+sub[i]];
+    const g=[];if(showGrad&&step>=8)g.push('∇h '+fmt(c.dh[i]));if(showGrad&&step>=9)g.push('∇u '+fmt(c.du[i]));
+    s+=box(HC,Y[i],110,56,dead?'dead':'',hl2,glow.has('u'+i)||glow.has('h'+i),g.join('  '));
+    s+=box(ZC,Y[i],84,46,'out',[step>=3?'z'+sub[i]+' = '+fmt(d.z[i]):'z'+sub[i]],'z'+i,showGrad?'∇ '+fmt(c.dz[i]):'');
+    s+=box(PC,Y[i],90,46,'out',[step>=4?'p'+sub[i]+' = '+fmt(d.p[i]):'p'+sub[i]],'p'+i,'');
+    if(i===t)s+=`<text class="nl" x="${PC}" y="${Y[i]-30}">● alvo</text>`;
+  }
+  s+=box(575,360,130,44,'loss',[step>=5?'ℓ = '+fmt(d.l):'ℓ'],'l','');
+  $('svg').innerHTML=s;
+  $('cap').innerHTML=cap;$('math').textContent=math;
+  $('dots').innerHTML=Array.from({length:N},(_,i)=>`<i class="${i<=step?'on':''}"></i>`).join('');
+  $('prev').disabled=step===0;$('next').textContent=step===N-1?'Novo ciclo ↻':'Próximo →';
+  $('t0').className=t===0?'sel':'';$('t1').className=t===1?'sel':'';
+  $('hist').innerHTML=hist.map((l,i)=>`<div>ciclo ${i}: ℓ = ${fmt(l)}</div>`).join('');
+}
+function stop(){if(timer){clearInterval(timer);timer=null;$('play').textContent='▶ Reproduzir'}}
+function next(){
+  if(step<N-1)step++;
+  else{const a=parseFloat($('lr').value)||0.1;base=upd(base,calc(base,t),a);hist.push(calc(base,t).l);step=0;stop()}
+  render();
+}
+$('next').onclick=()=>{stop();next()};
+$('prev').onclick=()=>{stop();if(step>0){step--;render()}};
+$('reset').onclick=()=>{stop();base=P0();step=0;hist=[calc(base,t).l];render()};
+$('play').onclick=()=>{if(timer){stop();return}$('play').textContent='❚❚ Pausar';timer=setInterval(()=>{if(step<N-1){step++;render()}else stop()},2600)};
+[0,1].forEach(k=>$('t'+k).onclick=()=>{stop();t=k;base=P0();step=0;hist=[calc(base,t).l];render()});
+$('lr').oninput=render;
+render();
+</script>
+</body>
+</html>

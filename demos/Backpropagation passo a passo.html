@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Backpropagation passo a passo</title>
+<style>
+:root{--bg:#f6f7fb;--fg:#1b2033;--mut:#5b6380;--card:#fff;--bd:#d9ddeb;--acc:#2a4bd7;--accfg:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10131f;--fg:#e8ebf7;--mut:#99a1c0;--card:#192033;--bd:#2c3556;--acc:#7b93ff;--accfg:#10131f}}
+:root[data-theme="dark"]{--bg:#10131f;--fg:#e8ebf7;--mut:#99a1c0;--card:#192033;--bd:#2c3556;--acc:#7b93ff;--accfg:#10131f}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:980px;margin:0 auto;padding:16px}
+h1{font-size:1.35rem;margin:.2em 0}
+p.sub{color:var(--mut);margin:0 0 12px}
+.grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:14px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px}
+.stage{background:radial-gradient(circle at 30% 20%,#17305e,#0a1024 70%);border-radius:14px;padding:6px;position:relative}
+svg{width:100%;height:auto;display:block}
+.tag{font:800 15px system-ui;letter-spacing:.3px}
+.edge{stroke:#4a6a9a;stroke-width:3;opacity:.65}
+.edge.on{stroke:#2cf08a;opacity:1;stroke-width:4}
+.node rect{fill:#fff;stroke:#0a1024;stroke-width:2.5}
+.node.loss rect{fill:#ffd6df}
+.node.glow rect{stroke:#ffd23f;stroke-width:4;filter:drop-shadow(0 0 7px #ffd23f)}
+.node text{font:700 15px ui-monospace,Menlo,Consolas,monospace;fill:#14182b;text-anchor:middle}
+.node text.g{font:700 13px ui-monospace,Menlo,Consolas,monospace;fill:#0a7a52}
+.op circle{fill:#2b3a8c;stroke:#0a1024;stroke-width:2.5}
+.op text{fill:#fff;font:800 18px system-ui;text-anchor:middle}
+.chip{font:700 13px system-ui}
+.cap{font-size:1.08rem;font-weight:600;min-height:3.2em;margin:10px 4px 4px}
+.cap b{background:#ffd23f;color:#1b2033;border-radius:4px;padding:0 4px}
+.ctrl{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+button{font:600 15px system-ui;padding:9px 14px;border-radius:10px;border:1px solid var(--bd);background:var(--card);color:var(--fg);cursor:pointer}
+button.pri{background:var(--acc);color:var(--accfg);border-color:var(--acc)}
+button:disabled{opacity:.45;cursor:default}
+.dots{display:flex;gap:5px;margin:10px 4px 0}
+.dots i{flex:1;height:5px;border-radius:3px;background:var(--bd)}
+.dots i.on{background:var(--acc)}
+pre{margin:0;white-space:pre-wrap;font:14px/1.6 ui-monospace,Menlo,Consolas,monospace}
+h2{font-size:1rem;margin:0 0 6px}
+.mut{color:var(--mut);font-size:.9rem}
+label{font-size:.9rem;color:var(--mut)}
+input[type=number]{width:80px;padding:5px;border-radius:8px;border:1px solid var(--bd);background:var(--bg);color:var(--fg)}
+.hist div{font:14px ui-monospace,Menlo,Consolas,monospace}
+</style>
+</head>
+<body>
+<main>
+  <h1>Backpropagation passo a passo</h1>
+  <p class="sub">Grafo computacional mínimo: <code>e = a×b</code>, <code>d = e + c</code>, <code>L = d×f</code>. Use “Próximo” para avançar pelas etapas.</p>
+  <div class="grid">
+    <div>
+      <div class="stage"><svg id="svg" viewBox="0 0 560 500" role="img" aria-label="Grafo computacional"></svg></div>
+      <div class="cap" id="cap"></div>
+      <div class="dots" id="dots"></div>
+      <div class="ctrl">
+        <button id="prev">← Anterior</button>
+        <button id="next" class="pri">Próximo →</button>
+        <button id="play">▶ Reproduzir</button>
+        <button id="reset">Reiniciar tudo</button>
+      </div>
+    </div>
+    <div style="display:grid;gap:14px;align-content:start">
+      <div class="card"><h2>Cálculo desta etapa</h2><pre id="math"></pre></div>
+      <div class="card">
+        <h2>Passo de aprendizado</h2>
+        <label>taxa α <input type="number" id="lr" value="0.01" step="0.005" min="0.001" max="0.2"></label>
+        <p class="mut" style="margin:8px 0 0">Regra: <code>novo = antigo − α × grad</code>. Ao final, “Novo ciclo” repete tudo com os valores atualizados.</p>
+      </div>
+      <div class="card hist"><h2>Perda por ciclo</h2><div id="hist"></div>
+        <p class="mut" style="margin:8px 0 0">Esta perda não tem mínimo (é só um exemplo), então ela continua caindo.</p></div>
+    </div>
+  </div>
+</main>
+<script>
+const R=v=>Math.round(v*100)/100;
+const fmt=v=>{const r=Math.round(v*1e4)/1e4;let s=Number.isInteger(r)?String(r):r.toFixed(4);if(s.includes('.'))while(s.endsWith('0')&&s.split('.')[1].length>2)s=s.slice(0,-1);return s.replace('.',',').replace('-','−')};
+const fw=p=>{const e=p.a*p.b,d=e+p.c;return{e,d,L:d*p.f}};
+const bw=(p,v)=>{const gd=p.f;return{L:1,d:gd,f:v.d,e:gd,c:gd,a:p.b*gd,b:p.a*gd}};
+const P0={a:2,b:-3,c:10,f:-2};
+let base={...P0},step=0,hist=[fw(P0).L],timer=null;
+const N=10;
+const nodes={a:[20,135,110],b:[20,235,110],c:[20,330,110],e:[190,185,115],d:[335,255,115],f:[260,372,110],L:[395,412,115]};
+const ops={o1:[168,212,'×'],o2:[316,282,'+'],o3:[450,345,'×']};
+const edges={ // id: [x1,y1,x2,y2]
+ ao1:[130,165,168,212],bo1:[130,265,168,212],o1e:[168,212,190,212],
+ eo2:[247,237,316,282],co2:[130,360,316,282],o2d:[316,282,335,282],
+ do3:[392,305,450,345],fo3:[370,400,450,345],o3L:[450,345,450,412]};
+const $=id=>document.getElementById(id);
+function chipHTML(x,y,t){return `<g><rect x="${x}" y="${y}" rx="10" width="${t.length*7.6+18}" height="24" fill="#fff"/><text class="chip" x="${x+9}" y="${y+17}" fill="#14182b">${t}</text></g>`}
+function render(){
+  const lr=parseFloat($('lr').value)||0.01;
+  let p={...base},v=fw(p);const g=bw(base,fw(base));
+  const gv={},on=new Set(),hl=new Set();
+  let tag='FORWARD PASS',tc='#27b6ff',cap='',chip='',math='';
+  const L0=fw(base).L;
+  if(step===0){cap='Começamos pelas <b>entradas</b> a, b, c e f. Ainda não calculamos nada.';math='a = '+fmt(p.a)+'\nb = '+fmt(p.b)+'\nc = '+fmt(p.c)+'\nf = '+fmt(p.f)}
+  if(step===1){cap='Primeiro nó: <b>e = a × b</b>.';math='e = a·b\n  = '+fmt(p.a)+' × '+fmt(p.b)+'\n  = '+fmt(v.e);hl.add('e')}
+  if(step===2){cap='Depois: <b>d = e + c</b>.';math='d = e + c\n  = '+fmt(v.e)+' + '+fmt(p.c)+'\n  = '+fmt(v.d);hl.add('d')}
+  if(step===3){cap='Por fim, a perda: <b>L = d × f</b>.';math='L = d·f\n  = '+fmt(v.d)+' × '+fmt(p.f)+'\n  = '+fmt(v.L);hl.add('L')}
+  if(step===4){tag='A PERGUNTA';tc='#ffd23f';const q={...base,a:base.a-0.05};v=fw(q);p=q;
+    hl.add('a');hl.add('L');
+    cap='Se eu mexer um pouquinho em <b>a</b>, quanto a perda se move?';
+    math='a: '+fmt(base.a)+' → '+fmt(q.a)+'  (δ = −0,05)\nL: '+fmt(L0)+' → '+fmt(v.L)+'\n\nΔL/Δa ≈ ('+fmt(v.L)+' − ('+fmt(L0)+')) / (−0,05)\n      ≈ '+fmt((v.L-L0)/-0.05)+'\n\nIsso é a derivada ∂L/∂a, estimada\nnumericamente. A retropropagação a\nobtém exatamente, sem testar cada peso.'}
+  if(step>=5){tag=step===5?'BACKWARD PASS':step<9?'GRADIENTS FLOW BACK':'ONE STEP OF LEARNING';tc='#2cf08a'}
+  if(step>=5){gv.L=g.L;hl.add('L')}
+  if(step===5){on.add('o3L');cap='Comece pelo fim. A perda varia <b>um para um</b> com ela mesma.';math='∂L/∂L = 1'}
+  if(step>=6){gv.d=g.d;gv.f=g.f;on.add('o3L');on.add('do3');on.add('fo3')}
+  if(step===6){chip='× troca as entradas';cap='A multiplicação <b>troca as entradas</b>: o gradiente de cada lado é o valor do outro.';math='∂L/∂d = f = '+fmt(p.f)+'\n∂L/∂f = d = '+fmt(v.d);hl.add('d');hl.add('f')}
+  if(step>=7){gv.e=g.e;gv.c=g.c;on.add('o2d');on.add('eo2');on.add('co2')}
+  if(step===7){chip='+ repassa o gradiente';cap='A soma <b>repassa</b> o mesmo gradiente a cada entrada.';math='∂L/∂e = ∂L/∂d · 1 = '+fmt(g.e)+'\n∂L/∂c = ∂L/∂d · 1 = '+fmt(g.c);hl.add('e');hl.add('c')}
+  if(step>=8){gv.a=g.a;gv.b=g.b;on.add('o1e');on.add('ao1');on.add('bo1')}
+  if(step===8){chip='× troca as entradas';cap='De novo a multiplicação troca as entradas, agora multiplicando pelo gradiente que chegou.';math='∂L/∂a = b · ∂L/∂e\n       = '+fmt(p.b)+' × '+fmt(g.e)+' = '+fmt(g.a)+'\n∂L/∂b = a · ∂L/∂e\n       = '+fmt(p.a)+' × '+fmt(g.e)+' = '+fmt(g.b);hl.add('a');hl.add('b')}
+  if(step===9){const q={a:R(base.a-lr*g.a),b:R(base.b-lr*g.b),c:R(base.c-lr*g.c),f:R(base.f-lr*g.f)};p=q;v=fw(q);
+    gv.a=g.a;gv.b=g.b;gv.c=g.c;gv.f=g.f;delete gv.L;delete gv.d;delete gv.e;
+    chip='novo = antigo − '+fmt(lr)+' × grad';
+    ['a','b','c','f'].forEach(k=>hl.add(k));
+    cap='Agora empurre cada número um passinho <b>contra</b> o seu gradiente.';
+    math='a: '+fmt(base.a)+' − '+fmt(lr)+'·'+fmt(g.a)+' = '+fmt(q.a)+'\nb: '+fmt(base.b)+' − '+fmt(lr)+'·'+fmt(g.b)+' = '+fmt(q.b)+'\nc: '+fmt(base.c)+' − '+fmt(lr)+'·'+fmt(g.c)+' = '+fmt(q.c)+'\nf: '+fmt(base.f)+' − '+fmt(lr)+'·'+fmt(g.f)+' = '+fmt(q.f)+'\n\nNova perda: L = '+fmt(v.L)+'\n(antes: '+fmt(L0)+')'}
+  const vis={a:1,b:1,c:1,f:1,e:step>=1,d:step>=2,L:step>=3};
+  let s='';
+  for(const[k,c] of Object.entries(edges))s+=`<line class="edge${on.has(k)?' on':''}" x1="${c[0]}" y1="${c[1]}" x2="${c[2]}" y2="${c[3]}"/>`;
+  for(const[k,[x,y,t]] of Object.entries(ops))s+=`<g class="op"><circle cx="${x}" cy="${y}" r="19"/><text x="${x}" y="${y+6}">${t}</text></g>`;
+  for(const[k,[x,y,w]] of Object.entries(nodes)){
+    const h=58,val=vis[k]?` = ${fmt(k==='e'||k==='d'||k==='L'?v[k]:p[k])}`:'';
+    s+=`<g class="node${k==='L'?' loss':''}${hl.has(k)?' glow':''}"><rect x="${x}" y="${y}" rx="9" width="${w}" height="${h}"/><text x="${x+w/2}" y="${y+(gv[k]!==undefined?28:35)}">${k}${val}</text>${gv[k]!==undefined?`<text class="g" x="${x+w/2}" y="${y+47}">grad ${fmt(gv[k])}</text>`:''}</g>`}
+  s=`<text class="tag" x="22" y="40" fill="${tc}">${tag}</text>`+s;
+  if(chip)s+=chipHTML(step===9?150:22,step===9?95:105,chip);
+  $('svg').innerHTML=s;$('cap').innerHTML=cap;$('math').textContent=math;
+  $('dots').innerHTML=Array.from({length:N},(_,i)=>`<i class="${i<=step?'on':''}"></i>`).join('');
+  $('prev').disabled=step===0;
+  $('next').textContent=step===N-1?'Novo ciclo ↻':'Próximo →';
+  $('hist').innerHTML=hist.map((l,i)=>`<div>ciclo ${i}: L = ${fmt(l)}</div>`).join('');
+}
+function next(){
+  if(step<N-1){step++}
+  else{ // novo ciclo com parâmetros atualizados
+    const lr=parseFloat($('lr').value)||0.01,g=bw(base,fw(base));
+    base={a:R(base.a-lr*g.a),b:R(base.b-lr*g.b),c:R(base.c-lr*g.c),f:R(base.f-lr*g.f)};
+    hist.push(fw(base).L);step=0;stop();
+  }
+  render();
+}
+function stop(){if(timer){clearInterval(timer);timer=null;$('play').textContent='▶ Reproduzir'}}
+$('next').onclick=()=>{stop();next()};
+$('prev').onclick=()=>{stop();if(step>0){step--;render()}};
+$('reset').onclick=()=>{stop();base={...P0};step=0;hist=[fw(P0).L];render()};
+$('play').onclick=()=>{
+  if(timer){stop();return}
+  $('play').textContent='❚❚ Pausar';
+  timer=setInterval(()=>{if(step<N-1){step++;render()}else stop()},2400);
+};
+$('lr').oninput=render;
+render();
+</script>
+</body>
+</html>
