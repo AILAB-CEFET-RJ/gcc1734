@@ -1,0 +1,961 @@
+split,tarefa,dominio,texto,instrucao,resposta
+treino,tema,clima,A tempestade chega durante a noite na cidade.,Tema: A tempestade chega durante a noite na cidade.,clima
+treino,inicio,clima,A tempestade chega durante a noite na cidade.,Início: A tempestade chega durante a noite na cidade.,A tempestade
+treino,final,clima,A tempestade chega durante a noite na cidade.,Final: A tempestade chega durante a noite na cidade.,cidade
+treino,tema,educacao,A monitora estuda algoritmos na escola.,Tema: A monitora estuda algoritmos na escola.,educacao
+treino,inicio,educacao,A monitora estuda algoritmos na escola.,Início: A monitora estuda algoritmos na escola.,A monitora
+treino,final,educacao,A monitora estuda algoritmos na escola.,Final: A monitora estuda algoritmos na escola.,escola
+treino,tema,clima,A tempestade aparece pela manhã no vale.,Tema: A tempestade aparece pela manhã no vale.,clima
+treino,inicio,clima,A tempestade aparece pela manhã no vale.,Início: A tempestade aparece pela manhã no vale.,A tempestade
+treino,final,clima,A tempestade aparece pela manhã no vale.,Final: A tempestade aparece pela manhã no vale.,vale
+treino,tema,clima,A neblina desaparece ao amanhecer na cidade.,Tema: A neblina desaparece ao amanhecer na cidade.,clima
+treino,inicio,clima,A neblina desaparece ao amanhecer na cidade.,Início: A neblina desaparece ao amanhecer na cidade.,A neblina
+treino,final,clima,A neblina desaparece ao amanhecer na cidade.,Final: A neblina desaparece ao amanhecer na cidade.,cidade
+treino,tema,animais,O coelho descansa na varanda.,Tema: O coelho descansa na varanda.,animais
+treino,inicio,animais,O coelho descansa na varanda.,Início: O coelho descansa na varanda.,O coelho
+treino,final,animais,O coelho descansa na varanda.,Final: O coelho descansa na varanda.,varanda
+treino,tema,animais,O urso dorme no jardim de manhã.,Tema: O urso dorme no jardim de manhã.,animais
+treino,inicio,animais,O urso dorme no jardim de manhã.,Início: O urso dorme no jardim de manhã.,O urso
+treino,final,animais,O urso dorme no jardim de manhã.,Final: O urso dorme no jardim de manhã.,manhã
+treino,tema,tecnologia,O computador analisa as amostras com cuidado.,Tema: O computador analisa as amostras com cuidado.,tecnologia
+treino,inicio,tecnologia,O computador analisa as amostras com cuidado.,Início: O computador analisa as amostras com cuidado.,O computador
+treino,final,tecnologia,O computador analisa as amostras com cuidado.,Final: O computador analisa as amostras com cuidado.,cuidado
+treino,tema,tecnologia,O modelo processa os textos.,Tema: O modelo processa os textos.,tecnologia
+treino,inicio,tecnologia,O modelo processa os textos.,Início: O modelo processa os textos.,O modelo
+treino,final,tecnologia,O modelo processa os textos.,Final: O modelo processa os textos.,textos
+treino,tema,tecnologia,O algoritmo utiliza os exemplos.,Tema: O algoritmo utiliza os exemplos.,tecnologia
+treino,inicio,tecnologia,O algoritmo utiliza os exemplos.,Início: O algoritmo utiliza os exemplos.,O algoritmo
+treino,final,tecnologia,O algoritmo utiliza os exemplos.,Final: O algoritmo utiliza os exemplos.,exemplos
+treino,tema,tecnologia,O computador analisa os exemplos com cuidado.,Tema: O computador analisa os exemplos com cuidado.,tecnologia
+treino,inicio,tecnologia,O computador analisa os exemplos com cuidado.,Início: O computador analisa os exemplos com cuidado.,O computador
+treino,final,tecnologia,O computador analisa os exemplos com cuidado.,Final: O computador analisa os exemplos com cuidado.,cuidado
+treino,tema,tecnologia,O programa analisa os textos rapidamente.,Tema: O programa analisa os textos rapidamente.,tecnologia
+treino,inicio,tecnologia,O programa analisa os textos rapidamente.,Início: O programa analisa os textos rapidamente.,O programa
+treino,final,tecnologia,O programa analisa os textos rapidamente.,Final: O programa analisa os textos rapidamente.,rapidamente
+treino,tema,animais,O rato descansa na varanda depois do almoço.,Tema: O rato descansa na varanda depois do almoço.,animais
+treino,inicio,animais,O rato descansa na varanda depois do almoço.,Início: O rato descansa na varanda depois do almoço.,O rato
+treino,final,animais,O rato descansa na varanda depois do almoço.,Final: O rato descansa na varanda depois do almoço.,almoço
+treino,tema,tecnologia,O algoritmo organiza os exemplos com cuidado.,Tema: O algoritmo organiza os exemplos com cuidado.,tecnologia
+treino,inicio,tecnologia,O algoritmo organiza os exemplos com cuidado.,Início: O algoritmo organiza os exemplos com cuidado.,O algoritmo
+treino,final,tecnologia,O algoritmo organiza os exemplos com cuidado.,Final: O algoritmo organiza os exemplos com cuidado.,cuidado
+treino,tema,educacao,A monitora estuda programação na sala.,Tema: A monitora estuda programação na sala.,educacao
+treino,inicio,educacao,A monitora estuda programação na sala.,Início: A monitora estuda programação na sala.,A monitora
+treino,final,educacao,A monitora estuda programação na sala.,Final: A monitora estuda programação na sala.,sala
+treino,tema,animais,O macaco brinca no parque à tarde.,Tema: O macaco brinca no parque à tarde.,animais
+treino,inicio,animais,O macaco brinca no parque à tarde.,Início: O macaco brinca no parque à tarde.,O macaco
+treino,final,animais,O macaco brinca no parque à tarde.,Final: O macaco brinca no parque à tarde.,tarde
+treino,tema,clima,A tempestade chega pela manhã no litoral.,Tema: A tempestade chega pela manhã no litoral.,clima
+treino,inicio,clima,A tempestade chega pela manhã no litoral.,Início: A tempestade chega pela manhã no litoral.,A tempestade
+treino,final,clima,A tempestade chega pela manhã no litoral.,Final: A tempestade chega pela manhã no litoral.,litoral
+treino,tema,tecnologia,O robô utiliza os textos com cuidado.,Tema: O robô utiliza os textos com cuidado.,tecnologia
+treino,inicio,tecnologia,O robô utiliza os textos com cuidado.,Início: O robô utiliza os textos com cuidado.,O robô
+treino,final,tecnologia,O robô utiliza os textos com cuidado.,Final: O robô utiliza os textos com cuidado.,cuidado
+treino,tema,clima,O vento desaparece ao amanhecer na cidade.,Tema: O vento desaparece ao amanhecer na cidade.,clima
+treino,inicio,clima,O vento desaparece ao amanhecer na cidade.,Início: O vento desaparece ao amanhecer na cidade.,O vento
+treino,final,clima,O vento desaparece ao amanhecer na cidade.,Final: O vento desaparece ao amanhecer na cidade.,cidade
+treino,tema,animais,O cachorro dorme no jardim de manhã.,Tema: O cachorro dorme no jardim de manhã.,animais
+treino,inicio,animais,O cachorro dorme no jardim de manhã.,Início: O cachorro dorme no jardim de manhã.,O cachorro
+treino,final,animais,O cachorro dorme no jardim de manhã.,Final: O cachorro dorme no jardim de manhã.,manhã
+treino,tema,clima,A tempestade aparece pela manhã na montanha.,Tema: A tempestade aparece pela manhã na montanha.,clima
+treino,inicio,clima,A tempestade aparece pela manhã na montanha.,Início: A tempestade aparece pela manhã na montanha.,A tempestade
+treino,final,clima,A tempestade aparece pela manhã na montanha.,Final: A tempestade aparece pela manhã na montanha.,montanha
+treino,tema,animais,O pássaro come uma maçã de manhã.,Tema: O pássaro come uma maçã de manhã.,animais
+treino,inicio,animais,O pássaro come uma maçã de manhã.,Início: O pássaro come uma maçã de manhã.,O pássaro
+treino,final,animais,O pássaro come uma maçã de manhã.,Final: O pássaro come uma maçã de manhã.,manhã
+treino,tema,clima,A tempestade chega à tarde na cidade.,Tema: A tempestade chega à tarde na cidade.,clima
+treino,inicio,clima,A tempestade chega à tarde na cidade.,Início: A tempestade chega à tarde na cidade.,A tempestade
+treino,final,clima,A tempestade chega à tarde na cidade.,Final: A tempestade chega à tarde na cidade.,cidade
+treino,tema,clima,A chuva chega à tarde na cidade.,Tema: A chuva chega à tarde na cidade.,clima
+treino,inicio,clima,A chuva chega à tarde na cidade.,Início: A chuva chega à tarde na cidade.,A chuva
+treino,final,clima,A chuva chega à tarde na cidade.,Final: A chuva chega à tarde na cidade.,cidade
+treino,tema,educacao,O estudante apresenta programação na sala.,Tema: O estudante apresenta programação na sala.,educacao
+treino,inicio,educacao,O estudante apresenta programação na sala.,Início: O estudante apresenta programação na sala.,O estudante
+treino,final,educacao,O estudante apresenta programação na sala.,Final: O estudante apresenta programação na sala.,sala
+treino,tema,clima,A chuva desaparece pela manhã na montanha.,Tema: A chuva desaparece pela manhã na montanha.,clima
+treino,inicio,clima,A chuva desaparece pela manhã na montanha.,Início: A chuva desaparece pela manhã na montanha.,A chuva
+treino,final,clima,A chuva desaparece pela manhã na montanha.,Final: A chuva desaparece pela manhã na montanha.,montanha
+treino,tema,clima,A chuva desaparece à tarde no vale.,Tema: A chuva desaparece à tarde no vale.,clima
+treino,inicio,clima,A chuva desaparece à tarde no vale.,Início: A chuva desaparece à tarde no vale.,A chuva
+treino,final,clima,A chuva desaparece à tarde no vale.,Final: A chuva desaparece à tarde no vale.,vale
+treino,tema,clima,A garoa chega à tarde na montanha.,Tema: A garoa chega à tarde na montanha.,clima
+treino,inicio,clima,A garoa chega à tarde na montanha.,Início: A garoa chega à tarde na montanha.,A garoa
+treino,final,clima,A garoa chega à tarde na montanha.,Final: A garoa chega à tarde na montanha.,montanha
+treino,tema,educacao,O professor revisa estatística na sala.,Tema: O professor revisa estatística na sala.,educacao
+treino,inicio,educacao,O professor revisa estatística na sala.,Início: O professor revisa estatística na sala.,O professor
+treino,final,educacao,O professor revisa estatística na sala.,Final: O professor revisa estatística na sala.,sala
+treino,tema,animais,O rato corre na rua à tarde.,Tema: O rato corre na rua à tarde.,animais
+treino,inicio,animais,O rato corre na rua à tarde.,Início: O rato corre na rua à tarde.,O rato
+treino,final,animais,O rato corre na rua à tarde.,Final: O rato corre na rua à tarde.,tarde
+treino,tema,tecnologia,O programa utiliza as imagens.,Tema: O programa utiliza as imagens.,tecnologia
+treino,inicio,tecnologia,O programa utiliza as imagens.,Início: O programa utiliza as imagens.,O programa
+treino,final,tecnologia,O programa utiliza as imagens.,Final: O programa utiliza as imagens.,imagens
+treino,tema,tecnologia,O programa organiza as amostras com cuidado.,Tema: O programa organiza as amostras com cuidado.,tecnologia
+treino,inicio,tecnologia,O programa organiza as amostras com cuidado.,Início: O programa organiza as amostras com cuidado.,O programa
+treino,final,tecnologia,O programa organiza as amostras com cuidado.,Final: O programa organiza as amostras com cuidado.,cuidado
+treino,tema,tecnologia,O sistema avalia os textos com cuidado.,Tema: O sistema avalia os textos com cuidado.,tecnologia
+treino,inicio,tecnologia,O sistema avalia os textos com cuidado.,Início: O sistema avalia os textos com cuidado.,O sistema
+treino,final,tecnologia,O sistema avalia os textos com cuidado.,Final: O sistema avalia os textos com cuidado.,cuidado
+treino,tema,clima,O sol desaparece durante a noite na cidade.,Tema: O sol desaparece durante a noite na cidade.,clima
+treino,inicio,clima,O sol desaparece durante a noite na cidade.,Início: O sol desaparece durante a noite na cidade.,O sol
+treino,final,clima,O sol desaparece durante a noite na cidade.,Final: O sol desaparece durante a noite na cidade.,cidade
+treino,tema,educacao,O pesquisador explica estatística na escola.,Tema: O pesquisador explica estatística na escola.,educacao
+treino,inicio,educacao,O pesquisador explica estatística na escola.,Início: O pesquisador explica estatística na escola.,O pesquisador
+treino,final,educacao,O pesquisador explica estatística na escola.,Final: O pesquisador explica estatística na escola.,escola
+treino,tema,tecnologia,O algoritmo avalia os textos com cuidado.,Tema: O algoritmo avalia os textos com cuidado.,tecnologia
+treino,inicio,tecnologia,O algoritmo avalia os textos com cuidado.,Início: O algoritmo avalia os textos com cuidado.,O algoritmo
+treino,final,tecnologia,O algoritmo avalia os textos com cuidado.,Final: O algoritmo avalia os textos com cuidado.,cuidado
+treino,tema,educacao,O pesquisador explica algoritmos na escola.,Tema: O pesquisador explica algoritmos na escola.,educacao
+treino,inicio,educacao,O pesquisador explica algoritmos na escola.,Início: O pesquisador explica algoritmos na escola.,O pesquisador
+treino,final,educacao,O pesquisador explica algoritmos na escola.,Final: O pesquisador explica algoritmos na escola.,escola
+treino,tema,animais,O cavalo brinca na varanda de manhã.,Tema: O cavalo brinca na varanda de manhã.,animais
+treino,inicio,animais,O cavalo brinca na varanda de manhã.,Início: O cavalo brinca na varanda de manhã.,O cavalo
+treino,final,animais,O cavalo brinca na varanda de manhã.,Final: O cavalo brinca na varanda de manhã.,manhã
+treino,tema,tecnologia,O sistema analisa as amostras rapidamente.,Tema: O sistema analisa as amostras rapidamente.,tecnologia
+treino,inicio,tecnologia,O sistema analisa as amostras rapidamente.,Início: O sistema analisa as amostras rapidamente.,O sistema
+treino,final,tecnologia,O sistema analisa as amostras rapidamente.,Final: O sistema analisa as amostras rapidamente.,rapidamente
+treino,tema,tecnologia,O sistema analisa os textos.,Tema: O sistema analisa os textos.,tecnologia
+treino,inicio,tecnologia,O sistema analisa os textos.,Início: O sistema analisa os textos.,O sistema
+treino,final,tecnologia,O sistema analisa os textos.,Final: O sistema analisa os textos.,textos
+treino,tema,clima,A tempestade chega à tarde na montanha.,Tema: A tempestade chega à tarde na montanha.,clima
+treino,inicio,clima,A tempestade chega à tarde na montanha.,Início: A tempestade chega à tarde na montanha.,A tempestade
+treino,final,clima,A tempestade chega à tarde na montanha.,Final: A tempestade chega à tarde na montanha.,montanha
+treino,tema,educacao,A estudante revisa matemática na universidade.,Tema: A estudante revisa matemática na universidade.,educacao
+treino,inicio,educacao,A estudante revisa matemática na universidade.,Início: A estudante revisa matemática na universidade.,A estudante
+treino,final,educacao,A estudante revisa matemática na universidade.,Final: A estudante revisa matemática na universidade.,universidade
+treino,tema,tecnologia,O sistema analisa as imagens com cuidado.,Tema: O sistema analisa as imagens com cuidado.,tecnologia
+treino,inicio,tecnologia,O sistema analisa as imagens com cuidado.,Início: O sistema analisa as imagens com cuidado.,O sistema
+treino,final,tecnologia,O sistema analisa as imagens com cuidado.,Final: O sistema analisa as imagens com cuidado.,cuidado
+treino,tema,animais,O cachorro brinca no parque de manhã.,Tema: O cachorro brinca no parque de manhã.,animais
+treino,inicio,animais,O cachorro brinca no parque de manhã.,Início: O cachorro brinca no parque de manhã.,O cachorro
+treino,final,animais,O cachorro brinca no parque de manhã.,Final: O cachorro brinca no parque de manhã.,manhã
+treino,tema,clima,A nuvem desaparece pela manhã na cidade.,Tema: A nuvem desaparece pela manhã na cidade.,clima
+treino,inicio,clima,A nuvem desaparece pela manhã na cidade.,Início: A nuvem desaparece pela manhã na cidade.,A nuvem
+treino,final,clima,A nuvem desaparece pela manhã na cidade.,Final: A nuvem desaparece pela manhã na cidade.,cidade
+treino,tema,tecnologia,O programa analisa os textos.,Tema: O programa analisa os textos.,tecnologia
+treino,inicio,tecnologia,O programa analisa os textos.,Início: O programa analisa os textos.,O programa
+treino,final,tecnologia,O programa analisa os textos.,Final: O programa analisa os textos.,textos
+treino,tema,animais,O cachorro come um lanche todos os dias.,Tema: O cachorro come um lanche todos os dias.,animais
+treino,inicio,animais,O cachorro come um lanche todos os dias.,Início: O cachorro come um lanche todos os dias.,O cachorro
+treino,final,animais,O cachorro come um lanche todos os dias.,Final: O cachorro come um lanche todos os dias.,dias
+treino,tema,tecnologia,O programa avalia os resultados rapidamente.,Tema: O programa avalia os resultados rapidamente.,tecnologia
+treino,inicio,tecnologia,O programa avalia os resultados rapidamente.,Início: O programa avalia os resultados rapidamente.,O programa
+treino,final,tecnologia,O programa avalia os resultados rapidamente.,Final: O programa avalia os resultados rapidamente.,rapidamente
+treino,tema,animais,O gato come um pedaço de pão todos os dias.,Tema: O gato come um pedaço de pão todos os dias.,animais
+treino,inicio,animais,O gato come um pedaço de pão todos os dias.,Início: O gato come um pedaço de pão todos os dias.,O gato
+treino,final,animais,O gato come um pedaço de pão todos os dias.,Final: O gato come um pedaço de pão todos os dias.,dias
+treino,tema,educacao,A monitora apresenta ciência de dados na sala.,Tema: A monitora apresenta ciência de dados na sala.,educacao
+treino,inicio,educacao,A monitora apresenta ciência de dados na sala.,Início: A monitora apresenta ciência de dados na sala.,A monitora
+treino,final,educacao,A monitora apresenta ciência de dados na sala.,Final: A monitora apresenta ciência de dados na sala.,sala
+treino,tema,tecnologia,O modelo organiza os exemplos com cuidado.,Tema: O modelo organiza os exemplos com cuidado.,tecnologia
+treino,inicio,tecnologia,O modelo organiza os exemplos com cuidado.,Início: O modelo organiza os exemplos com cuidado.,O modelo
+treino,final,tecnologia,O modelo organiza os exemplos com cuidado.,Final: O modelo organiza os exemplos com cuidado.,cuidado
+treino,tema,educacao,A monitora apresenta estatística na sala.,Tema: A monitora apresenta estatística na sala.,educacao
+treino,inicio,educacao,A monitora apresenta estatística na sala.,Início: A monitora apresenta estatística na sala.,A monitora
+treino,final,educacao,A monitora apresenta estatística na sala.,Final: A monitora apresenta estatística na sala.,sala
+treino,tema,tecnologia,O modelo utiliza os dados rapidamente.,Tema: O modelo utiliza os dados rapidamente.,tecnologia
+treino,inicio,tecnologia,O modelo utiliza os dados rapidamente.,Início: O modelo utiliza os dados rapidamente.,O modelo
+treino,final,tecnologia,O modelo utiliza os dados rapidamente.,Final: O modelo utiliza os dados rapidamente.,rapidamente
+treino,tema,tecnologia,O algoritmo avalia os exemplos.,Tema: O algoritmo avalia os exemplos.,tecnologia
+treino,inicio,tecnologia,O algoritmo avalia os exemplos.,Início: O algoritmo avalia os exemplos.,O algoritmo
+treino,final,tecnologia,O algoritmo avalia os exemplos.,Final: O algoritmo avalia os exemplos.,exemplos
+treino,tema,animais,O macaco brinca no quintal depois do almoço.,Tema: O macaco brinca no quintal depois do almoço.,animais
+treino,inicio,animais,O macaco brinca no quintal depois do almoço.,Início: O macaco brinca no quintal depois do almoço.,O macaco
+treino,final,animais,O macaco brinca no quintal depois do almoço.,Final: O macaco brinca no quintal depois do almoço.,almoço
+treino,tema,educacao,A monitora explica estatística na sala.,Tema: A monitora explica estatística na sala.,educacao
+treino,inicio,educacao,A monitora explica estatística na sala.,Início: A monitora explica estatística na sala.,A monitora
+treino,final,educacao,A monitora explica estatística na sala.,Final: A monitora explica estatística na sala.,sala
+treino,tema,educacao,A pesquisadora estuda redes neurais na sala.,Tema: A pesquisadora estuda redes neurais na sala.,educacao
+treino,inicio,educacao,A pesquisadora estuda redes neurais na sala.,Início: A pesquisadora estuda redes neurais na sala.,A pesquisadora
+treino,final,educacao,A pesquisadora estuda redes neurais na sala.,Final: A pesquisadora estuda redes neurais na sala.,sala
+treino,tema,tecnologia,O robô analisa os exemplos rapidamente.,Tema: O robô analisa os exemplos rapidamente.,tecnologia
+treino,inicio,tecnologia,O robô analisa os exemplos rapidamente.,Início: O robô analisa os exemplos rapidamente.,O robô
+treino,final,tecnologia,O robô analisa os exemplos rapidamente.,Final: O robô analisa os exemplos rapidamente.,rapidamente
+treino,tema,clima,A neblina aparece ao amanhecer na montanha.,Tema: A neblina aparece ao amanhecer na montanha.,clima
+treino,inicio,clima,A neblina aparece ao amanhecer na montanha.,Início: A neblina aparece ao amanhecer na montanha.,A neblina
+treino,final,clima,A neblina aparece ao amanhecer na montanha.,Final: A neblina aparece ao amanhecer na montanha.,montanha
+treino,tema,tecnologia,O modelo processa os resultados.,Tema: O modelo processa os resultados.,tecnologia
+treino,inicio,tecnologia,O modelo processa os resultados.,Início: O modelo processa os resultados.,O modelo
+treino,final,tecnologia,O modelo processa os resultados.,Final: O modelo processa os resultados.,resultados
+treino,tema,animais,O pássaro dorme no tapete depois do almoço.,Tema: O pássaro dorme no tapete depois do almoço.,animais
+treino,inicio,animais,O pássaro dorme no tapete depois do almoço.,Início: O pássaro dorme no tapete depois do almoço.,O pássaro
+treino,final,animais,O pássaro dorme no tapete depois do almoço.,Final: O pássaro dorme no tapete depois do almoço.,almoço
+treino,tema,educacao,O pesquisador revisa algoritmos na escola.,Tema: O pesquisador revisa algoritmos na escola.,educacao
+treino,inicio,educacao,O pesquisador revisa algoritmos na escola.,Início: O pesquisador revisa algoritmos na escola.,O pesquisador
+treino,final,educacao,O pesquisador revisa algoritmos na escola.,Final: O pesquisador revisa algoritmos na escola.,escola
+treino,tema,clima,A tempestade aparece à tarde na cidade.,Tema: A tempestade aparece à tarde na cidade.,clima
+treino,inicio,clima,A tempestade aparece à tarde na cidade.,Início: A tempestade aparece à tarde na cidade.,A tempestade
+treino,final,clima,A tempestade aparece à tarde na cidade.,Final: A tempestade aparece à tarde na cidade.,cidade
+treino,tema,clima,A neblina chega ao amanhecer na montanha.,Tema: A neblina chega ao amanhecer na montanha.,clima
+treino,inicio,clima,A neblina chega ao amanhecer na montanha.,Início: A neblina chega ao amanhecer na montanha.,A neblina
+treino,final,clima,A neblina chega ao amanhecer na montanha.,Final: A neblina chega ao amanhecer na montanha.,montanha
+treino,tema,clima,A tempestade permanece à tarde no litoral.,Tema: A tempestade permanece à tarde no litoral.,clima
+treino,inicio,clima,A tempestade permanece à tarde no litoral.,Início: A tempestade permanece à tarde no litoral.,A tempestade
+treino,final,clima,A tempestade permanece à tarde no litoral.,Final: A tempestade permanece à tarde no litoral.,litoral
+treino,tema,animais,O cachorro brinca com a bola todos os dias.,Tema: O cachorro brinca com a bola todos os dias.,animais
+treino,inicio,animais,O cachorro brinca com a bola todos os dias.,Início: O cachorro brinca com a bola todos os dias.,O cachorro
+treino,final,animais,O cachorro brinca com a bola todos os dias.,Final: O cachorro brinca com a bola todos os dias.,dias
+treino,tema,tecnologia,O algoritmo processa as imagens com cuidado.,Tema: O algoritmo processa as imagens com cuidado.,tecnologia
+treino,inicio,tecnologia,O algoritmo processa as imagens com cuidado.,Início: O algoritmo processa as imagens com cuidado.,O algoritmo
+treino,final,tecnologia,O algoritmo processa as imagens com cuidado.,Final: O algoritmo processa as imagens com cuidado.,cuidado
+treino,tema,tecnologia,O programa utiliza os resultados rapidamente.,Tema: O programa utiliza os resultados rapidamente.,tecnologia
+treino,inicio,tecnologia,O programa utiliza os resultados rapidamente.,Início: O programa utiliza os resultados rapidamente.,O programa
+treino,final,tecnologia,O programa utiliza os resultados rapidamente.,Final: O programa utiliza os resultados rapidamente.,rapidamente
+treino,tema,animais,O macaco corre no quintal de manhã.,Tema: O macaco corre no quintal de manhã.,animais
+treino,inicio,animais,O macaco corre no quintal de manhã.,Início: O macaco corre no quintal de manhã.,O macaco
+treino,final,animais,O macaco corre no quintal de manhã.,Final: O macaco corre no quintal de manhã.,manhã
+treino,tema,tecnologia,O modelo analisa os resultados com cuidado.,Tema: O modelo analisa os resultados com cuidado.,tecnologia
+treino,inicio,tecnologia,O modelo analisa os resultados com cuidado.,Início: O modelo analisa os resultados com cuidado.,O modelo
+treino,final,tecnologia,O modelo analisa os resultados com cuidado.,Final: O modelo analisa os resultados com cuidado.,cuidado
+treino,tema,educacao,O pesquisador explica algoritmos na sala.,Tema: O pesquisador explica algoritmos na sala.,educacao
+treino,inicio,educacao,O pesquisador explica algoritmos na sala.,Início: O pesquisador explica algoritmos na sala.,O pesquisador
+treino,final,educacao,O pesquisador explica algoritmos na sala.,Final: O pesquisador explica algoritmos na sala.,sala
+treino,tema,tecnologia,O programa utiliza os textos.,Tema: O programa utiliza os textos.,tecnologia
+treino,inicio,tecnologia,O programa utiliza os textos.,Início: O programa utiliza os textos.,O programa
+treino,final,tecnologia,O programa utiliza os textos.,Final: O programa utiliza os textos.,textos
+treino,tema,educacao,A estudante estuda algoritmos na escola.,Tema: A estudante estuda algoritmos na escola.,educacao
+treino,inicio,educacao,A estudante estuda algoritmos na escola.,Início: A estudante estuda algoritmos na escola.,A estudante
+treino,final,educacao,A estudante estuda algoritmos na escola.,Final: A estudante estuda algoritmos na escola.,escola
+treino,tema,tecnologia,O sistema processa os exemplos.,Tema: O sistema processa os exemplos.,tecnologia
+treino,inicio,tecnologia,O sistema processa os exemplos.,Início: O sistema processa os exemplos.,O sistema
+treino,final,tecnologia,O sistema processa os exemplos.,Final: O sistema processa os exemplos.,exemplos
+treino,tema,clima,O sol chega à tarde no vale.,Tema: O sol chega à tarde no vale.,clima
+treino,inicio,clima,O sol chega à tarde no vale.,Início: O sol chega à tarde no vale.,O sol
+treino,final,clima,O sol chega à tarde no vale.,Final: O sol chega à tarde no vale.,vale
+treino,tema,educacao,O pesquisador estuda algoritmos na escola.,Tema: O pesquisador estuda algoritmos na escola.,educacao
+treino,inicio,educacao,O pesquisador estuda algoritmos na escola.,Início: O pesquisador estuda algoritmos na escola.,O pesquisador
+treino,final,educacao,O pesquisador estuda algoritmos na escola.,Final: O pesquisador estuda algoritmos na escola.,escola
+treino,tema,animais,O pássaro brinca no quintal à tarde.,Tema: O pássaro brinca no quintal à tarde.,animais
+treino,inicio,animais,O pássaro brinca no quintal à tarde.,Início: O pássaro brinca no quintal à tarde.,O pássaro
+treino,final,animais,O pássaro brinca no quintal à tarde.,Final: O pássaro brinca no quintal à tarde.,tarde
+treino,tema,clima,A chuva permanece pela manhã na cidade.,Tema: A chuva permanece pela manhã na cidade.,clima
+treino,inicio,clima,A chuva permanece pela manhã na cidade.,Início: A chuva permanece pela manhã na cidade.,A chuva
+treino,final,clima,A chuva permanece pela manhã na cidade.,Final: A chuva permanece pela manhã na cidade.,cidade
+treino,tema,animais,O coelho descansa no sofá todos os dias.,Tema: O coelho descansa no sofá todos os dias.,animais
+treino,inicio,animais,O coelho descansa no sofá todos os dias.,Início: O coelho descansa no sofá todos os dias.,O coelho
+treino,final,animais,O coelho descansa no sofá todos os dias.,Final: O coelho descansa no sofá todos os dias.,dias
+treino,tema,animais,O macaco corre no quintal à tarde.,Tema: O macaco corre no quintal à tarde.,animais
+treino,inicio,animais,O macaco corre no quintal à tarde.,Início: O macaco corre no quintal à tarde.,O macaco
+treino,final,animais,O macaco corre no quintal à tarde.,Final: O macaco corre no quintal à tarde.,tarde
+treino,tema,animais,O pássaro dorme na varanda depois do almoço.,Tema: O pássaro dorme na varanda depois do almoço.,animais
+treino,inicio,animais,O pássaro dorme na varanda depois do almoço.,Início: O pássaro dorme na varanda depois do almoço.,O pássaro
+treino,final,animais,O pássaro dorme na varanda depois do almoço.,Final: O pássaro dorme na varanda depois do almoço.,almoço
+treino,tema,animais,O coelho corre na praia à tarde.,Tema: O coelho corre na praia à tarde.,animais
+treino,inicio,animais,O coelho corre na praia à tarde.,Início: O coelho corre na praia à tarde.,O coelho
+treino,final,animais,O coelho corre na praia à tarde.,Final: O coelho corre na praia à tarde.,tarde
+treino,tema,educacao,O pesquisador revisa redes neurais na sala.,Tema: O pesquisador revisa redes neurais na sala.,educacao
+treino,inicio,educacao,O pesquisador revisa redes neurais na sala.,Início: O pesquisador revisa redes neurais na sala.,O pesquisador
+treino,final,educacao,O pesquisador revisa redes neurais na sala.,Final: O pesquisador revisa redes neurais na sala.,sala
+treino,tema,educacao,O monitor apresenta estatística na sala.,Tema: O monitor apresenta estatística na sala.,educacao
+treino,inicio,educacao,O monitor apresenta estatística na sala.,Início: O monitor apresenta estatística na sala.,O monitor
+treino,final,educacao,O monitor apresenta estatística na sala.,Final: O monitor apresenta estatística na sala.,sala
+treino,tema,animais,O pássaro corre na praia.,Tema: O pássaro corre na praia.,animais
+treino,inicio,animais,O pássaro corre na praia.,Início: O pássaro corre na praia.,O pássaro
+treino,final,animais,O pássaro corre na praia.,Final: O pássaro corre na praia.,praia
+treino,tema,tecnologia,O computador organiza os dados com cuidado.,Tema: O computador organiza os dados com cuidado.,tecnologia
+treino,inicio,tecnologia,O computador organiza os dados com cuidado.,Início: O computador organiza os dados com cuidado.,O computador
+treino,final,tecnologia,O computador organiza os dados com cuidado.,Final: O computador organiza os dados com cuidado.,cuidado
+treino,tema,animais,O coelho come a comida à tarde.,Tema: O coelho come a comida à tarde.,animais
+treino,inicio,animais,O coelho come a comida à tarde.,Início: O coelho come a comida à tarde.,O coelho
+treino,final,animais,O coelho come a comida à tarde.,Final: O coelho come a comida à tarde.,tarde
+treino,tema,tecnologia,O computador analisa as amostras rapidamente.,Tema: O computador analisa as amostras rapidamente.,tecnologia
+treino,inicio,tecnologia,O computador analisa as amostras rapidamente.,Início: O computador analisa as amostras rapidamente.,O computador
+treino,final,tecnologia,O computador analisa as amostras rapidamente.,Final: O computador analisa as amostras rapidamente.,rapidamente
+treino,tema,tecnologia,O sistema processa os dados rapidamente.,Tema: O sistema processa os dados rapidamente.,tecnologia
+treino,inicio,tecnologia,O sistema processa os dados rapidamente.,Início: O sistema processa os dados rapidamente.,O sistema
+treino,final,tecnologia,O sistema processa os dados rapidamente.,Final: O sistema processa os dados rapidamente.,rapidamente
+treino,tema,tecnologia,O programa analisa os resultados.,Tema: O programa analisa os resultados.,tecnologia
+treino,inicio,tecnologia,O programa analisa os resultados.,Início: O programa analisa os resultados.,O programa
+treino,final,tecnologia,O programa analisa os resultados.,Final: O programa analisa os resultados.,resultados
+treino,tema,tecnologia,O algoritmo processa os textos rapidamente.,Tema: O algoritmo processa os textos rapidamente.,tecnologia
+treino,inicio,tecnologia,O algoritmo processa os textos rapidamente.,Início: O algoritmo processa os textos rapidamente.,O algoritmo
+treino,final,tecnologia,O algoritmo processa os textos rapidamente.,Final: O algoritmo processa os textos rapidamente.,rapidamente
+treino,tema,clima,A chuva permanece ao amanhecer na cidade.,Tema: A chuva permanece ao amanhecer na cidade.,clima
+treino,inicio,clima,A chuva permanece ao amanhecer na cidade.,Início: A chuva permanece ao amanhecer na cidade.,A chuva
+treino,final,clima,A chuva permanece ao amanhecer na cidade.,Final: A chuva permanece ao amanhecer na cidade.,cidade
+treino,tema,clima,A neblina aparece ao amanhecer no litoral.,Tema: A neblina aparece ao amanhecer no litoral.,clima
+treino,inicio,clima,A neblina aparece ao amanhecer no litoral.,Início: A neblina aparece ao amanhecer no litoral.,A neblina
+treino,final,clima,A neblina aparece ao amanhecer no litoral.,Final: A neblina aparece ao amanhecer no litoral.,litoral
+treino,tema,clima,A chuva chega à tarde no vale.,Tema: A chuva chega à tarde no vale.,clima
+treino,inicio,clima,A chuva chega à tarde no vale.,Início: A chuva chega à tarde no vale.,A chuva
+treino,final,clima,A chuva chega à tarde no vale.,Final: A chuva chega à tarde no vale.,vale
+treino,tema,clima,A chuva chega pela manhã na cidade.,Tema: A chuva chega pela manhã na cidade.,clima
+treino,inicio,clima,A chuva chega pela manhã na cidade.,Início: A chuva chega pela manhã na cidade.,A chuva
+treino,final,clima,A chuva chega pela manhã na cidade.,Final: A chuva chega pela manhã na cidade.,cidade
+treino,tema,tecnologia,O sistema analisa os exemplos com cuidado.,Tema: O sistema analisa os exemplos com cuidado.,tecnologia
+treino,inicio,tecnologia,O sistema analisa os exemplos com cuidado.,Início: O sistema analisa os exemplos com cuidado.,O sistema
+treino,final,tecnologia,O sistema analisa os exemplos com cuidado.,Final: O sistema analisa os exemplos com cuidado.,cuidado
+treino,tema,educacao,A estudante explica programação na sala.,Tema: A estudante explica programação na sala.,educacao
+treino,inicio,educacao,A estudante explica programação na sala.,Início: A estudante explica programação na sala.,A estudante
+treino,final,educacao,A estudante explica programação na sala.,Final: A estudante explica programação na sala.,sala
+treino,tema,educacao,O monitor pratica redes neurais na escola.,Tema: O monitor pratica redes neurais na escola.,educacao
+treino,inicio,educacao,O monitor pratica redes neurais na escola.,Início: O monitor pratica redes neurais na escola.,O monitor
+treino,final,educacao,O monitor pratica redes neurais na escola.,Final: O monitor pratica redes neurais na escola.,escola
+treino,tema,educacao,O monitor apresenta algoritmos no laboratório.,Tema: O monitor apresenta algoritmos no laboratório.,educacao
+treino,inicio,educacao,O monitor apresenta algoritmos no laboratório.,Início: O monitor apresenta algoritmos no laboratório.,O monitor
+treino,final,educacao,O monitor apresenta algoritmos no laboratório.,Final: O monitor apresenta algoritmos no laboratório.,laboratório
+treino,tema,animais,O pássaro brinca no quintal de manhã.,Tema: O pássaro brinca no quintal de manhã.,animais
+treino,inicio,animais,O pássaro brinca no quintal de manhã.,Início: O pássaro brinca no quintal de manhã.,O pássaro
+treino,final,animais,O pássaro brinca no quintal de manhã.,Final: O pássaro brinca no quintal de manhã.,manhã
+treino,tema,educacao,O estudante estuda programação na sala.,Tema: O estudante estuda programação na sala.,educacao
+treino,inicio,educacao,O estudante estuda programação na sala.,Início: O estudante estuda programação na sala.,O estudante
+treino,final,educacao,O estudante estuda programação na sala.,Final: O estudante estuda programação na sala.,sala
+treino,tema,tecnologia,O sistema utiliza os textos com cuidado.,Tema: O sistema utiliza os textos com cuidado.,tecnologia
+treino,inicio,tecnologia,O sistema utiliza os textos com cuidado.,Início: O sistema utiliza os textos com cuidado.,O sistema
+treino,final,tecnologia,O sistema utiliza os textos com cuidado.,Final: O sistema utiliza os textos com cuidado.,cuidado
+treino,tema,tecnologia,O algoritmo analisa os textos.,Tema: O algoritmo analisa os textos.,tecnologia
+treino,inicio,tecnologia,O algoritmo analisa os textos.,Início: O algoritmo analisa os textos.,O algoritmo
+treino,final,tecnologia,O algoritmo analisa os textos.,Final: O algoritmo analisa os textos.,textos
+treino,tema,animais,O macaco descansa na varanda depois do almoço.,Tema: O macaco descansa na varanda depois do almoço.,animais
+treino,inicio,animais,O macaco descansa na varanda depois do almoço.,Início: O macaco descansa na varanda depois do almoço.,O macaco
+treino,final,animais,O macaco descansa na varanda depois do almoço.,Final: O macaco descansa na varanda depois do almoço.,almoço
+treino,tema,educacao,A pesquisadora revisa matemática na sala.,Tema: A pesquisadora revisa matemática na sala.,educacao
+treino,inicio,educacao,A pesquisadora revisa matemática na sala.,Início: A pesquisadora revisa matemática na sala.,A pesquisadora
+treino,final,educacao,A pesquisadora revisa matemática na sala.,Final: A pesquisadora revisa matemática na sala.,sala
+treino,tema,educacao,O monitor pratica ciência de dados na sala.,Tema: O monitor pratica ciência de dados na sala.,educacao
+treino,inicio,educacao,O monitor pratica ciência de dados na sala.,Início: O monitor pratica ciência de dados na sala.,O monitor
+treino,final,educacao,O monitor pratica ciência de dados na sala.,Final: O monitor pratica ciência de dados na sala.,sala
+treino,tema,clima,O temporal desaparece pela manhã no litoral.,Tema: O temporal desaparece pela manhã no litoral.,clima
+treino,inicio,clima,O temporal desaparece pela manhã no litoral.,Início: O temporal desaparece pela manhã no litoral.,O temporal
+treino,final,clima,O temporal desaparece pela manhã no litoral.,Final: O temporal desaparece pela manhã no litoral.,litoral
+treino,tema,clima,O temporal aparece durante a noite na cidade.,Tema: O temporal aparece durante a noite na cidade.,clima
+treino,inicio,clima,O temporal aparece durante a noite na cidade.,Início: O temporal aparece durante a noite na cidade.,O temporal
+treino,final,clima,O temporal aparece durante a noite na cidade.,Final: O temporal aparece durante a noite na cidade.,cidade
+treino,tema,clima,O sol permanece durante a noite no vale.,Tema: O sol permanece durante a noite no vale.,clima
+treino,inicio,clima,O sol permanece durante a noite no vale.,Início: O sol permanece durante a noite no vale.,O sol
+treino,final,clima,O sol permanece durante a noite no vale.,Final: O sol permanece durante a noite no vale.,vale
+treino,tema,tecnologia,O programa avalia as amostras.,Tema: O programa avalia as amostras.,tecnologia
+treino,inicio,tecnologia,O programa avalia as amostras.,Início: O programa avalia as amostras.,O programa
+treino,final,tecnologia,O programa avalia as amostras.,Final: O programa avalia as amostras.,amostras
+treino,tema,tecnologia,O programa organiza os textos.,Tema: O programa organiza os textos.,tecnologia
+treino,inicio,tecnologia,O programa organiza os textos.,Início: O programa organiza os textos.,O programa
+treino,final,tecnologia,O programa organiza os textos.,Final: O programa organiza os textos.,textos
+treino,tema,animais,O pássaro come uma banana todos os dias.,Tema: O pássaro come uma banana todos os dias.,animais
+treino,inicio,animais,O pássaro come uma banana todos os dias.,Início: O pássaro come uma banana todos os dias.,O pássaro
+treino,final,animais,O pássaro come uma banana todos os dias.,Final: O pássaro come uma banana todos os dias.,dias
+treino,tema,clima,A neblina aparece pela manhã na montanha.,Tema: A neblina aparece pela manhã na montanha.,clima
+treino,inicio,clima,A neblina aparece pela manhã na montanha.,Início: A neblina aparece pela manhã na montanha.,A neblina
+treino,final,clima,A neblina aparece pela manhã na montanha.,Final: A neblina aparece pela manhã na montanha.,montanha
+treino,tema,educacao,O estudante revisa algoritmos no laboratório.,Tema: O estudante revisa algoritmos no laboratório.,educacao
+treino,inicio,educacao,O estudante revisa algoritmos no laboratório.,Início: O estudante revisa algoritmos no laboratório.,O estudante
+treino,final,educacao,O estudante revisa algoritmos no laboratório.,Final: O estudante revisa algoritmos no laboratório.,laboratório
+treino,tema,animais,O macaco come a comida depois do almoço.,Tema: O macaco come a comida depois do almoço.,animais
+treino,inicio,animais,O macaco come a comida depois do almoço.,Início: O macaco come a comida depois do almoço.,O macaco
+treino,final,animais,O macaco come a comida depois do almoço.,Final: O macaco come a comida depois do almoço.,almoço
+treino,tema,clima,A garoa permanece durante a noite na montanha.,Tema: A garoa permanece durante a noite na montanha.,clima
+treino,inicio,clima,A garoa permanece durante a noite na montanha.,Início: A garoa permanece durante a noite na montanha.,A garoa
+treino,final,clima,A garoa permanece durante a noite na montanha.,Final: A garoa permanece durante a noite na montanha.,montanha
+treino,tema,educacao,O professor explica matemática no laboratório.,Tema: O professor explica matemática no laboratório.,educacao
+treino,inicio,educacao,O professor explica matemática no laboratório.,Início: O professor explica matemática no laboratório.,O professor
+treino,final,educacao,O professor explica matemática no laboratório.,Final: O professor explica matemática no laboratório.,laboratório
+treino,tema,tecnologia,O modelo analisa os exemplos.,Tema: O modelo analisa os exemplos.,tecnologia
+treino,inicio,tecnologia,O modelo analisa os exemplos.,Início: O modelo analisa os exemplos.,O modelo
+treino,final,tecnologia,O modelo analisa os exemplos.,Final: O modelo analisa os exemplos.,exemplos
+treino,tema,educacao,A pesquisadora explica programação na escola.,Tema: A pesquisadora explica programação na escola.,educacao
+treino,inicio,educacao,A pesquisadora explica programação na escola.,Início: A pesquisadora explica programação na escola.,A pesquisadora
+treino,final,educacao,A pesquisadora explica programação na escola.,Final: A pesquisadora explica programação na escola.,escola
+treino,tema,educacao,A estudante explica matemática na escola.,Tema: A estudante explica matemática na escola.,educacao
+treino,inicio,educacao,A estudante explica matemática na escola.,Início: A estudante explica matemática na escola.,A estudante
+treino,final,educacao,A estudante explica matemática na escola.,Final: A estudante explica matemática na escola.,escola
+treino,tema,educacao,O estudante estuda algoritmos na universidade.,Tema: O estudante estuda algoritmos na universidade.,educacao
+treino,inicio,educacao,O estudante estuda algoritmos na universidade.,Início: O estudante estuda algoritmos na universidade.,O estudante
+treino,final,educacao,O estudante estuda algoritmos na universidade.,Final: O estudante estuda algoritmos na universidade.,universidade
+treino,tema,clima,A neblina desaparece ao amanhecer no litoral.,Tema: A neblina desaparece ao amanhecer no litoral.,clima
+treino,inicio,clima,A neblina desaparece ao amanhecer no litoral.,Início: A neblina desaparece ao amanhecer no litoral.,A neblina
+treino,final,clima,A neblina desaparece ao amanhecer no litoral.,Final: A neblina desaparece ao amanhecer no litoral.,litoral
+treino,tema,tecnologia,O sistema utiliza os exemplos rapidamente.,Tema: O sistema utiliza os exemplos rapidamente.,tecnologia
+treino,inicio,tecnologia,O sistema utiliza os exemplos rapidamente.,Início: O sistema utiliza os exemplos rapidamente.,O sistema
+treino,final,tecnologia,O sistema utiliza os exemplos rapidamente.,Final: O sistema utiliza os exemplos rapidamente.,rapidamente
+treino,tema,clima,O vento desaparece ao amanhecer no litoral.,Tema: O vento desaparece ao amanhecer no litoral.,clima
+treino,inicio,clima,O vento desaparece ao amanhecer no litoral.,Início: O vento desaparece ao amanhecer no litoral.,O vento
+treino,final,clima,O vento desaparece ao amanhecer no litoral.,Final: O vento desaparece ao amanhecer no litoral.,litoral
+treino,tema,animais,O cavalo corre na praça.,Tema: O cavalo corre na praça.,animais
+treino,inicio,animais,O cavalo corre na praça.,Início: O cavalo corre na praça.,O cavalo
+treino,final,animais,O cavalo corre na praça.,Final: O cavalo corre na praça.,praça
+treino,tema,animais,O pássaro brinca na sala depois do almoço.,Tema: O pássaro brinca na sala depois do almoço.,animais
+treino,inicio,animais,O pássaro brinca na sala depois do almoço.,Início: O pássaro brinca na sala depois do almoço.,O pássaro
+treino,final,animais,O pássaro brinca na sala depois do almoço.,Final: O pássaro brinca na sala depois do almoço.,almoço
+treino,tema,animais,O urso corre no quintal depois do almoço.,Tema: O urso corre no quintal depois do almoço.,animais
+treino,inicio,animais,O urso corre no quintal depois do almoço.,Início: O urso corre no quintal depois do almoço.,O urso
+treino,final,animais,O urso corre no quintal depois do almoço.,Final: O urso corre no quintal depois do almoço.,almoço
+treino,tema,animais,O pássaro descansa no sofá à tarde.,Tema: O pássaro descansa no sofá à tarde.,animais
+treino,inicio,animais,O pássaro descansa no sofá à tarde.,Início: O pássaro descansa no sofá à tarde.,O pássaro
+treino,final,animais,O pássaro descansa no sofá à tarde.,Final: O pássaro descansa no sofá à tarde.,tarde
+treino,tema,clima,O sol chega pela manhã na montanha.,Tema: O sol chega pela manhã na montanha.,clima
+treino,inicio,clima,O sol chega pela manhã na montanha.,Início: O sol chega pela manhã na montanha.,O sol
+treino,final,clima,O sol chega pela manhã na montanha.,Final: O sol chega pela manhã na montanha.,montanha
+treino,tema,animais,O rato descansa na sombra de manhã.,Tema: O rato descansa na sombra de manhã.,animais
+treino,inicio,animais,O rato descansa na sombra de manhã.,Início: O rato descansa na sombra de manhã.,O rato
+treino,final,animais,O rato descansa na sombra de manhã.,Final: O rato descansa na sombra de manhã.,manhã
+treino,tema,educacao,A estudante revisa matemática na escola.,Tema: A estudante revisa matemática na escola.,educacao
+treino,inicio,educacao,A estudante revisa matemática na escola.,Início: A estudante revisa matemática na escola.,A estudante
+treino,final,educacao,A estudante revisa matemática na escola.,Final: A estudante revisa matemática na escola.,escola
+treino,tema,educacao,A professora explica estatística na escola.,Tema: A professora explica estatística na escola.,educacao
+treino,inicio,educacao,A professora explica estatística na escola.,Início: A professora explica estatística na escola.,A professora
+treino,final,educacao,A professora explica estatística na escola.,Final: A professora explica estatística na escola.,escola
+treino,tema,animais,O coelho dorme no tapete depois do almoço.,Tema: O coelho dorme no tapete depois do almoço.,animais
+treino,inicio,animais,O coelho dorme no tapete depois do almoço.,Início: O coelho dorme no tapete depois do almoço.,O coelho
+treino,final,animais,O coelho dorme no tapete depois do almoço.,Final: O coelho dorme no tapete depois do almoço.,almoço
+treino,tema,tecnologia,O programa processa as amostras.,Tema: O programa processa as amostras.,tecnologia
+treino,inicio,tecnologia,O programa processa as amostras.,Início: O programa processa as amostras.,O programa
+treino,final,tecnologia,O programa processa as amostras.,Final: O programa processa as amostras.,amostras
+treino,tema,animais,O cachorro descansa na sala à tarde.,Tema: O cachorro descansa na sala à tarde.,animais
+treino,inicio,animais,O cachorro descansa na sala à tarde.,Início: O cachorro descansa na sala à tarde.,O cachorro
+treino,final,animais,O cachorro descansa na sala à tarde.,Final: O cachorro descansa na sala à tarde.,tarde
+treino,tema,animais,O cavalo descansa no sofá à tarde.,Tema: O cavalo descansa no sofá à tarde.,animais
+treino,inicio,animais,O cavalo descansa no sofá à tarde.,Início: O cavalo descansa no sofá à tarde.,O cavalo
+treino,final,animais,O cavalo descansa no sofá à tarde.,Final: O cavalo descansa no sofá à tarde.,tarde
+treino,tema,tecnologia,O computador utiliza os exemplos com cuidado.,Tema: O computador utiliza os exemplos com cuidado.,tecnologia
+treino,inicio,tecnologia,O computador utiliza os exemplos com cuidado.,Início: O computador utiliza os exemplos com cuidado.,O computador
+treino,final,tecnologia,O computador utiliza os exemplos com cuidado.,Final: O computador utiliza os exemplos com cuidado.,cuidado
+treino,tema,educacao,A professora estuda programação na escola.,Tema: A professora estuda programação na escola.,educacao
+treino,inicio,educacao,A professora estuda programação na escola.,Início: A professora estuda programação na escola.,A professora
+treino,final,educacao,A professora estuda programação na escola.,Final: A professora estuda programação na escola.,escola
+treino,tema,tecnologia,O sistema processa os dados.,Tema: O sistema processa os dados.,tecnologia
+treino,inicio,tecnologia,O sistema processa os dados.,Início: O sistema processa os dados.,O sistema
+treino,final,tecnologia,O sistema processa os dados.,Final: O sistema processa os dados.,dados
+treino,tema,tecnologia,O programa utiliza as imagens rapidamente.,Tema: O programa utiliza as imagens rapidamente.,tecnologia
+treino,inicio,tecnologia,O programa utiliza as imagens rapidamente.,Início: O programa utiliza as imagens rapidamente.,O programa
+treino,final,tecnologia,O programa utiliza as imagens rapidamente.,Final: O programa utiliza as imagens rapidamente.,rapidamente
+treino,tema,educacao,A monitora explica algoritmos na sala.,Tema: A monitora explica algoritmos na sala.,educacao
+treino,inicio,educacao,A monitora explica algoritmos na sala.,Início: A monitora explica algoritmos na sala.,A monitora
+treino,final,educacao,A monitora explica algoritmos na sala.,Final: A monitora explica algoritmos na sala.,sala
+treino,tema,clima,A neblina desaparece à tarde na montanha.,Tema: A neblina desaparece à tarde na montanha.,clima
+treino,inicio,clima,A neblina desaparece à tarde na montanha.,Início: A neblina desaparece à tarde na montanha.,A neblina
+treino,final,clima,A neblina desaparece à tarde na montanha.,Final: A neblina desaparece à tarde na montanha.,montanha
+treino,tema,animais,O urso brinca na varanda de manhã.,Tema: O urso brinca na varanda de manhã.,animais
+treino,inicio,animais,O urso brinca na varanda de manhã.,Início: O urso brinca na varanda de manhã.,O urso
+treino,final,animais,O urso brinca na varanda de manhã.,Final: O urso brinca na varanda de manhã.,manhã
+treino,tema,tecnologia,O computador organiza os dados rapidamente.,Tema: O computador organiza os dados rapidamente.,tecnologia
+treino,inicio,tecnologia,O computador organiza os dados rapidamente.,Início: O computador organiza os dados rapidamente.,O computador
+treino,final,tecnologia,O computador organiza os dados rapidamente.,Final: O computador organiza os dados rapidamente.,rapidamente
+treino,tema,educacao,O estudante estuda programação na escola.,Tema: O estudante estuda programação na escola.,educacao
+treino,inicio,educacao,O estudante estuda programação na escola.,Início: O estudante estuda programação na escola.,O estudante
+treino,final,educacao,O estudante estuda programação na escola.,Final: O estudante estuda programação na escola.,escola
+treino,tema,animais,O coelho dorme na sala todos os dias.,Tema: O coelho dorme na sala todos os dias.,animais
+treino,inicio,animais,O coelho dorme na sala todos os dias.,Início: O coelho dorme na sala todos os dias.,O coelho
+treino,final,animais,O coelho dorme na sala todos os dias.,Final: O coelho dorme na sala todos os dias.,dias
+treino,tema,tecnologia,O robô organiza as imagens rapidamente.,Tema: O robô organiza as imagens rapidamente.,tecnologia
+treino,inicio,tecnologia,O robô organiza as imagens rapidamente.,Início: O robô organiza as imagens rapidamente.,O robô
+treino,final,tecnologia,O robô organiza as imagens rapidamente.,Final: O robô organiza as imagens rapidamente.,rapidamente
+treino,tema,tecnologia,O robô processa os exemplos com cuidado.,Tema: O robô processa os exemplos com cuidado.,tecnologia
+treino,inicio,tecnologia,O robô processa os exemplos com cuidado.,Início: O robô processa os exemplos com cuidado.,O robô
+treino,final,tecnologia,O robô processa os exemplos com cuidado.,Final: O robô processa os exemplos com cuidado.,cuidado
+treino,tema,educacao,A estudante pratica matemática na sala.,Tema: A estudante pratica matemática na sala.,educacao
+treino,inicio,educacao,A estudante pratica matemática na sala.,Início: A estudante pratica matemática na sala.,A estudante
+treino,final,educacao,A estudante pratica matemática na sala.,Final: A estudante pratica matemática na sala.,sala
+treino,tema,clima,A chuva aparece ao amanhecer no litoral.,Tema: A chuva aparece ao amanhecer no litoral.,clima
+treino,inicio,clima,A chuva aparece ao amanhecer no litoral.,Início: A chuva aparece ao amanhecer no litoral.,A chuva
+treino,final,clima,A chuva aparece ao amanhecer no litoral.,Final: A chuva aparece ao amanhecer no litoral.,litoral
+treino,tema,tecnologia,O modelo processa os dados rapidamente.,Tema: O modelo processa os dados rapidamente.,tecnologia
+treino,inicio,tecnologia,O modelo processa os dados rapidamente.,Início: O modelo processa os dados rapidamente.,O modelo
+treino,final,tecnologia,O modelo processa os dados rapidamente.,Final: O modelo processa os dados rapidamente.,rapidamente
+treino,tema,animais,O gato descansa no jardim de manhã.,Tema: O gato descansa no jardim de manhã.,animais
+treino,inicio,animais,O gato descansa no jardim de manhã.,Início: O gato descansa no jardim de manhã.,O gato
+treino,final,animais,O gato descansa no jardim de manhã.,Final: O gato descansa no jardim de manhã.,manhã
+treino,tema,tecnologia,O sistema avalia as imagens com cuidado.,Tema: O sistema avalia as imagens com cuidado.,tecnologia
+treino,inicio,tecnologia,O sistema avalia as imagens com cuidado.,Início: O sistema avalia as imagens com cuidado.,O sistema
+treino,final,tecnologia,O sistema avalia as imagens com cuidado.,Final: O sistema avalia as imagens com cuidado.,cuidado
+treino,tema,animais,O urso brinca na sala à tarde.,Tema: O urso brinca na sala à tarde.,animais
+treino,inicio,animais,O urso brinca na sala à tarde.,Início: O urso brinca na sala à tarde.,O urso
+treino,final,animais,O urso brinca na sala à tarde.,Final: O urso brinca na sala à tarde.,tarde
+treino,tema,tecnologia,O robô avalia as amostras com cuidado.,Tema: O robô avalia as amostras com cuidado.,tecnologia
+treino,inicio,tecnologia,O robô avalia as amostras com cuidado.,Início: O robô avalia as amostras com cuidado.,O robô
+treino,final,tecnologia,O robô avalia as amostras com cuidado.,Final: O robô avalia as amostras com cuidado.,cuidado
+treino,tema,tecnologia,O programa avalia os exemplos com cuidado.,Tema: O programa avalia os exemplos com cuidado.,tecnologia
+treino,inicio,tecnologia,O programa avalia os exemplos com cuidado.,Início: O programa avalia os exemplos com cuidado.,O programa
+treino,final,tecnologia,O programa avalia os exemplos com cuidado.,Final: O programa avalia os exemplos com cuidado.,cuidado
+treino,tema,tecnologia,O sistema processa os resultados.,Tema: O sistema processa os resultados.,tecnologia
+treino,inicio,tecnologia,O sistema processa os resultados.,Início: O sistema processa os resultados.,O sistema
+treino,final,tecnologia,O sistema processa os resultados.,Final: O sistema processa os resultados.,resultados
+treino,tema,tecnologia,O computador analisa os dados.,Tema: O computador analisa os dados.,tecnologia
+treino,inicio,tecnologia,O computador analisa os dados.,Início: O computador analisa os dados.,O computador
+treino,final,tecnologia,O computador analisa os dados.,Final: O computador analisa os dados.,dados
+treino,tema,educacao,O professor pratica estatística na sala.,Tema: O professor pratica estatística na sala.,educacao
+treino,inicio,educacao,O professor pratica estatística na sala.,Início: O professor pratica estatística na sala.,O professor
+treino,final,educacao,O professor pratica estatística na sala.,Final: O professor pratica estatística na sala.,sala
+treino,tema,tecnologia,O modelo organiza os dados com cuidado.,Tema: O modelo organiza os dados com cuidado.,tecnologia
+treino,inicio,tecnologia,O modelo organiza os dados com cuidado.,Início: O modelo organiza os dados com cuidado.,O modelo
+treino,final,tecnologia,O modelo organiza os dados com cuidado.,Final: O modelo organiza os dados com cuidado.,cuidado
+treino,tema,animais,O cavalo dorme na varanda todos os dias.,Tema: O cavalo dorme na varanda todos os dias.,animais
+treino,inicio,animais,O cavalo dorme na varanda todos os dias.,Início: O cavalo dorme na varanda todos os dias.,O cavalo
+treino,final,animais,O cavalo dorme na varanda todos os dias.,Final: O cavalo dorme na varanda todos os dias.,dias
+treino,tema,clima,A chuva desaparece à tarde no litoral.,Tema: A chuva desaparece à tarde no litoral.,clima
+treino,inicio,clima,A chuva desaparece à tarde no litoral.,Início: A chuva desaparece à tarde no litoral.,A chuva
+treino,final,clima,A chuva desaparece à tarde no litoral.,Final: A chuva desaparece à tarde no litoral.,litoral
+treino,tema,educacao,O professor pratica redes neurais na escola.,Tema: O professor pratica redes neurais na escola.,educacao
+treino,inicio,educacao,O professor pratica redes neurais na escola.,Início: O professor pratica redes neurais na escola.,O professor
+treino,final,educacao,O professor pratica redes neurais na escola.,Final: O professor pratica redes neurais na escola.,escola
+treino,tema,educacao,O estudante revisa ciência de dados na escola.,Tema: O estudante revisa ciência de dados na escola.,educacao
+treino,inicio,educacao,O estudante revisa ciência de dados na escola.,Início: O estudante revisa ciência de dados na escola.,O estudante
+treino,final,educacao,O estudante revisa ciência de dados na escola.,Final: O estudante revisa ciência de dados na escola.,escola
+treino,tema,tecnologia,O algoritmo organiza as imagens com cuidado.,Tema: O algoritmo organiza as imagens com cuidado.,tecnologia
+treino,inicio,tecnologia,O algoritmo organiza as imagens com cuidado.,Início: O algoritmo organiza as imagens com cuidado.,O algoritmo
+treino,final,tecnologia,O algoritmo organiza as imagens com cuidado.,Final: O algoritmo organiza as imagens com cuidado.,cuidado
+treino,tema,animais,O cavalo descansa no sofá.,Tema: O cavalo descansa no sofá.,animais
+treino,inicio,animais,O cavalo descansa no sofá.,Início: O cavalo descansa no sofá.,O cavalo
+treino,final,animais,O cavalo descansa no sofá.,Final: O cavalo descansa no sofá.,sofá
+treino,tema,educacao,A estudante revisa estatística no laboratório.,Tema: A estudante revisa estatística no laboratório.,educacao
+treino,inicio,educacao,A estudante revisa estatística no laboratório.,Início: A estudante revisa estatística no laboratório.,A estudante
+treino,final,educacao,A estudante revisa estatística no laboratório.,Final: A estudante revisa estatística no laboratório.,laboratório
+treino,tema,tecnologia,O programa avalia os exemplos.,Tema: O programa avalia os exemplos.,tecnologia
+treino,inicio,tecnologia,O programa avalia os exemplos.,Início: O programa avalia os exemplos.,O programa
+treino,final,tecnologia,O programa avalia os exemplos.,Final: O programa avalia os exemplos.,exemplos
+treino,tema,educacao,A pesquisadora pratica algoritmos na sala.,Tema: A pesquisadora pratica algoritmos na sala.,educacao
+treino,inicio,educacao,A pesquisadora pratica algoritmos na sala.,Início: A pesquisadora pratica algoritmos na sala.,A pesquisadora
+treino,final,educacao,A pesquisadora pratica algoritmos na sala.,Final: A pesquisadora pratica algoritmos na sala.,sala
+treino,tema,clima,O vento aparece pela manhã na cidade.,Tema: O vento aparece pela manhã na cidade.,clima
+treino,inicio,clima,O vento aparece pela manhã na cidade.,Início: O vento aparece pela manhã na cidade.,O vento
+treino,final,clima,O vento aparece pela manhã na cidade.,Final: O vento aparece pela manhã na cidade.,cidade
+treino,tema,clima,O vento chega à tarde na cidade.,Tema: O vento chega à tarde na cidade.,clima
+treino,inicio,clima,O vento chega à tarde na cidade.,Início: O vento chega à tarde na cidade.,O vento
+treino,final,clima,O vento chega à tarde na cidade.,Final: O vento chega à tarde na cidade.,cidade
+treino,tema,animais,O rato dorme na varanda de manhã.,Tema: O rato dorme na varanda de manhã.,animais
+treino,inicio,animais,O rato dorme na varanda de manhã.,Início: O rato dorme na varanda de manhã.,O rato
+treino,final,animais,O rato dorme na varanda de manhã.,Final: O rato dorme na varanda de manhã.,manhã
+treino,tema,educacao,O estudante pratica programação na sala.,Tema: O estudante pratica programação na sala.,educacao
+treino,inicio,educacao,O estudante pratica programação na sala.,Início: O estudante pratica programação na sala.,O estudante
+treino,final,educacao,O estudante pratica programação na sala.,Final: O estudante pratica programação na sala.,sala
+treino,tema,animais,O urso corre no jardim de manhã.,Tema: O urso corre no jardim de manhã.,animais
+treino,inicio,animais,O urso corre no jardim de manhã.,Início: O urso corre no jardim de manhã.,O urso
+treino,final,animais,O urso corre no jardim de manhã.,Final: O urso corre no jardim de manhã.,manhã
+treino,tema,animais,O pássaro descansa no sofá.,Tema: O pássaro descansa no sofá.,animais
+treino,inicio,animais,O pássaro descansa no sofá.,Início: O pássaro descansa no sofá.,O pássaro
+treino,final,animais,O pássaro descansa no sofá.,Final: O pássaro descansa no sofá.,sofá
+treino,tema,educacao,A professora pratica redes neurais na sala.,Tema: A professora pratica redes neurais na sala.,educacao
+treino,inicio,educacao,A professora pratica redes neurais na sala.,Início: A professora pratica redes neurais na sala.,A professora
+treino,final,educacao,A professora pratica redes neurais na sala.,Final: A professora pratica redes neurais na sala.,sala
+treino,tema,clima,A neblina desaparece à tarde no litoral.,Tema: A neblina desaparece à tarde no litoral.,clima
+treino,inicio,clima,A neblina desaparece à tarde no litoral.,Início: A neblina desaparece à tarde no litoral.,A neblina
+treino,final,clima,A neblina desaparece à tarde no litoral.,Final: A neblina desaparece à tarde no litoral.,litoral
+treino,tema,educacao,A monitora estuda programação na universidade.,Tema: A monitora estuda programação na universidade.,educacao
+treino,inicio,educacao,A monitora estuda programação na universidade.,Início: A monitora estuda programação na universidade.,A monitora
+treino,final,educacao,A monitora estuda programação na universidade.,Final: A monitora estuda programação na universidade.,universidade
+treino,tema,educacao,O monitor revisa ciência de dados na escola.,Tema: O monitor revisa ciência de dados na escola.,educacao
+treino,inicio,educacao,O monitor revisa ciência de dados na escola.,Início: O monitor revisa ciência de dados na escola.,O monitor
+treino,final,educacao,O monitor revisa ciência de dados na escola.,Final: O monitor revisa ciência de dados na escola.,escola
+treino,tema,educacao,A estudante pratica ciência de dados na sala.,Tema: A estudante pratica ciência de dados na sala.,educacao
+treino,inicio,educacao,A estudante pratica ciência de dados na sala.,Início: A estudante pratica ciência de dados na sala.,A estudante
+treino,final,educacao,A estudante pratica ciência de dados na sala.,Final: A estudante pratica ciência de dados na sala.,sala
+treino,tema,educacao,A estudante apresenta programação na escola.,Tema: A estudante apresenta programação na escola.,educacao
+treino,inicio,educacao,A estudante apresenta programação na escola.,Início: A estudante apresenta programação na escola.,A estudante
+treino,final,educacao,A estudante apresenta programação na escola.,Final: A estudante apresenta programação na escola.,escola
+treino,tema,clima,O temporal desaparece ao amanhecer na cidade.,Tema: O temporal desaparece ao amanhecer na cidade.,clima
+treino,inicio,clima,O temporal desaparece ao amanhecer na cidade.,Início: O temporal desaparece ao amanhecer na cidade.,O temporal
+treino,final,clima,O temporal desaparece ao amanhecer na cidade.,Final: O temporal desaparece ao amanhecer na cidade.,cidade
+treino,tema,educacao,O professor revisa programação na escola.,Tema: O professor revisa programação na escola.,educacao
+treino,inicio,educacao,O professor revisa programação na escola.,Início: O professor revisa programação na escola.,O professor
+treino,final,educacao,O professor revisa programação na escola.,Final: O professor revisa programação na escola.,escola
+treino,tema,clima,O temporal chega ao amanhecer na montanha.,Tema: O temporal chega ao amanhecer na montanha.,clima
+treino,inicio,clima,O temporal chega ao amanhecer na montanha.,Início: O temporal chega ao amanhecer na montanha.,O temporal
+treino,final,clima,O temporal chega ao amanhecer na montanha.,Final: O temporal chega ao amanhecer na montanha.,montanha
+treino,tema,clima,O vento desaparece durante a noite na cidade.,Tema: O vento desaparece durante a noite na cidade.,clima
+treino,inicio,clima,O vento desaparece durante a noite na cidade.,Início: O vento desaparece durante a noite na cidade.,O vento
+treino,final,clima,O vento desaparece durante a noite na cidade.,Final: O vento desaparece durante a noite na cidade.,cidade
+treino,tema,educacao,A estudante explica estatística na sala.,Tema: A estudante explica estatística na sala.,educacao
+treino,inicio,educacao,A estudante explica estatística na sala.,Início: A estudante explica estatística na sala.,A estudante
+treino,final,educacao,A estudante explica estatística na sala.,Final: A estudante explica estatística na sala.,sala
+treino,tema,educacao,A estudante revisa ciência de dados na escola.,Tema: A estudante revisa ciência de dados na escola.,educacao
+treino,inicio,educacao,A estudante revisa ciência de dados na escola.,Início: A estudante revisa ciência de dados na escola.,A estudante
+treino,final,educacao,A estudante revisa ciência de dados na escola.,Final: A estudante revisa ciência de dados na escola.,escola
+treino,tema,animais,O pássaro brinca no parque de manhã.,Tema: O pássaro brinca no parque de manhã.,animais
+treino,inicio,animais,O pássaro brinca no parque de manhã.,Início: O pássaro brinca no parque de manhã.,O pássaro
+treino,final,animais,O pássaro brinca no parque de manhã.,Final: O pássaro brinca no parque de manhã.,manhã
+treino,tema,clima,A nuvem aparece pela manhã na cidade.,Tema: A nuvem aparece pela manhã na cidade.,clima
+treino,inicio,clima,A nuvem aparece pela manhã na cidade.,Início: A nuvem aparece pela manhã na cidade.,A nuvem
+treino,final,clima,A nuvem aparece pela manhã na cidade.,Final: A nuvem aparece pela manhã na cidade.,cidade
+treino,tema,animais,O urso come uma fruta à tarde.,Tema: O urso come uma fruta à tarde.,animais
+treino,inicio,animais,O urso come uma fruta à tarde.,Início: O urso come uma fruta à tarde.,O urso
+treino,final,animais,O urso come uma fruta à tarde.,Final: O urso come uma fruta à tarde.,tarde
+treino,tema,tecnologia,O modelo utiliza as amostras.,Tema: O modelo utiliza as amostras.,tecnologia
+treino,inicio,tecnologia,O modelo utiliza as amostras.,Início: O modelo utiliza as amostras.,O modelo
+treino,final,tecnologia,O modelo utiliza as amostras.,Final: O modelo utiliza as amostras.,amostras
+treino,tema,clima,A nuvem permanece durante a noite no vale.,Tema: A nuvem permanece durante a noite no vale.,clima
+treino,inicio,clima,A nuvem permanece durante a noite no vale.,Início: A nuvem permanece durante a noite no vale.,A nuvem
+treino,final,clima,A nuvem permanece durante a noite no vale.,Final: A nuvem permanece durante a noite no vale.,vale
+treino,tema,clima,A chuva permanece pela manhã na montanha.,Tema: A chuva permanece pela manhã na montanha.,clima
+treino,inicio,clima,A chuva permanece pela manhã na montanha.,Início: A chuva permanece pela manhã na montanha.,A chuva
+treino,final,clima,A chuva permanece pela manhã na montanha.,Final: A chuva permanece pela manhã na montanha.,montanha
+treino,tema,educacao,O monitor revisa estatística no laboratório.,Tema: O monitor revisa estatística no laboratório.,educacao
+treino,inicio,educacao,O monitor revisa estatística no laboratório.,Início: O monitor revisa estatística no laboratório.,O monitor
+treino,final,educacao,O monitor revisa estatística no laboratório.,Final: O monitor revisa estatística no laboratório.,laboratório
+treino,tema,tecnologia,O robô utiliza as amostras rapidamente.,Tema: O robô utiliza as amostras rapidamente.,tecnologia
+treino,inicio,tecnologia,O robô utiliza as amostras rapidamente.,Início: O robô utiliza as amostras rapidamente.,O robô
+treino,final,tecnologia,O robô utiliza as amostras rapidamente.,Final: O robô utiliza as amostras rapidamente.,rapidamente
+treino,tema,educacao,O pesquisador revisa estatística na sala.,Tema: O pesquisador revisa estatística na sala.,educacao
+treino,inicio,educacao,O pesquisador revisa estatística na sala.,Início: O pesquisador revisa estatística na sala.,O pesquisador
+treino,final,educacao,O pesquisador revisa estatística na sala.,Final: O pesquisador revisa estatística na sala.,sala
+treino,tema,clima,O vento aparece durante a noite no vale.,Tema: O vento aparece durante a noite no vale.,clima
+treino,inicio,clima,O vento aparece durante a noite no vale.,Início: O vento aparece durante a noite no vale.,O vento
+treino,final,clima,O vento aparece durante a noite no vale.,Final: O vento aparece durante a noite no vale.,vale
+treino,tema,educacao,A professora pratica programação na escola.,Tema: A professora pratica programação na escola.,educacao
+treino,inicio,educacao,A professora pratica programação na escola.,Início: A professora pratica programação na escola.,A professora
+treino,final,educacao,A professora pratica programação na escola.,Final: A professora pratica programação na escola.,escola
+treino,tema,tecnologia,O algoritmo organiza as amostras.,Tema: O algoritmo organiza as amostras.,tecnologia
+treino,inicio,tecnologia,O algoritmo organiza as amostras.,Início: O algoritmo organiza as amostras.,O algoritmo
+treino,final,tecnologia,O algoritmo organiza as amostras.,Final: O algoritmo organiza as amostras.,amostras
+treino,tema,animais,O cachorro brinca no parque à tarde.,Tema: O cachorro brinca no parque à tarde.,animais
+treino,inicio,animais,O cachorro brinca no parque à tarde.,Início: O cachorro brinca no parque à tarde.,O cachorro
+treino,final,animais,O cachorro brinca no parque à tarde.,Final: O cachorro brinca no parque à tarde.,tarde
+treino,tema,educacao,A estudante revisa algoritmos na escola.,Tema: A estudante revisa algoritmos na escola.,educacao
+treino,inicio,educacao,A estudante revisa algoritmos na escola.,Início: A estudante revisa algoritmos na escola.,A estudante
+treino,final,educacao,A estudante revisa algoritmos na escola.,Final: A estudante revisa algoritmos na escola.,escola
+treino,tema,educacao,A monitora estuda programação na escola.,Tema: A monitora estuda programação na escola.,educacao
+treino,inicio,educacao,A monitora estuda programação na escola.,Início: A monitora estuda programação na escola.,A monitora
+treino,final,educacao,A monitora estuda programação na escola.,Final: A monitora estuda programação na escola.,escola
+treino,tema,clima,A neblina chega durante a noite no litoral.,Tema: A neblina chega durante a noite no litoral.,clima
+treino,inicio,clima,A neblina chega durante a noite no litoral.,Início: A neblina chega durante a noite no litoral.,A neblina
+treino,final,clima,A neblina chega durante a noite no litoral.,Final: A neblina chega durante a noite no litoral.,litoral
+treino,tema,tecnologia,O computador organiza os exemplos.,Tema: O computador organiza os exemplos.,tecnologia
+treino,inicio,tecnologia,O computador organiza os exemplos.,Início: O computador organiza os exemplos.,O computador
+treino,final,tecnologia,O computador organiza os exemplos.,Final: O computador organiza os exemplos.,exemplos
+treino,tema,animais,O coelho dorme no jardim à tarde.,Tema: O coelho dorme no jardim à tarde.,animais
+treino,inicio,animais,O coelho dorme no jardim à tarde.,Início: O coelho dorme no jardim à tarde.,O coelho
+treino,final,animais,O coelho dorme no jardim à tarde.,Final: O coelho dorme no jardim à tarde.,tarde
+treino,tema,educacao,A monitora revisa matemática na sala.,Tema: A monitora revisa matemática na sala.,educacao
+treino,inicio,educacao,A monitora revisa matemática na sala.,Início: A monitora revisa matemática na sala.,A monitora
+treino,final,educacao,A monitora revisa matemática na sala.,Final: A monitora revisa matemática na sala.,sala
+treino,tema,educacao,A pesquisadora revisa estatística na escola.,Tema: A pesquisadora revisa estatística na escola.,educacao
+treino,inicio,educacao,A pesquisadora revisa estatística na escola.,Início: A pesquisadora revisa estatística na escola.,A pesquisadora
+treino,final,educacao,A pesquisadora revisa estatística na escola.,Final: A pesquisadora revisa estatística na escola.,escola
+treino,tema,tecnologia,O programa utiliza os exemplos rapidamente.,Tema: O programa utiliza os exemplos rapidamente.,tecnologia
+treino,inicio,tecnologia,O programa utiliza os exemplos rapidamente.,Início: O programa utiliza os exemplos rapidamente.,O programa
+treino,final,tecnologia,O programa utiliza os exemplos rapidamente.,Final: O programa utiliza os exemplos rapidamente.,rapidamente
+treino,tema,clima,O temporal permanece pela manhã na cidade.,Tema: O temporal permanece pela manhã na cidade.,clima
+treino,inicio,clima,O temporal permanece pela manhã na cidade.,Início: O temporal permanece pela manhã na cidade.,O temporal
+treino,final,clima,O temporal permanece pela manhã na cidade.,Final: O temporal permanece pela manhã na cidade.,cidade
+treino,tema,clima,O temporal desaparece à tarde na montanha.,Tema: O temporal desaparece à tarde na montanha.,clima
+treino,inicio,clima,O temporal desaparece à tarde na montanha.,Início: O temporal desaparece à tarde na montanha.,O temporal
+treino,final,clima,O temporal desaparece à tarde na montanha.,Final: O temporal desaparece à tarde na montanha.,montanha
+treino,tema,clima,O vento chega ao amanhecer no vale.,Tema: O vento chega ao amanhecer no vale.,clima
+treino,inicio,clima,O vento chega ao amanhecer no vale.,Início: O vento chega ao amanhecer no vale.,O vento
+treino,final,clima,O vento chega ao amanhecer no vale.,Final: O vento chega ao amanhecer no vale.,vale
+treino,tema,clima,O vento permanece pela manhã no litoral.,Tema: O vento permanece pela manhã no litoral.,clima
+treino,inicio,clima,O vento permanece pela manhã no litoral.,Início: O vento permanece pela manhã no litoral.,O vento
+treino,final,clima,O vento permanece pela manhã no litoral.,Final: O vento permanece pela manhã no litoral.,litoral
+treino,tema,animais,O urso come uma banana à tarde.,Tema: O urso come uma banana à tarde.,animais
+treino,inicio,animais,O urso come uma banana à tarde.,Início: O urso come uma banana à tarde.,O urso
+treino,final,animais,O urso come uma banana à tarde.,Final: O urso come uma banana à tarde.,tarde
+treino,tema,clima,A tempestade chega pela manhã na montanha.,Tema: A tempestade chega pela manhã na montanha.,clima
+treino,inicio,clima,A tempestade chega pela manhã na montanha.,Início: A tempestade chega pela manhã na montanha.,A tempestade
+treino,final,clima,A tempestade chega pela manhã na montanha.,Final: A tempestade chega pela manhã na montanha.,montanha
+treino,tema,clima,O vento chega ao amanhecer no litoral.,Tema: O vento chega ao amanhecer no litoral.,clima
+treino,inicio,clima,O vento chega ao amanhecer no litoral.,Início: O vento chega ao amanhecer no litoral.,O vento
+treino,final,clima,O vento chega ao amanhecer no litoral.,Final: O vento chega ao amanhecer no litoral.,litoral
+treino,tema,animais,O macaco corre na rua de manhã.,Tema: O macaco corre na rua de manhã.,animais
+treino,inicio,animais,O macaco corre na rua de manhã.,Início: O macaco corre na rua de manhã.,O macaco
+treino,final,animais,O macaco corre na rua de manhã.,Final: O macaco corre na rua de manhã.,manhã
+treino,tema,animais,O gato corre na rua à tarde.,Tema: O gato corre na rua à tarde.,animais
+treino,inicio,animais,O gato corre na rua à tarde.,Início: O gato corre na rua à tarde.,O gato
+treino,final,animais,O gato corre na rua à tarde.,Final: O gato corre na rua à tarde.,tarde
+treino,tema,educacao,O estudante revisa matemática na sala.,Tema: O estudante revisa matemática na sala.,educacao
+treino,inicio,educacao,O estudante revisa matemática na sala.,Início: O estudante revisa matemática na sala.,O estudante
+treino,final,educacao,O estudante revisa matemática na sala.,Final: O estudante revisa matemática na sala.,sala
+treino,tema,tecnologia,O sistema analisa as amostras com cuidado.,Tema: O sistema analisa as amostras com cuidado.,tecnologia
+treino,inicio,tecnologia,O sistema analisa as amostras com cuidado.,Início: O sistema analisa as amostras com cuidado.,O sistema
+treino,final,tecnologia,O sistema analisa as amostras com cuidado.,Final: O sistema analisa as amostras com cuidado.,cuidado
+treino,tema,animais,O pássaro come a comida.,Tema: O pássaro come a comida.,animais
+treino,inicio,animais,O pássaro come a comida.,Início: O pássaro come a comida.,O pássaro
+treino,final,animais,O pássaro come a comida.,Final: O pássaro come a comida.,comida
+treino,tema,educacao,A estudante estuda matemática na universidade.,Tema: A estudante estuda matemática na universidade.,educacao
+treino,inicio,educacao,A estudante estuda matemática na universidade.,Início: A estudante estuda matemática na universidade.,A estudante
+treino,final,educacao,A estudante estuda matemática na universidade.,Final: A estudante estuda matemática na universidade.,universidade
+treino,tema,tecnologia,O modelo avalia os dados com cuidado.,Tema: O modelo avalia os dados com cuidado.,tecnologia
+treino,inicio,tecnologia,O modelo avalia os dados com cuidado.,Início: O modelo avalia os dados com cuidado.,O modelo
+treino,final,tecnologia,O modelo avalia os dados com cuidado.,Final: O modelo avalia os dados com cuidado.,cuidado
+treino,tema,tecnologia,O computador avalia os exemplos com cuidado.,Tema: O computador avalia os exemplos com cuidado.,tecnologia
+treino,inicio,tecnologia,O computador avalia os exemplos com cuidado.,Início: O computador avalia os exemplos com cuidado.,O computador
+treino,final,tecnologia,O computador avalia os exemplos com cuidado.,Final: O computador avalia os exemplos com cuidado.,cuidado
+treino,tema,animais,O macaco dorme na varanda todos os dias.,Tema: O macaco dorme na varanda todos os dias.,animais
+treino,inicio,animais,O macaco dorme na varanda todos os dias.,Início: O macaco dorme na varanda todos os dias.,O macaco
+treino,final,animais,O macaco dorme na varanda todos os dias.,Final: O macaco dorme na varanda todos os dias.,dias
+treino,tema,tecnologia,O algoritmo avalia as amostras com cuidado.,Tema: O algoritmo avalia as amostras com cuidado.,tecnologia
+treino,inicio,tecnologia,O algoritmo avalia as amostras com cuidado.,Início: O algoritmo avalia as amostras com cuidado.,O algoritmo
+treino,final,tecnologia,O algoritmo avalia as amostras com cuidado.,Final: O algoritmo avalia as amostras com cuidado.,cuidado
+treino,tema,animais,O gato dorme no jardim de manhã.,Tema: O gato dorme no jardim de manhã.,animais
+treino,inicio,animais,O gato dorme no jardim de manhã.,Início: O gato dorme no jardim de manhã.,O gato
+treino,final,animais,O gato dorme no jardim de manhã.,Final: O gato dorme no jardim de manhã.,manhã
+treino,tema,tecnologia,O programa analisa os dados.,Tema: O programa analisa os dados.,tecnologia
+treino,inicio,tecnologia,O programa analisa os dados.,Início: O programa analisa os dados.,O programa
+treino,final,tecnologia,O programa analisa os dados.,Final: O programa analisa os dados.,dados
+treino,tema,clima,A neblina desaparece pela manhã na montanha.,Tema: A neblina desaparece pela manhã na montanha.,clima
+treino,inicio,clima,A neblina desaparece pela manhã na montanha.,Início: A neblina desaparece pela manhã na montanha.,A neblina
+treino,final,clima,A neblina desaparece pela manhã na montanha.,Final: A neblina desaparece pela manhã na montanha.,montanha
+treino,tema,educacao,O monitor apresenta ciência de dados na sala.,Tema: O monitor apresenta ciência de dados na sala.,educacao
+treino,inicio,educacao,O monitor apresenta ciência de dados na sala.,Início: O monitor apresenta ciência de dados na sala.,O monitor
+treino,final,educacao,O monitor apresenta ciência de dados na sala.,Final: O monitor apresenta ciência de dados na sala.,sala
+treino,tema,tecnologia,O robô utiliza os resultados rapidamente.,Tema: O robô utiliza os resultados rapidamente.,tecnologia
+treino,inicio,tecnologia,O robô utiliza os resultados rapidamente.,Início: O robô utiliza os resultados rapidamente.,O robô
+treino,final,tecnologia,O robô utiliza os resultados rapidamente.,Final: O robô utiliza os resultados rapidamente.,rapidamente
+treino,tema,clima,A neblina aparece durante a noite na cidade.,Tema: A neblina aparece durante a noite na cidade.,clima
+treino,inicio,clima,A neblina aparece durante a noite na cidade.,Início: A neblina aparece durante a noite na cidade.,A neblina
+treino,final,clima,A neblina aparece durante a noite na cidade.,Final: A neblina aparece durante a noite na cidade.,cidade
+treino,tema,animais,O gato corre no parque.,Tema: O gato corre no parque.,animais
+treino,inicio,animais,O gato corre no parque.,Início: O gato corre no parque.,O gato
+treino,final,animais,O gato corre no parque.,Final: O gato corre no parque.,parque
+treino,tema,clima,A chuva permanece ao amanhecer na montanha.,Tema: A chuva permanece ao amanhecer na montanha.,clima
+treino,inicio,clima,A chuva permanece ao amanhecer na montanha.,Início: A chuva permanece ao amanhecer na montanha.,A chuva
+treino,final,clima,A chuva permanece ao amanhecer na montanha.,Final: A chuva permanece ao amanhecer na montanha.,montanha
+treino,tema,animais,O cavalo corre na praia de manhã.,Tema: O cavalo corre na praia de manhã.,animais
+treino,inicio,animais,O cavalo corre na praia de manhã.,Início: O cavalo corre na praia de manhã.,O cavalo
+treino,final,animais,O cavalo corre na praia de manhã.,Final: O cavalo corre na praia de manhã.,manhã
+treino,tema,animais,O coelho come uma fruta depois do almoço.,Tema: O coelho come uma fruta depois do almoço.,animais
+treino,inicio,animais,O coelho come uma fruta depois do almoço.,Início: O coelho come uma fruta depois do almoço.,O coelho
+treino,final,animais,O coelho come uma fruta depois do almoço.,Final: O coelho come uma fruta depois do almoço.,almoço
+treino,tema,animais,O cachorro dorme no tapete de manhã.,Tema: O cachorro dorme no tapete de manhã.,animais
+treino,inicio,animais,O cachorro dorme no tapete de manhã.,Início: O cachorro dorme no tapete de manhã.,O cachorro
+treino,final,animais,O cachorro dorme no tapete de manhã.,Final: O cachorro dorme no tapete de manhã.,manhã
+treino,tema,clima,O temporal aparece pela manhã na cidade.,Tema: O temporal aparece pela manhã na cidade.,clima
+treino,inicio,clima,O temporal aparece pela manhã na cidade.,Início: O temporal aparece pela manhã na cidade.,O temporal
+treino,final,clima,O temporal aparece pela manhã na cidade.,Final: O temporal aparece pela manhã na cidade.,cidade
+treino,tema,tecnologia,O robô processa os textos rapidamente.,Tema: O robô processa os textos rapidamente.,tecnologia
+treino,inicio,tecnologia,O robô processa os textos rapidamente.,Início: O robô processa os textos rapidamente.,O robô
+treino,final,tecnologia,O robô processa os textos rapidamente.,Final: O robô processa os textos rapidamente.,rapidamente
+treino,tema,educacao,A monitora explica redes neurais na sala.,Tema: A monitora explica redes neurais na sala.,educacao
+treino,inicio,educacao,A monitora explica redes neurais na sala.,Início: A monitora explica redes neurais na sala.,A monitora
+treino,final,educacao,A monitora explica redes neurais na sala.,Final: A monitora explica redes neurais na sala.,sala
+treino,tema,educacao,A professora pratica algoritmos na escola.,Tema: A professora pratica algoritmos na escola.,educacao
+treino,inicio,educacao,A professora pratica algoritmos na escola.,Início: A professora pratica algoritmos na escola.,A professora
+treino,final,educacao,A professora pratica algoritmos na escola.,Final: A professora pratica algoritmos na escola.,escola
+treino,tema,clima,O temporal desaparece durante a noite no vale.,Tema: O temporal desaparece durante a noite no vale.,clima
+treino,inicio,clima,O temporal desaparece durante a noite no vale.,Início: O temporal desaparece durante a noite no vale.,O temporal
+treino,final,clima,O temporal desaparece durante a noite no vale.,Final: O temporal desaparece durante a noite no vale.,vale
+treino,tema,educacao,O monitor explica programação na escola.,Tema: O monitor explica programação na escola.,educacao
+treino,inicio,educacao,O monitor explica programação na escola.,Início: O monitor explica programação na escola.,O monitor
+treino,final,educacao,O monitor explica programação na escola.,Final: O monitor explica programação na escola.,escola
+treino,tema,tecnologia,O modelo analisa os resultados rapidamente.,Tema: O modelo analisa os resultados rapidamente.,tecnologia
+treino,inicio,tecnologia,O modelo analisa os resultados rapidamente.,Início: O modelo analisa os resultados rapidamente.,O modelo
+treino,final,tecnologia,O modelo analisa os resultados rapidamente.,Final: O modelo analisa os resultados rapidamente.,rapidamente
+treino,tema,clima,A neblina permanece pela manhã no vale.,Tema: A neblina permanece pela manhã no vale.,clima
+treino,inicio,clima,A neblina permanece pela manhã no vale.,Início: A neblina permanece pela manhã no vale.,A neblina
+treino,final,clima,A neblina permanece pela manhã no vale.,Final: A neblina permanece pela manhã no vale.,vale
+treino,tema,animais,O gato corre na praia.,Tema: O gato corre na praia.,animais
+treino,inicio,animais,O gato corre na praia.,Início: O gato corre na praia.,O gato
+treino,final,animais,O gato corre na praia.,Final: O gato corre na praia.,praia
+treino,tema,clima,O vento permanece ao amanhecer no litoral.,Tema: O vento permanece ao amanhecer no litoral.,clima
+treino,inicio,clima,O vento permanece ao amanhecer no litoral.,Início: O vento permanece ao amanhecer no litoral.,O vento
+treino,final,clima,O vento permanece ao amanhecer no litoral.,Final: O vento permanece ao amanhecer no litoral.,litoral
+treino,tema,clima,O vento permanece pela manhã na cidade.,Tema: O vento permanece pela manhã na cidade.,clima
+treino,inicio,clima,O vento permanece pela manhã na cidade.,Início: O vento permanece pela manhã na cidade.,O vento
+treino,final,clima,O vento permanece pela manhã na cidade.,Final: O vento permanece pela manhã na cidade.,cidade
+treino,tema,educacao,O estudante apresenta matemática na escola.,Tema: O estudante apresenta matemática na escola.,educacao
+treino,inicio,educacao,O estudante apresenta matemática na escola.,Início: O estudante apresenta matemática na escola.,O estudante
+treino,final,educacao,O estudante apresenta matemática na escola.,Final: O estudante apresenta matemática na escola.,escola
+treino,tema,animais,O coelho descansa na sala de manhã.,Tema: O coelho descansa na sala de manhã.,animais
+treino,inicio,animais,O coelho descansa na sala de manhã.,Início: O coelho descansa na sala de manhã.,O coelho
+treino,final,animais,O coelho descansa na sala de manhã.,Final: O coelho descansa na sala de manhã.,manhã
+treino,tema,educacao,A estudante revisa ciência de dados na sala.,Tema: A estudante revisa ciência de dados na sala.,educacao
+treino,inicio,educacao,A estudante revisa ciência de dados na sala.,Início: A estudante revisa ciência de dados na sala.,A estudante
+treino,final,educacao,A estudante revisa ciência de dados na sala.,Final: A estudante revisa ciência de dados na sala.,sala
+treino,tema,animais,O gato dorme na sala de manhã.,Tema: O gato dorme na sala de manhã.,animais
+treino,inicio,animais,O gato dorme na sala de manhã.,Início: O gato dorme na sala de manhã.,O gato
+treino,final,animais,O gato dorme na sala de manhã.,Final: O gato dorme na sala de manhã.,manhã
+treino,tema,educacao,A estudante explica redes neurais na sala.,Tema: A estudante explica redes neurais na sala.,educacao
+treino,inicio,educacao,A estudante explica redes neurais na sala.,Início: A estudante explica redes neurais na sala.,A estudante
+treino,final,educacao,A estudante explica redes neurais na sala.,Final: A estudante explica redes neurais na sala.,sala
+treino,tema,tecnologia,O modelo utiliza as amostras com cuidado.,Tema: O modelo utiliza as amostras com cuidado.,tecnologia
+treino,inicio,tecnologia,O modelo utiliza as amostras com cuidado.,Início: O modelo utiliza as amostras com cuidado.,O modelo
+treino,final,tecnologia,O modelo utiliza as amostras com cuidado.,Final: O modelo utiliza as amostras com cuidado.,cuidado
+treino,tema,clima,A tempestade chega pela manhã no vale.,Tema: A tempestade chega pela manhã no vale.,clima
+treino,inicio,clima,A tempestade chega pela manhã no vale.,Início: A tempestade chega pela manhã no vale.,A tempestade
+treino,final,clima,A tempestade chega pela manhã no vale.,Final: A tempestade chega pela manhã no vale.,vale
+treino,tema,animais,O cachorro brinca na varanda de manhã.,Tema: O cachorro brinca na varanda de manhã.,animais
+treino,inicio,animais,O cachorro brinca na varanda de manhã.,Início: O cachorro brinca na varanda de manhã.,O cachorro
+treino,final,animais,O cachorro brinca na varanda de manhã.,Final: O cachorro brinca na varanda de manhã.,manhã
+treino,tema,educacao,O monitor explica programação na universidade.,Tema: O monitor explica programação na universidade.,educacao
+treino,inicio,educacao,O monitor explica programação na universidade.,Início: O monitor explica programação na universidade.,O monitor
+treino,final,educacao,O monitor explica programação na universidade.,Final: O monitor explica programação na universidade.,universidade
+treino,tema,clima,O sol aparece à tarde no litoral.,Tema: O sol aparece à tarde no litoral.,clima
+treino,inicio,clima,O sol aparece à tarde no litoral.,Início: O sol aparece à tarde no litoral.,O sol
+treino,final,clima,O sol aparece à tarde no litoral.,Final: O sol aparece à tarde no litoral.,litoral
+validacao,tema,educacao,A monitora estuda algoritmos na universidade.,Tema: A monitora estuda algoritmos na universidade.,educacao
+validacao,inicio,educacao,A monitora estuda algoritmos na universidade.,Início: A monitora estuda algoritmos na universidade.,A monitora
+validacao,final,educacao,A monitora estuda algoritmos na universidade.,Final: A monitora estuda algoritmos na universidade.,universidade
+validacao,tema,educacao,O estudante revisa estatística no laboratório.,Tema: O estudante revisa estatística no laboratório.,educacao
+validacao,inicio,educacao,O estudante revisa estatística no laboratório.,Início: O estudante revisa estatística no laboratório.,O estudante
+validacao,final,educacao,O estudante revisa estatística no laboratório.,Final: O estudante revisa estatística no laboratório.,laboratório
+validacao,tema,clima,O vento chega durante a noite no litoral.,Tema: O vento chega durante a noite no litoral.,clima
+validacao,inicio,clima,O vento chega durante a noite no litoral.,Início: O vento chega durante a noite no litoral.,O vento
+validacao,final,clima,O vento chega durante a noite no litoral.,Final: O vento chega durante a noite no litoral.,litoral
+validacao,tema,tecnologia,O robô analisa os dados durante o experimento.,Tema: O robô analisa os dados durante o experimento.,tecnologia
+validacao,inicio,tecnologia,O robô analisa os dados durante o experimento.,Início: O robô analisa os dados durante o experimento.,O robô
+validacao,final,tecnologia,O robô analisa os dados durante o experimento.,Final: O robô analisa os dados durante o experimento.,experimento
+validacao,tema,tecnologia,O programa utiliza as amostras com cuidado.,Tema: O programa utiliza as amostras com cuidado.,tecnologia
+validacao,inicio,tecnologia,O programa utiliza as amostras com cuidado.,Início: O programa utiliza as amostras com cuidado.,O programa
+validacao,final,tecnologia,O programa utiliza as amostras com cuidado.,Final: O programa utiliza as amostras com cuidado.,cuidado
+validacao,tema,tecnologia,O computador organiza as imagens rapidamente.,Tema: O computador organiza as imagens rapidamente.,tecnologia
+validacao,inicio,tecnologia,O computador organiza as imagens rapidamente.,Início: O computador organiza as imagens rapidamente.,O computador
+validacao,final,tecnologia,O computador organiza as imagens rapidamente.,Final: O computador organiza as imagens rapidamente.,rapidamente
+validacao,tema,tecnologia,O robô processa os textos com cuidado.,Tema: O robô processa os textos com cuidado.,tecnologia
+validacao,inicio,tecnologia,O robô processa os textos com cuidado.,Início: O robô processa os textos com cuidado.,O robô
+validacao,final,tecnologia,O robô processa os textos com cuidado.,Final: O robô processa os textos com cuidado.,cuidado
+validacao,tema,tecnologia,O algoritmo analisa as imagens com cuidado.,Tema: O algoritmo analisa as imagens com cuidado.,tecnologia
+validacao,inicio,tecnologia,O algoritmo analisa as imagens com cuidado.,Início: O algoritmo analisa as imagens com cuidado.,O algoritmo
+validacao,final,tecnologia,O algoritmo analisa as imagens com cuidado.,Final: O algoritmo analisa as imagens com cuidado.,cuidado
+validacao,tema,clima,A garoa permanece à tarde na cidade.,Tema: A garoa permanece à tarde na cidade.,clima
+validacao,inicio,clima,A garoa permanece à tarde na cidade.,Início: A garoa permanece à tarde na cidade.,A garoa
+validacao,final,clima,A garoa permanece à tarde na cidade.,Final: A garoa permanece à tarde na cidade.,cidade
+validacao,tema,animais,O gato corre no jardim depois do almoço.,Tema: O gato corre no jardim depois do almoço.,animais
+validacao,inicio,animais,O gato corre no jardim depois do almoço.,Início: O gato corre no jardim depois do almoço.,O gato
+validacao,final,animais,O gato corre no jardim depois do almoço.,Final: O gato corre no jardim depois do almoço.,almoço
+validacao,tema,animais,O pássaro descansa na sala de manhã.,Tema: O pássaro descansa na sala de manhã.,animais
+validacao,inicio,animais,O pássaro descansa na sala de manhã.,Início: O pássaro descansa na sala de manhã.,O pássaro
+validacao,final,animais,O pássaro descansa na sala de manhã.,Final: O pássaro descansa na sala de manhã.,manhã
+validacao,tema,clima,O vento permanece à tarde na montanha.,Tema: O vento permanece à tarde na montanha.,clima
+validacao,inicio,clima,O vento permanece à tarde na montanha.,Início: O vento permanece à tarde na montanha.,O vento
+validacao,final,clima,O vento permanece à tarde na montanha.,Final: O vento permanece à tarde na montanha.,montanha
+validacao,tema,animais,O pássaro corre na praia todos os dias.,Tema: O pássaro corre na praia todos os dias.,animais
+validacao,inicio,animais,O pássaro corre na praia todos os dias.,Início: O pássaro corre na praia todos os dias.,O pássaro
+validacao,final,animais,O pássaro corre na praia todos os dias.,Final: O pássaro corre na praia todos os dias.,dias
+validacao,tema,clima,O temporal permanece ao amanhecer no litoral.,Tema: O temporal permanece ao amanhecer no litoral.,clima
+validacao,inicio,clima,O temporal permanece ao amanhecer no litoral.,Início: O temporal permanece ao amanhecer no litoral.,O temporal
+validacao,final,clima,O temporal permanece ao amanhecer no litoral.,Final: O temporal permanece ao amanhecer no litoral.,litoral
+validacao,tema,animais,O cavalo dorme no sofá.,Tema: O cavalo dorme no sofá.,animais
+validacao,inicio,animais,O cavalo dorme no sofá.,Início: O cavalo dorme no sofá.,O cavalo
+validacao,final,animais,O cavalo dorme no sofá.,Final: O cavalo dorme no sofá.,sofá
+validacao,tema,tecnologia,O robô avalia as imagens rapidamente.,Tema: O robô avalia as imagens rapidamente.,tecnologia
+validacao,inicio,tecnologia,O robô avalia as imagens rapidamente.,Início: O robô avalia as imagens rapidamente.,O robô
+validacao,final,tecnologia,O robô avalia as imagens rapidamente.,Final: O robô avalia as imagens rapidamente.,rapidamente
+validacao,tema,animais,O macaco corre na rua à tarde.,Tema: O macaco corre na rua à tarde.,animais
+validacao,inicio,animais,O macaco corre na rua à tarde.,Início: O macaco corre na rua à tarde.,O macaco
+validacao,final,animais,O macaco corre na rua à tarde.,Final: O macaco corre na rua à tarde.,tarde
+validacao,tema,clima,A tempestade aparece à tarde no vale.,Tema: A tempestade aparece à tarde no vale.,clima
+validacao,inicio,clima,A tempestade aparece à tarde no vale.,Início: A tempestade aparece à tarde no vale.,A tempestade
+validacao,final,clima,A tempestade aparece à tarde no vale.,Final: A tempestade aparece à tarde no vale.,vale
+validacao,tema,animais,O macaco descansa na varanda de manhã.,Tema: O macaco descansa na varanda de manhã.,animais
+validacao,inicio,animais,O macaco descansa na varanda de manhã.,Início: O macaco descansa na varanda de manhã.,O macaco
+validacao,final,animais,O macaco descansa na varanda de manhã.,Final: O macaco descansa na varanda de manhã.,manhã
+validacao,tema,clima,A neblina chega durante a noite na cidade.,Tema: A neblina chega durante a noite na cidade.,clima
+validacao,inicio,clima,A neblina chega durante a noite na cidade.,Início: A neblina chega durante a noite na cidade.,A neblina
+validacao,final,clima,A neblina chega durante a noite na cidade.,Final: A neblina chega durante a noite na cidade.,cidade
+validacao,tema,tecnologia,O modelo processa os dados com cuidado.,Tema: O modelo processa os dados com cuidado.,tecnologia
+validacao,inicio,tecnologia,O modelo processa os dados com cuidado.,Início: O modelo processa os dados com cuidado.,O modelo
+validacao,final,tecnologia,O modelo processa os dados com cuidado.,Final: O modelo processa os dados com cuidado.,cuidado
+validacao,tema,animais,O coelho descansa no jardim de manhã.,Tema: O coelho descansa no jardim de manhã.,animais
+validacao,inicio,animais,O coelho descansa no jardim de manhã.,Início: O coelho descansa no jardim de manhã.,O coelho
+validacao,final,animais,O coelho descansa no jardim de manhã.,Final: O coelho descansa no jardim de manhã.,manhã
+validacao,tema,clima,O temporal desaparece à tarde no litoral.,Tema: O temporal desaparece à tarde no litoral.,clima
+validacao,inicio,clima,O temporal desaparece à tarde no litoral.,Início: O temporal desaparece à tarde no litoral.,O temporal
+validacao,final,clima,O temporal desaparece à tarde no litoral.,Final: O temporal desaparece à tarde no litoral.,litoral
+validacao,tema,educacao,O estudante apresenta algoritmos na escola.,Tema: O estudante apresenta algoritmos na escola.,educacao
+validacao,inicio,educacao,O estudante apresenta algoritmos na escola.,Início: O estudante apresenta algoritmos na escola.,O estudante
+validacao,final,educacao,O estudante apresenta algoritmos na escola.,Final: O estudante apresenta algoritmos na escola.,escola
+validacao,tema,tecnologia,O modelo analisa os dados rapidamente.,Tema: O modelo analisa os dados rapidamente.,tecnologia
+validacao,inicio,tecnologia,O modelo analisa os dados rapidamente.,Início: O modelo analisa os dados rapidamente.,O modelo
+validacao,final,tecnologia,O modelo analisa os dados rapidamente.,Final: O modelo analisa os dados rapidamente.,rapidamente
+validacao,tema,educacao,A estudante revisa redes neurais na sala.,Tema: A estudante revisa redes neurais na sala.,educacao
+validacao,inicio,educacao,A estudante revisa redes neurais na sala.,Início: A estudante revisa redes neurais na sala.,A estudante
+validacao,final,educacao,A estudante revisa redes neurais na sala.,Final: A estudante revisa redes neurais na sala.,sala
+validacao,tema,animais,O rato corre no parque todos os dias.,Tema: O rato corre no parque todos os dias.,animais
+validacao,inicio,animais,O rato corre no parque todos os dias.,Início: O rato corre no parque todos os dias.,O rato
+validacao,final,animais,O rato corre no parque todos os dias.,Final: O rato corre no parque todos os dias.,dias
+validacao,tema,tecnologia,O algoritmo organiza os exemplos rapidamente.,Tema: O algoritmo organiza os exemplos rapidamente.,tecnologia
+validacao,inicio,tecnologia,O algoritmo organiza os exemplos rapidamente.,Início: O algoritmo organiza os exemplos rapidamente.,O algoritmo
+validacao,final,tecnologia,O algoritmo organiza os exemplos rapidamente.,Final: O algoritmo organiza os exemplos rapidamente.,rapidamente
+validacao,tema,clima,A nuvem chega pela manhã no litoral.,Tema: A nuvem chega pela manhã no litoral.,clima
+validacao,inicio,clima,A nuvem chega pela manhã no litoral.,Início: A nuvem chega pela manhã no litoral.,A nuvem
+validacao,final,clima,A nuvem chega pela manhã no litoral.,Final: A nuvem chega pela manhã no litoral.,litoral
+validacao,tema,tecnologia,O algoritmo organiza as amostras rapidamente.,Tema: O algoritmo organiza as amostras rapidamente.,tecnologia
+validacao,inicio,tecnologia,O algoritmo organiza as amostras rapidamente.,Início: O algoritmo organiza as amostras rapidamente.,O algoritmo
+validacao,final,tecnologia,O algoritmo organiza as amostras rapidamente.,Final: O algoritmo organiza as amostras rapidamente.,rapidamente
+validacao,tema,animais,O urso descansa na sombra.,Tema: O urso descansa na sombra.,animais
+validacao,inicio,animais,O urso descansa na sombra.,Início: O urso descansa na sombra.,O urso
+validacao,final,animais,O urso descansa na sombra.,Final: O urso descansa na sombra.,sombra
+validacao,tema,clima,A garoa aparece durante a noite no litoral.,Tema: A garoa aparece durante a noite no litoral.,clima
+validacao,inicio,clima,A garoa aparece durante a noite no litoral.,Início: A garoa aparece durante a noite no litoral.,A garoa
+validacao,final,clima,A garoa aparece durante a noite no litoral.,Final: A garoa aparece durante a noite no litoral.,litoral
+validacao,tema,clima,A tempestade aparece à tarde na montanha.,Tema: A tempestade aparece à tarde na montanha.,clima
+validacao,inicio,clima,A tempestade aparece à tarde na montanha.,Início: A tempestade aparece à tarde na montanha.,A tempestade
+validacao,final,clima,A tempestade aparece à tarde na montanha.,Final: A tempestade aparece à tarde na montanha.,montanha
+validacao,tema,animais,O cavalo dorme na sala.,Tema: O cavalo dorme na sala.,animais
+validacao,inicio,animais,O cavalo dorme na sala.,Início: O cavalo dorme na sala.,O cavalo
+validacao,final,animais,O cavalo dorme na sala.,Final: O cavalo dorme na sala.,sala
+validacao,tema,educacao,O professor explica redes neurais na sala.,Tema: O professor explica redes neurais na sala.,educacao
+validacao,inicio,educacao,O professor explica redes neurais na sala.,Início: O professor explica redes neurais na sala.,O professor
+validacao,final,educacao,O professor explica redes neurais na sala.,Final: O professor explica redes neurais na sala.,sala
+validacao,tema,animais,O rato dorme na cama à tarde.,Tema: O rato dorme na cama à tarde.,animais
+validacao,inicio,animais,O rato dorme na cama à tarde.,Início: O rato dorme na cama à tarde.,O rato
+validacao,final,animais,O rato dorme na cama à tarde.,Final: O rato dorme na cama à tarde.,tarde
+validacao,tema,animais,O urso come uma banana todos os dias.,Tema: O urso come uma banana todos os dias.,animais
+validacao,inicio,animais,O urso come uma banana todos os dias.,Início: O urso come uma banana todos os dias.,O urso
+validacao,final,animais,O urso come uma banana todos os dias.,Final: O urso come uma banana todos os dias.,dias
+validacao,tema,clima,O sol permanece ao amanhecer no litoral.,Tema: O sol permanece ao amanhecer no litoral.,clima
+validacao,inicio,clima,O sol permanece ao amanhecer no litoral.,Início: O sol permanece ao amanhecer no litoral.,O sol
+validacao,final,clima,O sol permanece ao amanhecer no litoral.,Final: O sol permanece ao amanhecer no litoral.,litoral
+validacao,tema,educacao,O monitor explica estatística na universidade.,Tema: O monitor explica estatística na universidade.,educacao
+validacao,inicio,educacao,O monitor explica estatística na universidade.,Início: O monitor explica estatística na universidade.,O monitor
+validacao,final,educacao,O monitor explica estatística na universidade.,Final: O monitor explica estatística na universidade.,universidade
+validacao,tema,animais,O urso descansa no sofá à tarde.,Tema: O urso descansa no sofá à tarde.,animais
+validacao,inicio,animais,O urso descansa no sofá à tarde.,Início: O urso descansa no sofá à tarde.,O urso
+validacao,final,animais,O urso descansa no sofá à tarde.,Final: O urso descansa no sofá à tarde.,tarde
+validacao,tema,animais,O rato corre no jardim.,Tema: O rato corre no jardim.,animais
+validacao,inicio,animais,O rato corre no jardim.,Início: O rato corre no jardim.,O rato
+validacao,final,animais,O rato corre no jardim.,Final: O rato corre no jardim.,jardim
+validacao,tema,educacao,O estudante pratica estatística na escola.,Tema: O estudante pratica estatística na escola.,educacao
+validacao,inicio,educacao,O estudante pratica estatística na escola.,Início: O estudante pratica estatística na escola.,O estudante
+validacao,final,educacao,O estudante pratica estatística na escola.,Final: O estudante pratica estatística na escola.,escola
+validacao,tema,animais,O pássaro brinca com a bola de manhã.,Tema: O pássaro brinca com a bola de manhã.,animais
+validacao,inicio,animais,O pássaro brinca com a bola de manhã.,Início: O pássaro brinca com a bola de manhã.,O pássaro
+validacao,final,animais,O pássaro brinca com a bola de manhã.,Final: O pássaro brinca com a bola de manhã.,manhã
+validacao,tema,clima,A chuva permanece pela manhã no litoral.,Tema: A chuva permanece pela manhã no litoral.,clima
+validacao,inicio,clima,A chuva permanece pela manhã no litoral.,Início: A chuva permanece pela manhã no litoral.,A chuva
+validacao,final,clima,A chuva permanece pela manhã no litoral.,Final: A chuva permanece pela manhã no litoral.,litoral
+validacao,tema,educacao,A professora explica programação na escola.,Tema: A professora explica programação na escola.,educacao
+validacao,inicio,educacao,A professora explica programação na escola.,Início: A professora explica programação na escola.,A professora
+validacao,final,educacao,A professora explica programação na escola.,Final: A professora explica programação na escola.,escola
+validacao,tema,clima,O temporal aparece ao amanhecer na cidade.,Tema: O temporal aparece ao amanhecer na cidade.,clima
+validacao,inicio,clima,O temporal aparece ao amanhecer na cidade.,Início: O temporal aparece ao amanhecer na cidade.,O temporal
+validacao,final,clima,O temporal aparece ao amanhecer na cidade.,Final: O temporal aparece ao amanhecer na cidade.,cidade
+validacao,tema,tecnologia,O modelo processa as imagens com cuidado.,Tema: O modelo processa as imagens com cuidado.,tecnologia
+validacao,inicio,tecnologia,O modelo processa as imagens com cuidado.,Início: O modelo processa as imagens com cuidado.,O modelo
+validacao,final,tecnologia,O modelo processa as imagens com cuidado.,Final: O modelo processa as imagens com cuidado.,cuidado
+validacao,tema,educacao,A monitora revisa ciência de dados na escola.,Tema: A monitora revisa ciência de dados na escola.,educacao
+validacao,inicio,educacao,A monitora revisa ciência de dados na escola.,Início: A monitora revisa ciência de dados na escola.,A monitora
+validacao,final,educacao,A monitora revisa ciência de dados na escola.,Final: A monitora revisa ciência de dados na escola.,escola
+validacao,tema,educacao,O pesquisador explica redes neurais na sala.,Tema: O pesquisador explica redes neurais na sala.,educacao
+validacao,inicio,educacao,O pesquisador explica redes neurais na sala.,Início: O pesquisador explica redes neurais na sala.,O pesquisador
+validacao,final,educacao,O pesquisador explica redes neurais na sala.,Final: O pesquisador explica redes neurais na sala.,sala
+validacao,tema,educacao,A professora pratica algoritmos na sala.,Tema: A professora pratica algoritmos na sala.,educacao
+validacao,inicio,educacao,A professora pratica algoritmos na sala.,Início: A professora pratica algoritmos na sala.,A professora
+validacao,final,educacao,A professora pratica algoritmos na sala.,Final: A professora pratica algoritmos na sala.,sala
+validacao,tema,animais,O pássaro dorme na cama à tarde.,Tema: O pássaro dorme na cama à tarde.,animais
+validacao,inicio,animais,O pássaro dorme na cama à tarde.,Início: O pássaro dorme na cama à tarde.,O pássaro
+validacao,final,animais,O pássaro dorme na cama à tarde.,Final: O pássaro dorme na cama à tarde.,tarde
+validacao,tema,clima,A chuva aparece pela manhã na montanha.,Tema: A chuva aparece pela manhã na montanha.,clima
+validacao,inicio,clima,A chuva aparece pela manhã na montanha.,Início: A chuva aparece pela manhã na montanha.,A chuva
+validacao,final,clima,A chuva aparece pela manhã na montanha.,Final: A chuva aparece pela manhã na montanha.,montanha
+validacao,tema,clima,A nuvem aparece ao amanhecer no litoral.,Tema: A nuvem aparece ao amanhecer no litoral.,clima
+validacao,inicio,clima,A nuvem aparece ao amanhecer no litoral.,Início: A nuvem aparece ao amanhecer no litoral.,A nuvem
+validacao,final,clima,A nuvem aparece ao amanhecer no litoral.,Final: A nuvem aparece ao amanhecer no litoral.,litoral
+validacao,tema,educacao,A monitora estuda estatística no laboratório.,Tema: A monitora estuda estatística no laboratório.,educacao
+validacao,inicio,educacao,A monitora estuda estatística no laboratório.,Início: A monitora estuda estatística no laboratório.,A monitora
+validacao,final,educacao,A monitora estuda estatística no laboratório.,Final: A monitora estuda estatística no laboratório.,laboratório
+validacao,tema,animais,O gato dorme no jardim todos os dias.,Tema: O gato dorme no jardim todos os dias.,animais
+validacao,inicio,animais,O gato dorme no jardim todos os dias.,Início: O gato dorme no jardim todos os dias.,O gato
+validacao,final,animais,O gato dorme no jardim todos os dias.,Final: O gato dorme no jardim todos os dias.,dias
+validacao,tema,animais,O urso brinca no jardim todos os dias.,Tema: O urso brinca no jardim todos os dias.,animais
+validacao,inicio,animais,O urso brinca no jardim todos os dias.,Início: O urso brinca no jardim todos os dias.,O urso
+validacao,final,animais,O urso brinca no jardim todos os dias.,Final: O urso brinca no jardim todos os dias.,dias
+validacao,tema,clima,O temporal permanece ao amanhecer na cidade.,Tema: O temporal permanece ao amanhecer na cidade.,clima
+validacao,inicio,clima,O temporal permanece ao amanhecer na cidade.,Início: O temporal permanece ao amanhecer na cidade.,O temporal
+validacao,final,clima,O temporal permanece ao amanhecer na cidade.,Final: O temporal permanece ao amanhecer na cidade.,cidade
+validacao,tema,tecnologia,O programa analisa as imagens com cuidado.,Tema: O programa analisa as imagens com cuidado.,tecnologia
+validacao,inicio,tecnologia,O programa analisa as imagens com cuidado.,Início: O programa analisa as imagens com cuidado.,O programa
+validacao,final,tecnologia,O programa analisa as imagens com cuidado.,Final: O programa analisa as imagens com cuidado.,cuidado
+validacao,tema,clima,A nuvem desaparece durante a noite no litoral.,Tema: A nuvem desaparece durante a noite no litoral.,clima
+validacao,inicio,clima,A nuvem desaparece durante a noite no litoral.,Início: A nuvem desaparece durante a noite no litoral.,A nuvem
+validacao,final,clima,A nuvem desaparece durante a noite no litoral.,Final: A nuvem desaparece durante a noite no litoral.,litoral
+validacao,tema,educacao,A pesquisadora explica programação na sala.,Tema: A pesquisadora explica programação na sala.,educacao
+validacao,inicio,educacao,A pesquisadora explica programação na sala.,Início: A pesquisadora explica programação na sala.,A pesquisadora
+validacao,final,educacao,A pesquisadora explica programação na sala.,Final: A pesquisadora explica programação na sala.,sala
+validacao,tema,clima,A nuvem desaparece ao amanhecer na montanha.,Tema: A nuvem desaparece ao amanhecer na montanha.,clima
+validacao,inicio,clima,A nuvem desaparece ao amanhecer na montanha.,Início: A nuvem desaparece ao amanhecer na montanha.,A nuvem
+validacao,final,clima,A nuvem desaparece ao amanhecer na montanha.,Final: A nuvem desaparece ao amanhecer na montanha.,montanha
+validacao,tema,educacao,O estudante apresenta matemática na sala.,Tema: O estudante apresenta matemática na sala.,educacao
+validacao,inicio,educacao,O estudante apresenta matemática na sala.,Início: O estudante apresenta matemática na sala.,O estudante
+validacao,final,educacao,O estudante apresenta matemática na sala.,Final: O estudante apresenta matemática na sala.,sala
+validacao,tema,educacao,O pesquisador pratica programação na sala.,Tema: O pesquisador pratica programação na sala.,educacao
+validacao,inicio,educacao,O pesquisador pratica programação na sala.,Início: O pesquisador pratica programação na sala.,O pesquisador
+validacao,final,educacao,O pesquisador pratica programação na sala.,Final: O pesquisador pratica programação na sala.,sala
+validacao,tema,animais,O cavalo come uma fruta.,Tema: O cavalo come uma fruta.,animais
+validacao,inicio,animais,O cavalo come uma fruta.,Início: O cavalo come uma fruta.,O cavalo
+validacao,final,animais,O cavalo come uma fruta.,Final: O cavalo come uma fruta.,fruta

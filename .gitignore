@@ -21,3 +21,4 @@ src/rl/misc/lunar_lander.py
 .chainlit/
 **/.chainlit/
 latex/
+notebooks/artefatos_pretraining/

@@ -1,5 +1,7 @@
 # Core scientific stack
-numpy>=1.26.4
+# PyTorch releases usados no curso precisam da ABI 1.x do NumPy.
+# O limite superior evita a incompatibilidade "Numpy is not available".
+numpy>=1.26.4,<2
 scipy>=1.13.1
 pandas>=2.2.2
 matplotlib>=3.8.4
@@ -25,6 +27,8 @@ scikit-learn>=1.4.2
 spacy>=3.7.4
 seqeval>=1.2.2
 transformers>=4.41.1
+# Necessário para executar transformers.Trainer com PyTorch.
+accelerate>=0.26.0
 
 # Productivity / utilities
 ipython>=8.24.0

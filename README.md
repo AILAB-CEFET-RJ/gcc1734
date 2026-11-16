@@ -27,10 +27,16 @@ Cada subdiretório relevante contém um README específico com detalhes adiciona
 
 2. **Instalar dependências**
    ```bash
-   pip install --no-build-isolation -e .
+   python -m pip install -r requirements.txt
    ```
-   - Caso não queira a instalação editável, use `pip install -r requirements.txt`.
+   - A instalação editável do projeto não substitui a instalação das dependências:
+     use sempre o comando acima antes de executar os notebooks.
    - Adicione `--user` se encontrar problemas de permissão.
+   - Em macOS Intel, caso o `pip` não encontre uma versão recente de
+     PyTorch, instale-a pelo conda antes desse comando:
+     ```bash
+     conda install -n gcc1734 -c conda-forge pytorch=2.7.1
+     ```
 
 3. **Verificar**
    ```bash
